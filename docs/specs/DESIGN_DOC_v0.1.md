@@ -240,4 +240,178 @@ func main() {
 
 ---
 
+## If statements
+
+```
+IfStmt = "if" [ SimpleStmt ";" ] Expression Block [ "else" (IfStmt | Block) ] .
+SimpleStmt = VarDecl | Assignment | Expression .
+```
+
+Examples:
+```
+if a > b {
+  return a
+}
+
+if a > b && c > d {
+  return a*c
+}
+
+if a > b || c > d {
+  return true
+}
+
+if (a + b) > (c + d) {
+  return true
+}
+
+if a > b {
+  return a
+} else if c > d {
+  return c
+}
+
+if a > b {
+  return a
+} else if c > d {
+    return c
+  else {
+    return 0
+  }
+}
+
+if err := f(); err != nil {
+  return err
+}
+
+if _, err := f(); err != nil {
+  return err
+}
+
+if k, ok := f(); ok {
+  return k
+}
+```
+
+---
+
+## Switch statements
+
+```
+SwitchStmt = "switch" [ SimpleStmt ";" ] [ Expression ] "{" { CaseClause } "}" .
+CaseClause = ( "case" ExpresionList | "default" ) ":" { Statement } .
+ExpressionList = Expression { "," Expression } .
+```
+
+```
+switch a {
+case 1:
+  print("a")
+case 2:
+  print("b")
+default:
+  print("c")
+}
+
+switch {
+case a == 0:
+  print("a")
+case b == 1:
+  print("b")
+default:
+  print("c")
+}
+
+switch x {
+case a, b:
+  print("x")
+default:
+  print("c")
+}
+
+switch x := f() {
+case a, b:
+  print("x")
+default:
+  print("c")
+}
+```
+
+---
+
+## For statements
+
+```
+ForStmt = "for" Identifier [ "," Identifier ] ":=" "range" Expression Block
+        | "for" Expression Block
+        | "for" [ SimpleStmt ";" ] Expression [ ";" SimpleStmt ] Block .
+```
+
+```
+for i := range 5 {
+  print(i)
+}
+
+for i := range f() {
+  print(i)
+}
+
+for k, v := range x() {
+  print(k, v)
+}
+
+for _, v := range x() {
+  print(v)
+}
+
+for i := 0, i < 5; i++ {
+  print(k, v)
+}
+
+for i := 5, i > 0; i-- {
+  print(k, v)
+}
+
+for i := 0, i < max(); i++ {
+  print(k, v)
+}
+```
+
+---
+
+## Comments
+
+To make a comment you can use `/* ... */` as a multiline comment or `// ` for a sigle line comment.
+
+```
+Comment      = LineComment | BlockComment .
+LineComment  = "//" { unicode_character } newline .
+BlockComment = "/*" { unicode_character } "*/" .
+```
+
+Examples:
+```
+/*
+This is a multi line comment
+That can be used as a description of
+package main
+*/
+package main
+
+// This is a single line comment
+// You can use it as a function definition
+func main()
+
+
+var x = 10 // sigle line comment
+
+// same as before
+var y = 10
+
+/* same as before */
+var z = 10
+```
+
+---
+
 © 2025 Ori Language — Design Spec
