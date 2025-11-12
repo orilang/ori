@@ -170,7 +170,7 @@ func main() {
 | **Variables** | Explicitly declared, strongly typed bindings. | [Variables](syntax/030_Variables.md) |
 | **Functions** | First-class citizens with value and pointer receivers. | [Functions](syntax/040_Functions.md) |
 | **Structs** | Predictable layout composite types. | [Structs](semantics/130_Structs.md) |
-| **Slices & Maps** | Safe, efficient data structures with value semantics. | [Slices](semantics/100_Slices.md), [Maps](semantics/110_Maps.md) |
+| **Slices & Maps** | Safe, efficient data structures with value semantics. | [Slices](semantics/100_Slices.md), [Maps](semantics/110_Maps.md), [HashMaps](semantics/111_HashMaps.md) |
 | **Errors** | Typed error handling — no exceptions. | [Errors](semantics/140_Errors.md) |
 | **Modules** | Importable units of code; no hidden side effects. | [Modules and Imports](syntax/090_ModulesAndImports.md) |
 
