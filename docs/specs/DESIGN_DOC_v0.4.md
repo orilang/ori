@@ -64,6 +64,9 @@ This directory contains the official specification, structured into thematic sec
 ## 🔗 Full Specification
 A complete concatenated version of this documentation is available here:  
 👉 [DESIGN_DOC_v0.4_FULL.md](DESIGN_DOC_v0.4_FULL.md)
+
+---
+
 # 1. Introduction
 
 **Ori** is a **system-capable general-purpose programming language** designed for **clarity, performance, and explicit control**.
