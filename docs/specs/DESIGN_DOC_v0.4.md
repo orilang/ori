@@ -316,6 +316,8 @@ Comments are treated as whitespace and ignored by the compiler.
 
 See: [Comments](syntax/100_Comments.md)
 
+---
+
 
 # 10. Program Structure
 
@@ -462,6 +464,8 @@ func main() {
 - [Declarations](syntax/020_Declarations.md)
 - [Modules and Imports](syntax/090_ModulesAndImports.md)
 
+---
+
 
 # 15. Literals
 
@@ -582,6 +586,8 @@ var data = nil
 | Boolean | `true`, `false` | Logical constants |
 | Nil | `nil` | Absence of value |
 
+---
+
 
 # 20. Declarations
 
@@ -680,6 +686,8 @@ See: [Structs](semantics/130_Structs.md)
 
 - [Variables](syntax/030_Variables.md)
 - [Functions](syntax/040_Functions.md)
+
+---
 
 
 # 30. Variables
@@ -894,6 +902,8 @@ func main() {
 - [Declarations](syntax/020_Declarations.md)
 - [Types](syntax/050_Types.md)
 
+---
+
 
 # 40. Functions
 
@@ -1078,6 +1088,8 @@ func factorial(n int) int {
 - [Types](syntax/050_Types.md)
 - [Blocks](syntax/080_Blocks.md)
 
+---
+
 
 # 50. Types
 
@@ -1254,6 +1266,8 @@ const MAX_USERS = 100
 - [Structs](semantics/130_Structs.md)
 - [Slices](semantics/100_Slices.md)
 - [Maps](semantics/110_Maps.md)
+
+---
 
 
 # 60. Statements
@@ -1591,6 +1605,8 @@ Deferred calls and panic recovery are **not included in v0.4**, but may be explo
 - [Expressions](syntax/070_Expressions.md)
 - [Blocks](syntax/080_Blocks.md)
 
+---
+
 
 # 70. Expressions
 
@@ -1774,6 +1790,8 @@ func main() {
 - [Functions](syntax/040_Functions.md)
 - [Types](syntax/050_Types.md)
 
+---
+
 
 # 80. Blocks
 
@@ -1889,6 +1907,8 @@ Planned for later versions:
 ## References
 - [Statements](syntax/060_Statements.md)
 - [Functions](syntax/040_Functions.md)
+
+---
 
 
 # 90. Modules and Imports
@@ -2059,6 +2079,8 @@ Planned for later versions:
 - [Program Structure](syntax/010_ProgramStructure.md)
 - [Declarations](syntax/020_Declarations.md)
 
+---
+
 
 # 95. Syntax Summary
 
@@ -2195,6 +2217,8 @@ ReturnTypes  = "(" Type { "," Type } ")" | Type .
 - [Expressions](syntax/070_Expressions.md)
 - [Statements](syntax/060_Statements.md)
 
+---
+
 
 # 100. Comments
 
@@ -2285,6 +2309,8 @@ Avoid comment drift — keep them up-to-date with code behavior.
 - [Program Structure](syntax/010_ProgramStructure.md)
 - [Declarations](syntax/020_Declarations.md)
 
+---
+
 
 # 101. Tokens and Operators
 
@@ -2352,6 +2378,8 @@ All valid tokens in Ori:
 ## References
 - [Lexical Elements](syntax/005_LexicalElements.md)
 - [Expressions](syntax/070_Expressions.md)
+
+---
 
 
 # 100. Slices
@@ -2697,6 +2725,8 @@ Planned for future versions:
 - [Types](syntax/050_Types.md)
 - [Expressions](syntax/070_Expressions.md)
 
+---
+
 
 # 101. Arrays
 
@@ -2927,6 +2957,8 @@ Planned for future versions:
 ## References
 - [100_Slices.md](semantics/100_Slices.md)
 - [050_Types.md](syntax/050_Types.md)
+
+---
 
 
 # 110. Maps
@@ -3235,6 +3267,8 @@ for k, v := range m {
 - [Types](syntax/050_Types.md)
 - [Expressions](syntax/070_Expressions.md)
 
+---
+
 
 # 111. HashMaps
 
@@ -3461,6 +3495,8 @@ var copy hashmap[string]int = clone(h)
 ## References
 - [110_Maps.md](semantics/110_Maps.md)
 - [050_Types.md](syntax/050_Types.md)
+
+---
 
 
 # 120. Strings
@@ -3793,6 +3829,8 @@ This design unifies the best of:
 - [100_Slices.md](semantics/100_Slices.md)
 - [050_Types.md](syntax/050_Types.md)
 
+---
+
 
 # 121. Numeric Types
 
@@ -4028,6 +4066,8 @@ Ori aligns with Zig’s deterministic safety model, ensuring consistent checked 
 - Arbitrary precision (`bigint`, `decimal`).  
 - SIMD and vector numeric operations.  
 - Context-based safe blocks (`safe { ... }`).
+
+---
 
 ---
 
@@ -4348,6 +4388,8 @@ This keeps struct creation explicit and visible.
 - [120_Strings.md](semantics/120_Strings.md)
 - [100_Slices.md](semantics/100_Slices.md)
 
+---
+
 
 # 140. Errors
 
@@ -4592,6 +4634,8 @@ A **small set of built-ins** keeps the model easy to teach and consistent across
 - [050_Types.md](syntax/050_Types.md)  
 - [060_Statements.md](syntax/060_Statements.md)  
 
+---
+
 
 # 150. Types and Memory
 
@@ -4813,6 +4857,8 @@ Ownership and lifetime rules are simple and predictable.
 - Reference counting for shared data.
 - Explicit pointer and FFI-safe structures.
 - Optimized move semantics for large composites.
+
+---
 
 ---
 
@@ -5063,6 +5109,8 @@ func compute() (int, bool) {
 ---
 
 Ori’s control flow is designed to remain minimal yet expressive — ensuring **clarity**, **predictability**, and **explicit developer intent**.
+
+---
 
 
 # 170. Methods and Interfaces
@@ -5440,6 +5488,8 @@ Use **generics** when you need **maximum performance** and **compile-time specia
 Ori’s method and interface system emphasizes **explicitness**, **clarity**, and **predictable behavior**,  
 with a clear path toward efficient compile-time polymorphism in future versions.
 
+---
+
 
 # 180. Runtime and Panic Handling
 
@@ -5631,6 +5681,8 @@ Ori’s runtime provides strict guarantees to maintain deterministic execution:
 
 Ori’s runtime model prioritizes **clarity, determinism, and developer control**, providing meaningful diagnostics and avoiding hidden behaviors.
 
+---
+
 
 # 001. Language Philosophy
 
@@ -5713,6 +5765,8 @@ Ori builds trust through explicitness:
 - Trust the **runtime** (or lack thereof) to behave deterministically.  
 
 **Ori is a language for those who value control, transparency, and precision over convenience-driven ambiguity.**
+
+---
 
 
 # 002. Type Safety and Explicitness
@@ -5847,6 +5901,8 @@ Ori enforces a strong, explicit, and predictable type system:
 ---
 
 Ori’s type philosophy ensures code that is **clear to the reader**, **trusted by the compiler**, and **deterministic in execution**.
+
+---
 
 
 # 003. Error Handling Philosophy
@@ -6029,6 +6085,8 @@ By trading conciseness for reliability, Ori eliminates an entire class of runtim
 
 Explicitness, determinism, and compile-time validation — that is Ori’s foundation for trustworthy error handling.
 
+---
+
 
 # 004. Runtime and Memory Philosophy
 
@@ -6157,6 +6215,8 @@ Ori’s runtime and memory philosophy:
 - Complete developer control over lifetime and performance.
 
 > “You own what you allocate — and you see what you free.”
+
+---
 
 
 # 005. Concurrency and Predictability
@@ -6328,6 +6388,8 @@ Ori’s concurrency is **explicit, predictable, and runtime-free**:
 
 > “Concurrency is a tool — not a background process.”
 
+---
+
 
 # 006. Imports and Visibility
 
@@ -6481,6 +6543,8 @@ No hidden imports, no runtime initialization, and no ambiguity in visibility or 
 
 > “If it’s imported, you see it. If it’s exported, you named it.”
 
+---
+
 
 # 007. Type System Philosophy
 
@@ -6596,6 +6660,8 @@ Ori’s type system is **strong, explicit, and predictable** — designed to pre
 
 > “Explicit types make implicit bugs impossible.”
 
+---
+
 
 # 001. Keywords
 
@@ -6662,6 +6728,8 @@ spawn     implements
 > Ori’s keyword set is **intentionally small and stable** — focused on clarity, control, and predictability.  
 > New keywords will only be added if they improve readability without introducing hidden behavior.
 
+---
+
 
 # 002. Built-in Functions and Constants
 
@@ -6726,6 +6794,8 @@ All other behavior belongs to imported modules.
 
 > Ori’s built-ins are **minimal**, **safe**, and **explicit** —  
 > each one can be understood in isolation, without hidden behavior or runtime magic.
+
+---
 
 
 # 003. Grammar Index
@@ -6876,6 +6946,8 @@ RecvExpr        = "<-" Expression .
 > Ori’s grammar is designed to be clear, deterministic, and easy to implement in a recursive descent parser.  
 > There is no syntactic sugar beyond these core rules.
 
+---
+
 
 # 004. Glossary
 
@@ -7019,7 +7091,8 @@ Intended for safe, efficient read-only access.
 > Ori’s terminology emphasizes **explicitness**, **predictability**, and **safety** —  
 > every construct behaves visibly, with no hidden behavior or implicit side effects.
 
-
 ---
+
+
 
 © 2025 Ori Language — Design Spec

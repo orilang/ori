@@ -15,7 +15,7 @@ FILE_NAME="DESIGN_DOC_v${VERSION}.md"
 GLOBAL_FILE_NAME="specs/${FILE_NAME}"
 SPEC_FILE_NAME="${ROOT_DIR}/${FILE_NAME}"
 DIRECTORIES="syntax semantics design_principles appendix"
-FOOTER="---\n\n© $(date +%Y) Ori Language — Design Spec"
+FOOTER="\n© $(date +%Y) Ori Language — Design Spec"
 
 > ${GLOBAL_FILE_NAME}
 > ${SPEC_FILE_NAME}
@@ -33,8 +33,7 @@ do
   do
     echo "${file}"
     cat ${file} >> ${SPEC_FILE_NAME}
-    echo -e "" >> ${SPEC_FILE_NAME}
-    echo -e "" >> ${SPEC_FILE_NAME}
+    echo -e "\n---\n\n" >> ${SPEC_FILE_NAME}
   done
 done
 
