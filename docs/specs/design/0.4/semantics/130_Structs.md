@@ -1,38 +1,38 @@
 # 130. Structs
 
-Structs in Ori are **explicitly defined and explicitly initialized** composite types.\
+Structs in Ori are **explicitly defined and explicitly initialized** composite types.  
 They group related fields and can define associated methods, providing a foundation for structured, type-safe data.
 
 ---
 
 ## 130.1 Overview
 
-A `struct` represents a fixed collection of named fields, each with an explicit type.\
+A `struct` represents a fixed collection of named fields, each with an explicit type.  
 Unlike some other languages, Ori **does not create implicit zero values** — every struct must be explicitly initialized.
 
 Structs are **value types** by default: assignments and returns copy their contents unless a `ref` or `view` qualifier is used.
 
-Struct names starting with an **uppercase** letter are **exported (public)**,\
+Struct names starting with an **uppercase** letter are **exported (public)**,  
 while lowercase struct names are **private** to their defining package or module.
 
 ---
 
 ## 130.2 Why Zero Values Are Not Allowed
 
-In Go and C, every variable or struct receives a *zero value* automatically (e.g., `0`, `false`, `""`).\
+In Go and C, every variable or struct receives a *zero value* automatically (e.g., `0`, `false`, `""`).  
 While convenient, this approach hides initialization behavior and can lead to subtle bugs.
 
 ### Pitfalls of implicit zero values
 
-**Hidden state:** a struct may appear valid even though it was never initialized.\
-**Logic errors:** e.g., `if user.ID == 0` might mean “unset,” but it’s also the zero default.\
-**Silent bugs:** forgotten initialization compiles and runs silently.\
+**Hidden state:** a struct may appear valid even though it was never initialized.  
+**Logic errors:** e.g., `if user.ID == 0` might mean “unset,” but it’s also the zero default.  
+**Silent bugs:** forgotten initialization compiles and runs silently.  
 **Unpredictable behavior in FFI or embedded contexts.**
 
 Ori forbids implicit zero values to ensure explicit construction and visible intent.
 
 > **Rule:**  
-> Every struct must be created explicitly through a literal or constructor.\
+> Every struct must be created explicitly through a literal or constructor.  
 > No field is initialized unless explicitly defined by the developer.
 
 ---
@@ -151,7 +151,7 @@ alias.age = 25 // modifies u.age
 ```
 
 > **Note:**  
-> The `ref` qualifier is experimental in v0.4.\
+> The `ref` qualifier is experimental in v0.4.  
 > Its semantics for ownership, lifetime, and aliasing will be refined in future versions.
 
 ---
@@ -227,7 +227,7 @@ struct User {
 fmt.Println(u.addr.city)
 ```
 
-Field and method access must always be explicit.\
+Field and method access must always be explicit.  
 No recursive promotion, shadowing, or method inheritance is allowed.
 
 ### Why Embedding Is Forbidden
@@ -249,12 +249,12 @@ No recursive promotion, shadowing, or method inheritance is allowed.
 
 ## 130.10 Memory Layout, Padding, and Alignment
 
-Ori structs have **predictable layouts** with natural alignment.\
+Ori structs have **predictable layouts** with natural alignment.  
 Fields are ordered and aligned sequentially according to their type’s requirements.
 
 ### Alignment
 
-Each field begins at a memory address aligned to its size.\
+Each field begins at a memory address aligned to its size.  
 This ensures efficient CPU access.
 
 ### Padding
@@ -270,23 +270,23 @@ struct Example {
 Padding is automatically handled by the compiler and is **deterministic**.
 
 ### FFI (Foreign Function Interface)
-**FFI** refers to interoperability between Ori and external languages such as C.\
+**FFI** refers to interoperability between Ori and external languages such as C.  
 Precise layout and alignment rules ensure compatibility across language boundaries.
 
 ---
 
 ## 130.11 Immutability and Safety
 
-A `const` struct cannot have its fields modified after creation.\
-`view` references cannot mutate the target.\
-`ref` allows controlled mutation (experimental).\
+A `const` struct cannot have its fields modified after creation.  
+`view` references cannot mutate the target.  
+`ref` allows controlled mutation (experimental).  
 Structs are not implicitly thread-safe; synchronization is the developer’s responsibility.
 
 ---
 
 ## 130.12 Explicit Construction and Initialization Functions
 
-Ori forbid hidden or automatic `init()` functions.\
+Ori forbid hidden or automatic `init()` functions.  
 Developers can define constructor-like helpers for initialization:
 
 ```ori

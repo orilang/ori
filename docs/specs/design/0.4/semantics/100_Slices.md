@@ -1,6 +1,6 @@
 # 100. Slices
 
-Slices in Ori are dynamic, contiguous views over arrays.\
+Slices in Ori are dynamic, contiguous views over arrays.  
 They provide flexible data handling without losing control over memory and type safety.
 
 ---
@@ -128,7 +128,7 @@ A new slice may be derived from another:
 var sub []int = nums[2:5]
 ```
 
-The result shares the same underlying data.\
+The result shares the same underlying data.  
 Changes in one slice are visible in others referencing the same memory.
 
 ### 100.5.1 Bounds-Safe Slicing Syntax
@@ -271,8 +271,8 @@ func fill(s []int) {
 
 ## 100.12 Memory Model
 
-Slices reference memory managed by arrays or the allocator.\
-Re-slicing does not copy data.\
+Slices reference memory managed by arrays or the allocator.  
+Re-slicing does not copy data.  
 Explicit functions like `append()` or `make()` may allocate.
 
 ---

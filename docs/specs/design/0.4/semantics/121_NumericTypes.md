@@ -1,7 +1,7 @@
 # 121. Numeric Types
 
-Ori defines numeric types as **explicit**, **predictable**, and **safe**.\
-No implicit type promotion, silent wrapping, or automatic coercion is allowed.\
+Ori defines numeric types as **explicit**, **predictable**, and **safe**.  
+No implicit type promotion, silent wrapping, or automatic coercion is allowed.  
 All arithmetic must be intentional and unambiguous.
 
 ---
@@ -20,7 +20,7 @@ Ori’s numeric system prevents silent data corruption and ensures correctness a
 
 ## 121.2 Integer Types
 
-Ori provides both **signed** and **unsigned** integers with fixed bit widths.\
+Ori provides both **signed** and **unsigned** integers with fixed bit widths.  
 The aliases `int` and `uint` default to 64-bit variants.
 
 | Type | Description | Range | Example |
@@ -32,8 +32,8 @@ The aliases `int` and `uint` default to 64-bit variants.
 
 ### Integer Rules
 
-No implicit conversion between signed and unsigned integers.\
-Arithmetic between mixed types is **invalid** without explicit conversion.\
+No implicit conversion between signed and unsigned integers.  
+Arithmetic between mixed types is **invalid** without explicit conversion.  
 Use `int` and `uint` for general arithmetic unless fixed-width precision is required.
 
 ---
@@ -85,9 +85,9 @@ Ori enforces these rules to prevent malformed or misleading numeric literals.
 
 ## 121.5 Arithmetic Rules
 
-Operands must share the same numeric type.\
-Integer division truncates toward zero.\
-Float division preserves fractional results.\
+Operands must share the same numeric type.  
+Integer division truncates toward zero.  
+Float division preserves fractional results.  
 Overflow is **checked by default** — triggers **runtime panic** if detected.
 
 ### Example
@@ -100,7 +100,7 @@ var b float = 5.0 / 2 // 2.5
 
 ## 121.6 Overflow and Underflow
 
-Ori never silently wraps integer and float values.\
+Ori never silently wraps integer and float values.  
 All arithmetic operations are **checked** and trigger a **runtime panic** on overflow or underflow.
 
 ### Default Behavior
@@ -153,9 +153,9 @@ if ov {
 
 ### Design Rationale
 
-Prevents silent numeric corruption.\
-Behavior is identical across build modes — always checked, always safe.\
-Runtime panics are deterministic and report detailed diagnostic context.\
+Prevents silent numeric corruption.  
+Behavior is identical across build modes — always checked, always safe.  
+Runtime panics are deterministic and report detailed diagnostic context.  
 Matches Zig’s explicit overflow model and avoids Rust’s mode-dependent behavior.
 
 ---

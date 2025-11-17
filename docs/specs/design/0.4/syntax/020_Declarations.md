@@ -11,8 +11,8 @@ A **declaration** introduces a new name into the program scope and binds it to a
 ```ori
 const float PI = 3.1415
 type User struct {
-  id: int
-  name: string
+  id int
+  name string
 }
 ```
 
@@ -28,7 +28,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type Point struct { x: int, y: int }` |
+| Struct | `struct` | `type Point struct { x int, y int }` |
 
 ---
 
@@ -52,8 +52,8 @@ Type aliases and named types provide clarity and stronger semantics.
 ```ori
 type ID int
 type User struct {
-    id: ID
-    name: string
+    id ID
+    name string
 }
 ```
 
@@ -65,7 +65,7 @@ Functions define reusable behavior.
 They can be declared at the top level or within other functions (nested functions are allowed).
 
 ```ori
-func greet(name: string) {
+func greet(name string) {
     fmt.Println("Hello,", name)
 }
 ```
@@ -80,8 +80,8 @@ Structs define aggregate types with named fields.
 
 ```ori
 type Point struct {
-    x: int
-    y: int
+    x int
+    y int
 }
 ```
 

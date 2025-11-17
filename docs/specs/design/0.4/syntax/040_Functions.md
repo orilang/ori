@@ -6,7 +6,7 @@ This section describes the syntax, semantics, and conventions of function declar
 
 ## 40.1 Overview
 
-Functions are first-class citizens in Ori.\
+Functions are first-class citizens in Ori.  
 They define reusable code blocks with clearly typed parameters and return values.
 
 ```ori
@@ -15,8 +15,8 @@ func add(a int, b int) int {
 }
 ```
 
-Functions are declared using the `func` keyword.\
-Parameters and return types are explicit.\
+Functions are declared using the `func` keyword.  
+Parameters and return types are explicit.
 
 ---
 
@@ -33,7 +33,7 @@ ReturnStmt     = "return" [ Expression ] .
 Examples:
 
 ```ori
-func greet(name: string) {
+func greet(name string) {
     fmt.Println("Hello,", name)
 }
 
@@ -51,7 +51,7 @@ func sum(a, b int) int {
 
 ## 40.3 Return Semantics
 
-Functions may return zero, one, or multiple values.\
+Functions may return zero, one, or multiple values.  
 Return types are always explicit.
 
 ```ori
@@ -97,8 +97,8 @@ Receivers are always explicit:
 Functions are first-class values and can be assigned to variables or passed as arguments.
 
 ```ori
-func apply(fn func(int) int, x int) int {
-    return fn(x)
+func apply(func func(int) int, x int) int {
+    return func(x)
 }
 
 func double(x int) int {

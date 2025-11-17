@@ -31,8 +31,8 @@ Every `.ori` source file begins with a package declaration:
 package main
 ```
 
-The package name defines the namespace of the file.\
-All files in the same directory must share the same package name.\
+The package name defines the namespace of the file.  
+All files in the same directory must share the same package name.  
 A `main` package indicates that the program is an executable with an entry point (`main` function).
 
 ---
@@ -62,8 +62,9 @@ Ori allows optional **import aliases** for disambiguation:
 import io "os/io"
 ```
 
-- The alias `io` is used to reference the imported package.
-- The underscore `_` alias (blank import) may be used for initialization side effects but is discouraged.
+- The alias `io` is used to reference the imported package
+- The underscore `_` alias (blank import) is forbidden
+- The ot `.` import is forbidden
 
 See: [Modules and Imports](syntax/090_ModulesAndImports.md)
 
@@ -91,8 +92,9 @@ func main() {
 Execution begins with package initialization in dependency order, followed by `main`.
 
 1. Imported packages are initialized in dependency order.
-2. Global constants and variables are set up.
-3. The `main.main()` function is invoked.
+2. Global constants are set up.
+3. Global variables are forbidden.
+4. The `main.main()` function is invoked.
 
 This deterministic initialization ensures reproducibility and predictability.
 
@@ -131,8 +133,8 @@ import (
 )
 
 func main() {
-    let x = 2.0
-    let y = math.Sqrt(x)
+    var x float = 2.0
+    var y = math.Sqrt(x)
     fmt.Println("√", x, "=", y)
 }
 ```

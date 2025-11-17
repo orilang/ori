@@ -7,10 +7,10 @@ They prioritize **determinism, explicit allocation, and safety** in line with Or
 
 ## 110.1 Philosophy and Guarantees
 
-**Ordered iteration** — iteration over a map yields entries in **insertion order**.\
-**Deterministic behavior** — rehashing or growth never changes the logical order.\
-**Explicit allocation** — creation uses `make`, optional initial capacity may be provided.\
-**No hidden magic** — two-value lookup for existence; deletions are explicit; no implicit defaults.\
+**Ordered iteration** — iteration over a map yields entries in **insertion order**.  
+**Deterministic behavior** — rehashing or growth never changes the logical order.  
+**Explicit allocation** — creation uses `make`, optional initial capacity may be provided.  
+**No hidden magic** — two-value lookup for existence; deletions are explicit; no implicit defaults.  
 **Single-writer iteration rule** — structural changes (insert/delete) during iteration are **not allowed** (runtime error). Value updates to existing keys are allowed.
 
 ---
@@ -82,9 +82,8 @@ Use the two-value form to test whether a key is present:
 
 ```ori
 var age int
-var ok bool
 
-age, ok = users["Bob"]
+age, ok := users["Bob"]
 if ok {
     fmt.Println("Found:", age)
 } else {
@@ -215,8 +214,8 @@ Writing to a `nil` map is a runtime error. Always `make()` maps before use.
 
 ## 110.12 Memory and Growth
 
-Maps grow dynamically as elements are added.\
-Growth **does not** change the iteration order.\
+Maps grow dynamically as elements are added.  
+Growth **does not** change the iteration order.  
 Existing references to keys remain valid; iterators are invalidated only if structure is mutated during iteration (runtime error).
 
 ---

@@ -6,7 +6,7 @@ Modules and imports in Ori define how source code is organized, shared, and reus
 
 ## 90.1 Overview
 
-Modules group related packages into a single distribution unit.\
+Modules group related packages into a single distribution unit.  
 Imports bring external or internal packages into scope in an explicit and predictable way.
 
 Ori’s import system is designed for **clarity** and **safety**:
@@ -110,7 +110,7 @@ var GlobalValue   int = 42    // ❌ invalid — no global variables
 
 ## 90.7 No `init()` Functions
 
-Ori does **not** support automatic `init()` functions.\
+Ori does **not** support automatic `init()` functions.  
 All initialization must occur through explicit function calls.
 
 Example:
@@ -127,8 +127,8 @@ func main() {
 
 ## 90.8 Import Resolution
 
-Imports are resolved relative to the module root.\
-Cyclic imports are **not permitted**.\
+Imports are resolved relative to the module root.  
+Cyclic imports are **not permitted**.  
 Each package is initialized only when its contents are explicitly referenced.
 
 ---

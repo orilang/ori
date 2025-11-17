@@ -6,7 +6,7 @@ This section defines Ori’s type system, built-in types, user-defined types, an
 
 ## 50.1 Overview
 
-Ori uses a **strong, static, and explicit** type system.\
+Ori uses a **strong, static, and explicit** type system.  
 All variables, parameters, and expressions have a known type at compile time.
 
 Goals:
@@ -51,7 +51,7 @@ var myFunc := func()   // inferred as func
 x := false             // inferred as bool
 ```
 
-Ori enforces explicit typing for numeric types to privent ambiguity and unsafe coercions.
+Ori enforces explicit typing for numeric types to prevent ambiguity and unsafe coercions.
 ```ori
 var x = 0     // invalid
 var x int = 0 // valid
@@ -66,8 +66,8 @@ Use the `type` keyword to define new named types:
 ```ori
 type ID int
 type User struct {
-    id: ID
-    name: string
+    id ID
+    name string
 }
 ```
 
@@ -99,7 +99,7 @@ var numbers [5]int       // fixed-size array
 var dynamic []int        // slice (dynamic view)
 ```
 
-Arrays have fixed length known at compile-time.\
+Arrays have fixed length known at compile-time.  
 Slices are dynamically sized references to contiguous elements.
 
 See: [Slices](semantics/100_Slices.md)
@@ -132,7 +132,7 @@ var y float64 = float64(x)
 
 ## 50.10 Pointer and Reference Types
 
-Planned feature for v0.5.\
+Planned feature.  
 Pointers will allow explicit referencing and dereferencing:
 
 ```ori
@@ -146,13 +146,13 @@ Ori will ensure **no unsafe implicit pointer arithmetic**.
 
 ## 50.11 Type Qualifiers
 
-Qualifiers modify type semantics.\
+Qualifiers modify type semantics.  
 Currently supported: `const`.
 
 Example:
 
 ```ori
-const MAX_USERS = 100
+const MAX_USERS int = 100
 ```
 
 ---

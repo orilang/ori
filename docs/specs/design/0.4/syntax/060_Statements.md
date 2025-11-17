@@ -11,7 +11,7 @@ A **statement** performs an action — executing code, declaring variables, cont
 Examples:
 
 ```ori
-let x = 10
+var x int = 10
 x = x + 1
 if x > 10 {
     fmt.Println("x is large")
@@ -58,8 +58,8 @@ x = x + 1
 name = "Ori"
 ```
 
-Left-hand side must be an assignable variable.\
-Both sides must have compatible types.\
+Left-hand side must be an assignable variable.  
+Both sides must have compatible types.  
 Multiple assignments are supported:
 
 ```ori
@@ -281,7 +281,7 @@ The number and types of returned values must match the function’s return signa
 
 ## 60.8 Break and Continue
 
-`break` terminates the nearest loop.\
+`break` terminates the nearest loop.  
 `continue` skips to the next iteration.
 
 ```ori

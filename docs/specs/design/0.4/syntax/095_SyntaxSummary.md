@@ -1,6 +1,6 @@
 # 95. Syntax Summary
 
-This section provides a consolidated grammar overview of Ori’s core syntax using Extended Backus–Naur Form (EBNF).
+This section provides a consolidated grammar overview of Ori’s core syntax using [Wirth syntax notation (WSN)](https://en.wikipedia.org/wiki/Wirth_syntax_notation).
 
 ---
 

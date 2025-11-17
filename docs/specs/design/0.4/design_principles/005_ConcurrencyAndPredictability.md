@@ -86,7 +86,7 @@ Ori forbids unsynchronized concurrent mutation.
 func safeIncrement(counter *int) {
     var mu Mutex // scoped synchronization primitive
     mu.lock()
-    *counter += 1
+    counter += 1
     mu.unlock()
 }
 ```

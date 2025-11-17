@@ -1,13 +1,13 @@
 # 120. Strings
 
-Strings in Ori are **immutable**, **UTF‑8 encoded** sequences of bytes representing text.\
+Strings in Ori are **immutable**, **UTF‑8 encoded** sequences of bytes representing text.  
 They are designed for safety, predictability, and explicit handling of encoding and slicing.
 
 ---
 
 ## 120.1 Overview
 
-A `string` in Ori is a **read-only value type** representing text data.\
+A `string` in Ori is a **read-only value type** representing text data.  
 It can be indexed and sliced like a byte sequence, but its content cannot be modified after creation.
 
 ```ori
@@ -205,7 +205,7 @@ All functions are pure and safe; they never modify input strings.
 Equality uses byte‑wise comparison:
 
 ```ori
-if a == b {
+if "a" == "b" {
     fmt.Println("equal")
 }
 ```
@@ -216,16 +216,16 @@ The comparison is O(n) over the byte sequence.
 
 ## 120.12 Concurrency and Thread Safety
 
-Strings are **thread‑safe** because they are immutable.\
+Strings are **thread‑safe** because they are immutable.  
 They can be safely shared between threads or goroutines without synchronization.
 
 ---
 
 ## 120.13 Memory and Lifetime
 
-Strings are immutable and reference‑counted or copy‑on‑write internally.\
-Slices of strings (`view string`) share the same underlying memory.\
-Once all references go out of scope, memory is reclaimed automatically.\
+Strings are immutable and reference‑counted or copy‑on‑write internally.  
+Slices of strings (`view string`) share the same underlying memory.  
+Once all references go out of scope, memory is reclaimed automatically.  
 No hidden conversions or implicit allocations occur.
 
 ---

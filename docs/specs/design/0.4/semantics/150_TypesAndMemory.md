@@ -1,7 +1,7 @@
 # 150. Types and Memory
 
-Ori’s type and memory system is **deterministic**, **explicit**, and **safe by design**.\
-There is no garbage collector or implicit memory reallocation.\
+Ori’s type and memory system is **deterministic**, **explicit**, and **safe by design**.  
+There is no garbage collector or implicit memory reallocation.  
 Developers have full control over allocation, ownership, and lifetimes.
 
 ---
@@ -18,14 +18,14 @@ All variables are initialized explicitly, memory layout is deterministic, and va
 | Category | Examples | Description |
 |-----------|-----------|-------------|
 | **Primitive** | `int`, `float`, `bool`, `rune` | Basic scalar types stored by value. |
-| **Composite** | `struct`, `array`, `slice`, `map`, `string` | Aggregated types combining other types. |
+| **Composite** | `struct`, `array`, `slice`, `map`, `hashmap`, `string` | Aggregated types combining other types. |
 | **Reference** | `view`, `ref` | Non-owning or alias references to existing values. |
 | **Constant** | `const` | Immutable binding preventing mutation. |
 
 ### Rune Type
 
 A `rune` represents a single **Unicode code point** (UTF-32 scalar value).  
-It corresponds to a “character” in Unicode terms, but not necessarily to one byte.
+It corresponds to a "character" in Unicode terms, but not necessarily to one byte.
 
 > In C, the closest equivalent to a `rune` is a `char`, but a C `char` only represents a single byte (typically ASCII), not a full Unicode code point.
 
@@ -52,9 +52,9 @@ fmt.Println(a) // 10
 
 ## 150.4 Memory Model
 
-**Stack allocation** for local and short-lived variables.\
-**Heap allocation** via constructors (`make`, `append`, etc.).\
-**No garbage collector** — all lifetimes are explicit and predictable.\
+**Stack allocation** for local and short-lived variables.  
+**Heap allocation** via constructors (`make`, `append`, etc.).  
+**No garbage collector** — all lifetimes are explicit and predictable.  
 **Temporary values** exist within their lexical scope.
 
 Ori may later introduce scoped automatic cleanup (RAII-like aka **Resource Acquisition Is Initialization** aka defer) but currently follows deterministic scope-based lifetime rules.
@@ -75,7 +75,7 @@ Ori may later introduce scoped automatic cleanup (RAII-like aka **Resource Acqui
 
 ### Definition
 
-A `rune` represents **one Unicode code point** (UTF-32).\
+A `rune` represents **one Unicode code point** (UTF-32).  
 A `string` represents a **UTF-8 encoded sequence** of runes.
 
 Example:
@@ -105,8 +105,8 @@ Conversions between `rune` and `string` are **explicit** and do not perform auto
 
 ### Pitfalls to Avoid
 
-A “character” in a string is **not always one byte** — UTF-8 uses 1–4 bytes per rune.\
-`len(s)` returns **byte length**, not the number of runes.\
+A "character" in a string is **not always one byte** — UTF-8 uses 1–4 bytes per rune.  
+`len(s)` returns **byte length**, not the number of runes.  
 Comparing different types is invalid:
 
 ```ori
@@ -114,7 +114,7 @@ if 'O' == "O" { ... } // ❌ Type mismatch
 if string('O') == "O" { ... } // ✅ Explicit conversion
 ```
 
-Indexing strings returns bytes, not runes; use iteration to access characters safely.\
+Indexing strings returns bytes, not runes; use iteration to access characters safely.  
 Truncating strings mid-sequence can break UTF-8 integrity.
 
 ---
@@ -156,9 +156,9 @@ Truncating strings mid-sequence can break UTF-8 integrity.
 
 ## 150.8 Lifetime Rules
 
-Values are destroyed when leaving their lexical scope.\
-`view` references cannot outlive their source.\
-No dynamic runtime lifetime analysis — static scope visibility only.\
+Values are destroyed when leaving their lexical scope.  
+`view` references cannot outlive their source.  
+No dynamic runtime lifetime analysis — static scope visibility only.  
 `ref` must be used carefully; future versions may enforce lifetime tracking.
 
 ---
@@ -170,8 +170,8 @@ var arr = make([]int, 10) // Allocates on the heap
 free(arr)                 // Planned for future versions
 ```
 
-`make` constructs heap-allocated objects (arrays, slices, maps).\
-Deallocation is explicit and deterministic.\
+`make` constructs heap-allocated objects (arrays, slices, maps).  
+Deallocation is explicit and deterministic.  
 No garbage collection or implicit memory reuse.
 
 ---
@@ -196,17 +196,17 @@ unsafe {
 }
 ```
 
-Unsafe operations are intended for system-level code or FFI integration, not general use.\
+Unsafe operations are intended for system-level code or FFI integration, not general use.  
 The Unsafe syntax and usage will be discussed in future versions.
 
 ---
 
 ## 150.12 Design Summary
 
-No garbage collector.\
-No hidden heap allocations.\
-All values and references are explicit.\
-`rune` (UTF-32) and `string` (UTF-8) separation ensures encoding clarity.\
+No garbage collector.  
+No hidden heap allocations.  
+All values and references are explicit.  
+`rune` (UTF-32) and `string` (UTF-8) separation ensures encoding clarity.  
 Ownership and lifetime rules are simple and predictable.
 
 ---
@@ -218,5 +218,3 @@ Ownership and lifetime rules are simple and predictable.
 - Reference counting for shared data.
 - Explicit pointer and FFI-safe structures.
 - Optimized move semantics for large composites.
-
----

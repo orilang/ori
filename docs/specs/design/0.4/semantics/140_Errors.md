@@ -1,18 +1,18 @@
 # 140. Errors
 
-Ori’s error model is **explicit**, **predictable**, and **minimal**.\
-Errors are values that functions return and callers must handle.\
-There are **no exceptions** or hidden control flow.\
+Ori’s error model is **explicit**, **predictable**, and **minimal**.  
+Errors are values that functions return and callers must handle.  
+There are **no exceptions** or hidden control flow.  
 The `try` keyword exists only to reduce boilerplate when propagating errors.
 
 ---
 
 ## 140.1 Design Philosophy
 
-**Explicit handling** — functions that can fail must declare an `error` result; callers must check it.\
-**No hidden control flow** — no throw/catch, no panic-driven recovery in the language core.\
-**Concise propagation** — `try EXPR` returns early if `EXPR` produces a non-`nil` error.\
-**Custom errors** — structured error types are encouraged; `error("msg")` is provided for generic cases.\
+**Explicit handling** — functions that can fail must declare an `error` result; callers must check it.  
+**No hidden control flow** — no throw/catch, no panic-driven recovery in the language core.  
+**Concise propagation** — `try EXPR` returns early if `EXPR` produces a non-`nil` error.  
+**Custom errors** — structured error types are encouraged; `error("msg")` is provided for generic cases.  
 **Small and orthogonal** — complements Ori’s clarity-first philosophy.
 
 > Errors are values, not exceptions.
@@ -29,7 +29,7 @@ The `try` keyword exists only to reduce boilerplate when propagating errors.
 
 **Notes**
 
-`nil` is **only** the zero value for `error` (and other reference-like types); it does **not** imply general zero-values for structs.\
+`nil` is **only** the zero value for `error` (and other reference-like types); it does **not** imply general zero-values for structs.  
 `try` may only appear inside functions that return an `error` result; otherwise it is a compile-time error.
 
 ---
@@ -47,7 +47,7 @@ FuncDecl      = "func" Identifier "(" [ Parameters ] ")" [ FuncResult ] Block .
 
 **Conventions**
 
-A function that uses `try` **must** declare an `error` in its `FuncResult`.\
+A function that uses `try` **must** declare an `error` in its `FuncResult`.  
 `(T, error)` is idiomatic when a value is returned alongside an error.
 
 ---
@@ -100,7 +100,7 @@ return cfg, nil
 
 **Rules**
 
-`try E` is valid if the enclosing function returns `error`.\
+`try E` is valid if the enclosing function returns `error`.  
 If `E` yields `(T, error)`, `try E` evaluates to `T` when error is `nil`, or **returns** the error otherwise.
 
 ---
@@ -129,7 +129,7 @@ func open(path string) (File, error) {
 
 **Notes**
 
-Any type that implements `String() string` can be printed as an error.\
+Any type that implements `String() string` can be printed as an error.  
 Use custom error fields (path, op, cause, code) instead of encoding details into a single string.
 
 ---
@@ -147,8 +147,8 @@ use(cfg)
 ```ori
 _, err := open("/restricted/secret")
 if err != nil {
-    if err is PermissionError {
-        audit.log("denied")
+    if err == PermissionError {
+        fmt.Println("denied")
         return err
     }
     return err
@@ -170,8 +170,8 @@ func readUser(path string) (User, error) {
 
 ## 140.8 Interop and Concurrency Notes
 
-**FFI:** map foreign error codes to Ori error values at the boundary; avoid leaking integers.\
-**Goroutines/Tasks:** prefer sending errors over channels or returning them from task joins.\
+**FFI:** map foreign error codes to Ori error values at the boundary; avoid leaking integers.  
+**Goroutines/Tasks:** prefer sending errors over channels or returning them from task joins.  
 **Logging:** prefer structured log fields over string concatenation; keep the error as a value.
 
 ---
@@ -190,7 +190,7 @@ func readUser(path string) (User, error) {
 ```ori
 func loadUsers(p string) ([]User, error) {
     raw   := try readFile(p)
-    lines := split(raw, "\n")
+    lines := split(raw, "  n")
     users := make([]User, 0, len(lines))
     for _, line := range lines {
         u, err := parseUser(line)
@@ -219,9 +219,9 @@ func sqrt(n float64) (float64, error) {
 
 ## 140.11 Design Rationale (Concise)
 
-Keeping **Go-style explicitness** avoids hidden control flow and surprises.\
-Adding **`try`** removes boilerplate while preserving visibility.\
-Supporting **custom error types** improves correctness, testing, and recovery strategies.\
+Keeping **Go-style explicitness** avoids hidden control flow and surprises.  
+Adding **`try`** removes boilerplate while preserving visibility.  
+Supporting **custom error types** improves correctness, testing, and recovery strategies.  
 A **small set of built-ins** keeps the model easy to teach and consistent across the standard library.
 
 ---

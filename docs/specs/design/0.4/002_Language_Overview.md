@@ -7,7 +7,7 @@ It serves as a quick introduction for readers before diving into the detailed sy
 
 ## 2.1 Design Goals
 
-Ori is a system-capable general-purpose programming language focused on:
+Ori is a **system-capable general-purpose programming language** focused on:
 
 - **Explicitness over magic** — all operations and allocations are visible.
 - **Predictability** — no hidden control flow, conversions, or memory semantics.
@@ -17,7 +17,7 @@ Ori is a system-capable general-purpose programming language focused on:
 
 ---
 
-## 2.2 Syntax Snapshot
+## 2.2 Syntax
 
 A minimal Ori program:
 
@@ -32,9 +32,9 @@ func main() {
 }
 ```
 
-**`package`** declares the current compilation unit.\
-**`import`** brings modules into scope.\
-**`func`** declares a function (with explicit parameter types and return types).\
+**`package`** declares the current compilation unit.  
+**`import`** brings modules into scope.  
+**`func`** declares a function (with explicit parameter types and return types).  
 **`var`** declares variables.
 
 ---
@@ -87,7 +87,7 @@ Ori provides familiar structured control flow constructs:
 
 - `if` / `else` statements.
 - `for` loops with range iteration.
-- `match` expressions (planned) for pattern-based dispatch.
+- `switch` expressions for pattern-based dispatch.
 - `return`, `break`, and `continue` for flow control.
 
 See: [Statements](syntax/060_Statements.md)

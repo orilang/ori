@@ -11,9 +11,9 @@ Ori’s design emphasizes:
 
 ## 1.1 Goals
 
-Predictable and explicit semantics.\
-Clear and consistent syntax.\
-Safe memory and type model.\
+Predictable and explicit semantics.  
+Clear and consistent syntax.  
+Safe memory and type model.  
 Zero hidden behaviors.
 
 ## 1.2 Document Structure
@@ -51,5 +51,7 @@ SYNTAX     = { Production } .
 
 ## 1.4 Source code encoding
 
-Ori source code is encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).\
+Ori source code is encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).  
 Invalid UTF-8 sequence will endup in a compilation error.
+
+---

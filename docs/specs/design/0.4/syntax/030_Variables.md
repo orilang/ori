@@ -24,7 +24,7 @@ VarDecl = "var" Identifier [ Type ] "=" Expression | Identifier ":=" Expression 
 
 ### Numeric Type Enforcement
 
-Ori enforces explicit typing for numeric types to privent ambiguity and unsafe coercions.
+Ori enforces explicit typing for numeric types to prevent ambiguity and unsafe coercions.
 
 #### Rules
 
@@ -38,8 +38,8 @@ Ori enforces explicit typing for numeric types to privent ambiguity and unsafe c
 
 #### Reasoning
 
-Prevents silent int↔float coercions.\
-Improves determinism and low-level safety.\
+Prevents silent int↔float coercions.  
+Improves determinism and low-level safety.  
 Keeps syntax simple for non-numeric types.
 
 ### Short form
@@ -93,9 +93,9 @@ _User
 
 ## 30.4 Initialization Rules
 
-Ori **does not** perform automatic zero-initialization.\
+Ori **does not** perform automatic zero-initialization.  
 Every variable must be **fully initialized** before use.
-Uninitialized variable **cannot** be read or used which will result in compile-time error.\
+Uninitialized variable **cannot** be read or used which will result in compile-time error.  
 Variables cannot be redeclared in the same scope.
 
 ```ori
@@ -158,8 +158,8 @@ This identifier is **write-only** and cannot be read.
 
 ## 30.8 Best Practices
 
-Use short or meaningful names for local variables.\
-Prefer `const` when immutability is guaranteed.\
+Use short or meaningful names for local variables.  
+Prefer `const` when immutability is guaranteed.  
 Avoid using underscores except for temporary or ignored values.
 
 ---
@@ -176,8 +176,8 @@ func main() {
 
 ## 30.10 Global variables
 
-Global variables refer to values declared at the package level and accessible from any scope within that package.\
-While convenient, they introduce implicit dependencies, hidden state, and concurrency risks.\
+Global variables refer to values declared at the package level and accessible from any scope within that package.  
+While convenient, they introduce implicit dependencies, hidden state, and concurrency risks.  
 Ori aims to balance **practical usability** with **predictability and safety**.
 
 Global variables are forbidden, only `const` variables are allowed.

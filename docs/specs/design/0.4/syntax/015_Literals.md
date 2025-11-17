@@ -6,7 +6,7 @@ Literals represent fixed constant values embedded directly in Ori source code.
 
 ## 15.1 Overview
 
-A literal is a lexical token that denotes a constant value such as a number, string, boolean, or nil.
+A literal is a lexical token that denotes a value such as a number, string, boolean, or nil.
 
 Examples:
 
@@ -67,7 +67,7 @@ var msg = "Hello, Ori!"
 ```
 
 Enclosed in double quotes (`"`).\
-Supports escape sequences (`\n`, `\t`, `\"`, `\\`).\
+Supports escape sequences (`\n`, `\t`, `\"`, `\\`).  
 Raw strings using backticks (planned).
 
 ---

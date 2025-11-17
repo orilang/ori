@@ -80,9 +80,9 @@ Ori’s design emphasizes:
 
 ## 1.1 Goals
 
-Predictable and explicit semantics.\
-Clear and consistent syntax.\
-Safe memory and type model.\
+Predictable and explicit semantics.  
+Clear and consistent syntax.  
+Safe memory and type model.  
 Zero hidden behaviors.
 
 ## 1.2 Document Structure
@@ -120,8 +120,11 @@ SYNTAX     = { Production } .
 
 ## 1.4 Source code encoding
 
-Ori source code is encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).\
-Invalid UTF-8 sequence will endup in a compilation error.# 2. Language Overview
+Ori source code is encoded in [UTF-8](https://en.wikipedia.org/wiki/UTF-8).  
+Invalid UTF-8 sequence will endup in a compilation error.
+
+---
+# 2. Language Overview
 
 This document provides a high-level overview of the Ori programming language: its syntax, design philosophy, and core concepts.  
 It serves as a quick introduction for readers before diving into the detailed syntax and semantics sections.
@@ -130,7 +133,7 @@ It serves as a quick introduction for readers before diving into the detailed sy
 
 ## 2.1 Design Goals
 
-Ori is a system-capable general-purpose programming language focused on:
+Ori is a **system-capable general-purpose programming language** focused on:
 
 - **Explicitness over magic** — all operations and allocations are visible.
 - **Predictability** — no hidden control flow, conversions, or memory semantics.
@@ -140,7 +143,7 @@ Ori is a system-capable general-purpose programming language focused on:
 
 ---
 
-## 2.2 Syntax Snapshot
+## 2.2 Syntax
 
 A minimal Ori program:
 
@@ -155,9 +158,9 @@ func main() {
 }
 ```
 
-**`package`** declares the current compilation unit.\
-**`import`** brings modules into scope.\
-**`func`** declares a function (with explicit parameter types and return types).\
+**`package`** declares the current compilation unit.  
+**`import`** brings modules into scope.  
+**`func`** declares a function (with explicit parameter types and return types).  
 **`var`** declares variables.
 
 ---
@@ -210,7 +213,7 @@ Ori provides familiar structured control flow constructs:
 
 - `if` / `else` statements.
 - `for` loops with range iteration.
-- `match` expressions (planned) for pattern-based dispatch.
+- `switch` expressions for pattern-based dispatch.
 - `return`, `break`, and `continue` for flow control.
 
 See: [Statements](syntax/060_Statements.md)
@@ -352,8 +355,8 @@ Every `.ori` source file begins with a package declaration:
 package main
 ```
 
-The package name defines the namespace of the file.\
-All files in the same directory must share the same package name.\
+The package name defines the namespace of the file.  
+All files in the same directory must share the same package name.  
 A `main` package indicates that the program is an executable with an entry point (`main` function).
 
 ---
@@ -383,8 +386,9 @@ Ori allows optional **import aliases** for disambiguation:
 import io "os/io"
 ```
 
-- The alias `io` is used to reference the imported package.
-- The underscore `_` alias (blank import) may be used for initialization side effects but is discouraged.
+- The alias `io` is used to reference the imported package
+- The underscore `_` alias (blank import) is forbidden
+- The ot `.` import is forbidden
 
 See: [Modules and Imports](syntax/090_ModulesAndImports.md)
 
@@ -412,8 +416,9 @@ func main() {
 Execution begins with package initialization in dependency order, followed by `main`.
 
 1. Imported packages are initialized in dependency order.
-2. Global constants and variables are set up.
-3. The `main.main()` function is invoked.
+2. Global constants are set up.
+3. Global variables are forbidden.
+4. The `main.main()` function is invoked.
 
 This deterministic initialization ensures reproducibility and predictability.
 
@@ -452,8 +457,8 @@ import (
 )
 
 func main() {
-    let x = 2.0
-    let y = math.Sqrt(x)
+    var x float = 2.0
+    var y = math.Sqrt(x)
     fmt.Println("√", x, "=", y)
 }
 ```
@@ -475,7 +480,7 @@ Literals represent fixed constant values embedded directly in Ori source code.
 
 ## 15.1 Overview
 
-A literal is a lexical token that denotes a constant value such as a number, string, boolean, or nil.
+A literal is a lexical token that denotes a value such as a number, string, boolean, or nil.
 
 Examples:
 
@@ -536,7 +541,7 @@ var msg = "Hello, Ori!"
 ```
 
 Enclosed in double quotes (`"`).\
-Supports escape sequences (`\n`, `\t`, `\"`, `\\`).\
+Supports escape sequences (`\n`, `\t`, `\"`, `\\`).  
 Raw strings using backticks (planned).
 
 ---
@@ -602,8 +607,8 @@ A **declaration** introduces a new name into the program scope and binds it to a
 ```ori
 const float PI = 3.1415
 type User struct {
-  id: int
-  name: string
+  id int
+  name string
 }
 ```
 
@@ -619,7 +624,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type Point struct { x: int, y: int }` |
+| Struct | `struct` | `type Point struct { x int, y int }` |
 
 ---
 
@@ -643,8 +648,8 @@ Type aliases and named types provide clarity and stronger semantics.
 ```ori
 type ID int
 type User struct {
-    id: ID
-    name: string
+    id ID
+    name string
 }
 ```
 
@@ -656,7 +661,7 @@ Functions define reusable behavior.
 They can be declared at the top level or within other functions (nested functions are allowed).
 
 ```ori
-func greet(name: string) {
+func greet(name string) {
     fmt.Println("Hello,", name)
 }
 ```
@@ -671,8 +676,8 @@ Structs define aggregate types with named fields.
 
 ```ori
 type Point struct {
-    x: int
-    y: int
+    x int
+    y int
 }
 ```
 
@@ -716,7 +721,7 @@ VarDecl = "var" Identifier [ Type ] "=" Expression | Identifier ":=" Expression 
 
 ### Numeric Type Enforcement
 
-Ori enforces explicit typing for numeric types to privent ambiguity and unsafe coercions.
+Ori enforces explicit typing for numeric types to prevent ambiguity and unsafe coercions.
 
 #### Rules
 
@@ -730,8 +735,8 @@ Ori enforces explicit typing for numeric types to privent ambiguity and unsafe c
 
 #### Reasoning
 
-Prevents silent int↔float coercions.\
-Improves determinism and low-level safety.\
+Prevents silent int↔float coercions.  
+Improves determinism and low-level safety.  
 Keeps syntax simple for non-numeric types.
 
 ### Short form
@@ -785,9 +790,9 @@ _User
 
 ## 30.4 Initialization Rules
 
-Ori **does not** perform automatic zero-initialization.\
+Ori **does not** perform automatic zero-initialization.  
 Every variable must be **fully initialized** before use.
-Uninitialized variable **cannot** be read or used which will result in compile-time error.\
+Uninitialized variable **cannot** be read or used which will result in compile-time error.  
 Variables cannot be redeclared in the same scope.
 
 ```ori
@@ -850,8 +855,8 @@ This identifier is **write-only** and cannot be read.
 
 ## 30.8 Best Practices
 
-Use short or meaningful names for local variables.\
-Prefer `const` when immutability is guaranteed.\
+Use short or meaningful names for local variables.  
+Prefer `const` when immutability is guaranteed.  
 Avoid using underscores except for temporary or ignored values.
 
 ---
@@ -868,8 +873,8 @@ func main() {
 
 ## 30.10 Global variables
 
-Global variables refer to values declared at the package level and accessible from any scope within that package.\
-While convenient, they introduce implicit dependencies, hidden state, and concurrency risks.\
+Global variables refer to values declared at the package level and accessible from any scope within that package.  
+While convenient, they introduce implicit dependencies, hidden state, and concurrency risks.  
 Ori aims to balance **practical usability** with **predictability and safety**.
 
 Global variables are forbidden, only `const` variables are allowed.
@@ -913,7 +918,7 @@ This section describes the syntax, semantics, and conventions of function declar
 
 ## 40.1 Overview
 
-Functions are first-class citizens in Ori.\
+Functions are first-class citizens in Ori.  
 They define reusable code blocks with clearly typed parameters and return values.
 
 ```ori
@@ -922,8 +927,8 @@ func add(a int, b int) int {
 }
 ```
 
-Functions are declared using the `func` keyword.\
-Parameters and return types are explicit.\
+Functions are declared using the `func` keyword.  
+Parameters and return types are explicit.
 
 ---
 
@@ -940,7 +945,7 @@ ReturnStmt     = "return" [ Expression ] .
 Examples:
 
 ```ori
-func greet(name: string) {
+func greet(name string) {
     fmt.Println("Hello,", name)
 }
 
@@ -958,7 +963,7 @@ func sum(a, b int) int {
 
 ## 40.3 Return Semantics
 
-Functions may return zero, one, or multiple values.\
+Functions may return zero, one, or multiple values.  
 Return types are always explicit.
 
 ```ori
@@ -1004,8 +1009,8 @@ Receivers are always explicit:
 Functions are first-class values and can be assigned to variables or passed as arguments.
 
 ```ori
-func apply(fn func(int) int, x int) int {
-    return fn(x)
+func apply(func func(int) int, x int) int {
+    return func(x)
 }
 
 func double(x int) int {
@@ -1099,7 +1104,7 @@ This section defines Ori’s type system, built-in types, user-defined types, an
 
 ## 50.1 Overview
 
-Ori uses a **strong, static, and explicit** type system.\
+Ori uses a **strong, static, and explicit** type system.  
 All variables, parameters, and expressions have a known type at compile time.
 
 Goals:
@@ -1144,7 +1149,7 @@ var myFunc := func()   // inferred as func
 x := false             // inferred as bool
 ```
 
-Ori enforces explicit typing for numeric types to privent ambiguity and unsafe coercions.
+Ori enforces explicit typing for numeric types to prevent ambiguity and unsafe coercions.
 ```ori
 var x = 0     // invalid
 var x int = 0 // valid
@@ -1159,8 +1164,8 @@ Use the `type` keyword to define new named types:
 ```ori
 type ID int
 type User struct {
-    id: ID
-    name: string
+    id ID
+    name string
 }
 ```
 
@@ -1192,7 +1197,7 @@ var numbers [5]int       // fixed-size array
 var dynamic []int        // slice (dynamic view)
 ```
 
-Arrays have fixed length known at compile-time.\
+Arrays have fixed length known at compile-time.  
 Slices are dynamically sized references to contiguous elements.
 
 See: [Slices](semantics/100_Slices.md)
@@ -1225,7 +1230,7 @@ var y float64 = float64(x)
 
 ## 50.10 Pointer and Reference Types
 
-Planned feature for v0.5.\
+Planned feature.  
 Pointers will allow explicit referencing and dereferencing:
 
 ```ori
@@ -1239,13 +1244,13 @@ Ori will ensure **no unsafe implicit pointer arithmetic**.
 
 ## 50.11 Type Qualifiers
 
-Qualifiers modify type semantics.\
+Qualifiers modify type semantics.  
 Currently supported: `const`.
 
 Example:
 
 ```ori
-const MAX_USERS = 100
+const MAX_USERS int = 100
 ```
 
 ---
@@ -1283,7 +1288,7 @@ A **statement** performs an action — executing code, declaring variables, cont
 Examples:
 
 ```ori
-let x = 10
+var x int = 10
 x = x + 1
 if x > 10 {
     fmt.Println("x is large")
@@ -1330,8 +1335,8 @@ x = x + 1
 name = "Ori"
 ```
 
-Left-hand side must be an assignable variable.\
-Both sides must have compatible types.\
+Left-hand side must be an assignable variable.  
+Both sides must have compatible types.  
 Multiple assignments are supported:
 
 ```ori
@@ -1553,7 +1558,7 @@ The number and types of returned values must match the function’s return signa
 
 ## 60.8 Break and Continue
 
-`break` terminates the nearest loop.\
+`break` terminates the nearest loop.  
 `continue` skips to the next iteration.
 
 ```ori
@@ -1919,7 +1924,7 @@ Modules and imports in Ori define how source code is organized, shared, and reus
 
 ## 90.1 Overview
 
-Modules group related packages into a single distribution unit.\
+Modules group related packages into a single distribution unit.  
 Imports bring external or internal packages into scope in an explicit and predictable way.
 
 Ori’s import system is designed for **clarity** and **safety**:
@@ -2023,7 +2028,7 @@ var GlobalValue   int = 42    // ❌ invalid — no global variables
 
 ## 90.7 No `init()` Functions
 
-Ori does **not** support automatic `init()` functions.\
+Ori does **not** support automatic `init()` functions.  
 All initialization must occur through explicit function calls.
 
 Example:
@@ -2040,8 +2045,8 @@ func main() {
 
 ## 90.8 Import Resolution
 
-Imports are resolved relative to the module root.\
-Cyclic imports are **not permitted**.\
+Imports are resolved relative to the module root.  
+Cyclic imports are **not permitted**.  
 Each package is initialized only when its contents are explicitly referenced.
 
 ---
@@ -2084,7 +2089,7 @@ Planned for later versions:
 
 # 95. Syntax Summary
 
-This section provides a consolidated grammar overview of Ori’s core syntax using Extended Backus–Naur Form (EBNF).
+This section provides a consolidated grammar overview of Ori’s core syntax using [Wirth syntax notation (WSN)](https://en.wikipedia.org/wiki/Wirth_syntax_notation).
 
 ---
 
@@ -2244,7 +2249,7 @@ A line comment begins with `//` and continues until the end of the line.
 var x int = 10  // Inline comment after a statement
 ```
 
-Line comments can appear anywhere whitespace is allowed.\
+Line comments can appear anywhere whitespace is allowed.  
 They do not nest.
 
 ---
@@ -2262,8 +2267,8 @@ It can span several lines.
 
 ### Rules
 
-Block comments **cannot nest**.\
-Can start or end anywhere, whitespace is valid.\
+Block comments **cannot nest**.  
+Can start or end anywhere, whitespace is valid.  
 Are typically used for large explanations or temporary code disabling.
 
 ---
@@ -2298,9 +2303,9 @@ These may later integrate with a `oridoc` tool for documentation generation.
 
 ## 100.6 Best Practices
 
-Use **line comments (`//`)** for normal documentation.\
-Reserve **block comments (`/* */`)** for large text or disabled code.\
-Keep doc comments short and focused.\
+Use **line comments (`//`)** for normal documentation.  
+Reserve **block comments (`/* */`)** for large text or disabled code.  
+Keep doc comments short and focused.  
 Avoid comment drift — keep them up-to-date with code behavior.
 
 ---
@@ -2384,7 +2389,7 @@ All valid tokens in Ori:
 
 # 100. Slices
 
-Slices in Ori are dynamic, contiguous views over arrays.\
+Slices in Ori are dynamic, contiguous views over arrays.  
 They provide flexible data handling without losing control over memory and type safety.
 
 ---
@@ -2512,7 +2517,7 @@ A new slice may be derived from another:
 var sub []int = nums[2:5]
 ```
 
-The result shares the same underlying data.\
+The result shares the same underlying data.  
 Changes in one slice are visible in others referencing the same memory.
 
 ### 100.5.1 Bounds-Safe Slicing Syntax
@@ -2655,8 +2660,8 @@ func fill(s []int) {
 
 ## 100.12 Memory Model
 
-Slices reference memory managed by arrays or the allocator.\
-Re-slicing does not copy data.\
+Slices reference memory managed by arrays or the allocator.  
+Re-slicing does not copy data.  
 Explicit functions like `append()` or `make()` may allocate.
 
 ---
@@ -2970,10 +2975,10 @@ They prioritize **determinism, explicit allocation, and safety** in line with Or
 
 ## 110.1 Philosophy and Guarantees
 
-**Ordered iteration** — iteration over a map yields entries in **insertion order**.\
-**Deterministic behavior** — rehashing or growth never changes the logical order.\
-**Explicit allocation** — creation uses `make`, optional initial capacity may be provided.\
-**No hidden magic** — two-value lookup for existence; deletions are explicit; no implicit defaults.\
+**Ordered iteration** — iteration over a map yields entries in **insertion order**.  
+**Deterministic behavior** — rehashing or growth never changes the logical order.  
+**Explicit allocation** — creation uses `make`, optional initial capacity may be provided.  
+**No hidden magic** — two-value lookup for existence; deletions are explicit; no implicit defaults.  
 **Single-writer iteration rule** — structural changes (insert/delete) during iteration are **not allowed** (runtime error). Value updates to existing keys are allowed.
 
 ---
@@ -3045,9 +3050,8 @@ Use the two-value form to test whether a key is present:
 
 ```ori
 var age int
-var ok bool
 
-age, ok = users["Bob"]
+age, ok := users["Bob"]
 if ok {
     fmt.Println("Found:", age)
 } else {
@@ -3178,8 +3182,8 @@ Writing to a `nil` map is a runtime error. Always `make()` maps before use.
 
 ## 110.12 Memory and Growth
 
-Maps grow dynamically as elements are added.\
-Growth **does not** change the iteration order.\
+Maps grow dynamically as elements are added.  
+Growth **does not** change the iteration order.  
 Existing references to keys remain valid; iterators are invalidated only if structure is mutated during iteration (runtime error).
 
 ---
@@ -3294,11 +3298,11 @@ counts["orange"] = 3
 
 ## 111.2 Philosophy and Guarantees
 
-**Unordered iteration** — iteration order is undefined; may change between runs or insertions.\
-**Explicit allocation** — created using `make`, optional capacity hint accepted.\
-**Deterministic hashing** — Ori’s runtime uses stable hashing for reproducible builds (same input → same layout).\
-**Fast-path performance** — optimized for O(1) average access.\
-**No implicit synchronization** — not thread-safe; external synchronization required for concurrent access.\
+**Unordered iteration** — iteration order is undefined; may change between runs or insertions.  
+**Explicit allocation** — created using `make`, optional capacity hint accepted.  
+**Deterministic hashing** — Ori’s runtime uses stable hashing for reproducible builds (same input → same layout).  
+**Fast-path performance** — optimized for O(1) average access.  
+**No implicit synchronization** — not thread-safe; external synchronization required for concurrent access.  
 **Explicit error handling** — lookup returns zero value if missing; two-value lookup form available.
 
 ---
@@ -3339,9 +3343,8 @@ Use the two-value form to check for existence:
 
 ```ori
 var v int
-var ok bool
 
-v, ok = h["pear"]
+v, ok := h["pear"]
 if ok {
     fmt.Println("Found pear")
 } else {
@@ -3420,9 +3423,9 @@ Always allocate hashmaps using `make()`.
 
 ## 111.10 Memory and Growth
 
-HashMaps expand automatically as elements are inserted.\
-Rehashing preserves key-value pairs but not bucket order.\
-Growth is **amortized O(1)**; capacity may double on expansion.\
+HashMaps expand automatically as elements are inserted.  
+Rehashing preserves key-value pairs but not bucket order.  
+Growth is **amortized O(1)**; capacity may double on expansion.  
 `cap(h)` reports the internal bucket count (for tuning, not iteration).
 
 ---
@@ -3501,14 +3504,14 @@ var copy hashmap[string]int = clone(h)
 
 # 120. Strings
 
-Strings in Ori are **immutable**, **UTF‑8 encoded** sequences of bytes representing text.\
+Strings in Ori are **immutable**, **UTF‑8 encoded** sequences of bytes representing text.  
 They are designed for safety, predictability, and explicit handling of encoding and slicing.
 
 ---
 
 ## 120.1 Overview
 
-A `string` in Ori is a **read-only value type** representing text data.\
+A `string` in Ori is a **read-only value type** representing text data.  
 It can be indexed and sliced like a byte sequence, but its content cannot be modified after creation.
 
 ```ori
@@ -3706,7 +3709,7 @@ All functions are pure and safe; they never modify input strings.
 Equality uses byte‑wise comparison:
 
 ```ori
-if a == b {
+if "a" == "b" {
     fmt.Println("equal")
 }
 ```
@@ -3717,16 +3720,16 @@ The comparison is O(n) over the byte sequence.
 
 ## 120.12 Concurrency and Thread Safety
 
-Strings are **thread‑safe** because they are immutable.\
+Strings are **thread‑safe** because they are immutable.  
 They can be safely shared between threads or goroutines without synchronization.
 
 ---
 
 ## 120.13 Memory and Lifetime
 
-Strings are immutable and reference‑counted or copy‑on‑write internally.\
-Slices of strings (`view string`) share the same underlying memory.\
-Once all references go out of scope, memory is reclaimed automatically.\
+Strings are immutable and reference‑counted or copy‑on‑write internally.  
+Slices of strings (`view string`) share the same underlying memory.  
+Once all references go out of scope, memory is reclaimed automatically.  
 No hidden conversions or implicit allocations occur.
 
 ---
@@ -3834,8 +3837,8 @@ This design unifies the best of:
 
 # 121. Numeric Types
 
-Ori defines numeric types as **explicit**, **predictable**, and **safe**.\
-No implicit type promotion, silent wrapping, or automatic coercion is allowed.\
+Ori defines numeric types as **explicit**, **predictable**, and **safe**.  
+No implicit type promotion, silent wrapping, or automatic coercion is allowed.  
 All arithmetic must be intentional and unambiguous.
 
 ---
@@ -3854,7 +3857,7 @@ Ori’s numeric system prevents silent data corruption and ensures correctness a
 
 ## 121.2 Integer Types
 
-Ori provides both **signed** and **unsigned** integers with fixed bit widths.\
+Ori provides both **signed** and **unsigned** integers with fixed bit widths.  
 The aliases `int` and `uint` default to 64-bit variants.
 
 | Type | Description | Range | Example |
@@ -3866,8 +3869,8 @@ The aliases `int` and `uint` default to 64-bit variants.
 
 ### Integer Rules
 
-No implicit conversion between signed and unsigned integers.\
-Arithmetic between mixed types is **invalid** without explicit conversion.\
+No implicit conversion between signed and unsigned integers.  
+Arithmetic between mixed types is **invalid** without explicit conversion.  
 Use `int` and `uint` for general arithmetic unless fixed-width precision is required.
 
 ---
@@ -3919,9 +3922,9 @@ Ori enforces these rules to prevent malformed or misleading numeric literals.
 
 ## 121.5 Arithmetic Rules
 
-Operands must share the same numeric type.\
-Integer division truncates toward zero.\
-Float division preserves fractional results.\
+Operands must share the same numeric type.  
+Integer division truncates toward zero.  
+Float division preserves fractional results.  
 Overflow is **checked by default** — triggers **runtime panic** if detected.
 
 ### Example
@@ -3934,7 +3937,7 @@ var b float = 5.0 / 2 // 2.5
 
 ## 121.6 Overflow and Underflow
 
-Ori never silently wraps integer and float values.\
+Ori never silently wraps integer and float values.  
 All arithmetic operations are **checked** and trigger a **runtime panic** on overflow or underflow.
 
 ### Default Behavior
@@ -3987,9 +3990,9 @@ if ov {
 
 ### Design Rationale
 
-Prevents silent numeric corruption.\
-Behavior is identical across build modes — always checked, always safe.\
-Runtime panics are deterministic and report detailed diagnostic context.\
+Prevents silent numeric corruption.  
+Behavior is identical across build modes — always checked, always safe.  
+Runtime panics are deterministic and report detailed diagnostic context.  
 Matches Zig’s explicit overflow model and avoids Rust’s mode-dependent behavior.
 
 ---
@@ -4074,39 +4077,39 @@ Ori aligns with Zig’s deterministic safety model, ensuring consistent checked 
 
 # 130. Structs
 
-Structs in Ori are **explicitly defined and explicitly initialized** composite types.\
+Structs in Ori are **explicitly defined and explicitly initialized** composite types.  
 They group related fields and can define associated methods, providing a foundation for structured, type-safe data.
 
 ---
 
 ## 130.1 Overview
 
-A `struct` represents a fixed collection of named fields, each with an explicit type.\
+A `struct` represents a fixed collection of named fields, each with an explicit type.  
 Unlike some other languages, Ori **does not create implicit zero values** — every struct must be explicitly initialized.
 
 Structs are **value types** by default: assignments and returns copy their contents unless a `ref` or `view` qualifier is used.
 
-Struct names starting with an **uppercase** letter are **exported (public)**,\
+Struct names starting with an **uppercase** letter are **exported (public)**,  
 while lowercase struct names are **private** to their defining package or module.
 
 ---
 
 ## 130.2 Why Zero Values Are Not Allowed
 
-In Go and C, every variable or struct receives a *zero value* automatically (e.g., `0`, `false`, `""`).\
+In Go and C, every variable or struct receives a *zero value* automatically (e.g., `0`, `false`, `""`).  
 While convenient, this approach hides initialization behavior and can lead to subtle bugs.
 
 ### Pitfalls of implicit zero values
 
-**Hidden state:** a struct may appear valid even though it was never initialized.\
-**Logic errors:** e.g., `if user.ID == 0` might mean “unset,” but it’s also the zero default.\
-**Silent bugs:** forgotten initialization compiles and runs silently.\
+**Hidden state:** a struct may appear valid even though it was never initialized.  
+**Logic errors:** e.g., `if user.ID == 0` might mean “unset,” but it’s also the zero default.  
+**Silent bugs:** forgotten initialization compiles and runs silently.  
 **Unpredictable behavior in FFI or embedded contexts.**
 
 Ori forbids implicit zero values to ensure explicit construction and visible intent.
 
 > **Rule:**  
-> Every struct must be created explicitly through a literal or constructor.\
+> Every struct must be created explicitly through a literal or constructor.  
 > No field is initialized unless explicitly defined by the developer.
 
 ---
@@ -4225,7 +4228,7 @@ alias.age = 25 // modifies u.age
 ```
 
 > **Note:**  
-> The `ref` qualifier is experimental in v0.4.\
+> The `ref` qualifier is experimental in v0.4.  
 > Its semantics for ownership, lifetime, and aliasing will be refined in future versions.
 
 ---
@@ -4301,7 +4304,7 @@ struct User {
 fmt.Println(u.addr.city)
 ```
 
-Field and method access must always be explicit.\
+Field and method access must always be explicit.  
 No recursive promotion, shadowing, or method inheritance is allowed.
 
 ### Why Embedding Is Forbidden
@@ -4323,12 +4326,12 @@ No recursive promotion, shadowing, or method inheritance is allowed.
 
 ## 130.10 Memory Layout, Padding, and Alignment
 
-Ori structs have **predictable layouts** with natural alignment.\
+Ori structs have **predictable layouts** with natural alignment.  
 Fields are ordered and aligned sequentially according to their type’s requirements.
 
 ### Alignment
 
-Each field begins at a memory address aligned to its size.\
+Each field begins at a memory address aligned to its size.  
 This ensures efficient CPU access.
 
 ### Padding
@@ -4344,23 +4347,23 @@ struct Example {
 Padding is automatically handled by the compiler and is **deterministic**.
 
 ### FFI (Foreign Function Interface)
-**FFI** refers to interoperability between Ori and external languages such as C.\
+**FFI** refers to interoperability between Ori and external languages such as C.  
 Precise layout and alignment rules ensure compatibility across language boundaries.
 
 ---
 
 ## 130.11 Immutability and Safety
 
-A `const` struct cannot have its fields modified after creation.\
-`view` references cannot mutate the target.\
-`ref` allows controlled mutation (experimental).\
+A `const` struct cannot have its fields modified after creation.  
+`view` references cannot mutate the target.  
+`ref` allows controlled mutation (experimental).  
 Structs are not implicitly thread-safe; synchronization is the developer’s responsibility.
 
 ---
 
 ## 130.12 Explicit Construction and Initialization Functions
 
-Ori forbid hidden or automatic `init()` functions.\
+Ori forbid hidden or automatic `init()` functions.  
 Developers can define constructor-like helpers for initialization:
 
 ```ori
@@ -4393,19 +4396,19 @@ This keeps struct creation explicit and visible.
 
 # 140. Errors
 
-Ori’s error model is **explicit**, **predictable**, and **minimal**.\
-Errors are values that functions return and callers must handle.\
-There are **no exceptions** or hidden control flow.\
+Ori’s error model is **explicit**, **predictable**, and **minimal**.  
+Errors are values that functions return and callers must handle.  
+There are **no exceptions** or hidden control flow.  
 The `try` keyword exists only to reduce boilerplate when propagating errors.
 
 ---
 
 ## 140.1 Design Philosophy
 
-**Explicit handling** — functions that can fail must declare an `error` result; callers must check it.\
-**No hidden control flow** — no throw/catch, no panic-driven recovery in the language core.\
-**Concise propagation** — `try EXPR` returns early if `EXPR` produces a non-`nil` error.\
-**Custom errors** — structured error types are encouraged; `error("msg")` is provided for generic cases.\
+**Explicit handling** — functions that can fail must declare an `error` result; callers must check it.  
+**No hidden control flow** — no throw/catch, no panic-driven recovery in the language core.  
+**Concise propagation** — `try EXPR` returns early if `EXPR` produces a non-`nil` error.  
+**Custom errors** — structured error types are encouraged; `error("msg")` is provided for generic cases.  
 **Small and orthogonal** — complements Ori’s clarity-first philosophy.
 
 > Errors are values, not exceptions.
@@ -4422,7 +4425,7 @@ The `try` keyword exists only to reduce boilerplate when propagating errors.
 
 **Notes**
 
-`nil` is **only** the zero value for `error` (and other reference-like types); it does **not** imply general zero-values for structs.\
+`nil` is **only** the zero value for `error` (and other reference-like types); it does **not** imply general zero-values for structs.  
 `try` may only appear inside functions that return an `error` result; otherwise it is a compile-time error.
 
 ---
@@ -4440,7 +4443,7 @@ FuncDecl      = "func" Identifier "(" [ Parameters ] ")" [ FuncResult ] Block .
 
 **Conventions**
 
-A function that uses `try` **must** declare an `error` in its `FuncResult`.\
+A function that uses `try` **must** declare an `error` in its `FuncResult`.  
 `(T, error)` is idiomatic when a value is returned alongside an error.
 
 ---
@@ -4493,7 +4496,7 @@ return cfg, nil
 
 **Rules**
 
-`try E` is valid if the enclosing function returns `error`.\
+`try E` is valid if the enclosing function returns `error`.  
 If `E` yields `(T, error)`, `try E` evaluates to `T` when error is `nil`, or **returns** the error otherwise.
 
 ---
@@ -4522,7 +4525,7 @@ func open(path string) (File, error) {
 
 **Notes**
 
-Any type that implements `String() string` can be printed as an error.\
+Any type that implements `String() string` can be printed as an error.  
 Use custom error fields (path, op, cause, code) instead of encoding details into a single string.
 
 ---
@@ -4540,8 +4543,8 @@ use(cfg)
 ```ori
 _, err := open("/restricted/secret")
 if err != nil {
-    if err is PermissionError {
-        audit.log("denied")
+    if err == PermissionError {
+        fmt.Println("denied")
         return err
     }
     return err
@@ -4563,8 +4566,8 @@ func readUser(path string) (User, error) {
 
 ## 140.8 Interop and Concurrency Notes
 
-**FFI:** map foreign error codes to Ori error values at the boundary; avoid leaking integers.\
-**Goroutines/Tasks:** prefer sending errors over channels or returning them from task joins.\
+**FFI:** map foreign error codes to Ori error values at the boundary; avoid leaking integers.  
+**Goroutines/Tasks:** prefer sending errors over channels or returning them from task joins.  
 **Logging:** prefer structured log fields over string concatenation; keep the error as a value.
 
 ---
@@ -4583,7 +4586,7 @@ func readUser(path string) (User, error) {
 ```ori
 func loadUsers(p string) ([]User, error) {
     raw   := try readFile(p)
-    lines := split(raw, "\n")
+    lines := split(raw, "  n")
     users := make([]User, 0, len(lines))
     for _, line := range lines {
         u, err := parseUser(line)
@@ -4612,9 +4615,9 @@ func sqrt(n float64) (float64, error) {
 
 ## 140.11 Design Rationale (Concise)
 
-Keeping **Go-style explicitness** avoids hidden control flow and surprises.\
-Adding **`try`** removes boilerplate while preserving visibility.\
-Supporting **custom error types** improves correctness, testing, and recovery strategies.\
+Keeping **Go-style explicitness** avoids hidden control flow and surprises.  
+Adding **`try`** removes boilerplate while preserving visibility.  
+Supporting **custom error types** improves correctness, testing, and recovery strategies.  
 A **small set of built-ins** keeps the model easy to teach and consistent across the standard library.
 
 ---
@@ -4639,8 +4642,8 @@ A **small set of built-ins** keeps the model easy to teach and consistent across
 
 # 150. Types and Memory
 
-Ori’s type and memory system is **deterministic**, **explicit**, and **safe by design**.\
-There is no garbage collector or implicit memory reallocation.\
+Ori’s type and memory system is **deterministic**, **explicit**, and **safe by design**.  
+There is no garbage collector or implicit memory reallocation.  
 Developers have full control over allocation, ownership, and lifetimes.
 
 ---
@@ -4657,14 +4660,14 @@ All variables are initialized explicitly, memory layout is deterministic, and va
 | Category | Examples | Description |
 |-----------|-----------|-------------|
 | **Primitive** | `int`, `float`, `bool`, `rune` | Basic scalar types stored by value. |
-| **Composite** | `struct`, `array`, `slice`, `map`, `string` | Aggregated types combining other types. |
+| **Composite** | `struct`, `array`, `slice`, `map`, `hashmap`, `string` | Aggregated types combining other types. |
 | **Reference** | `view`, `ref` | Non-owning or alias references to existing values. |
 | **Constant** | `const` | Immutable binding preventing mutation. |
 
 ### Rune Type
 
 A `rune` represents a single **Unicode code point** (UTF-32 scalar value).  
-It corresponds to a “character” in Unicode terms, but not necessarily to one byte.
+It corresponds to a "character" in Unicode terms, but not necessarily to one byte.
 
 > In C, the closest equivalent to a `rune` is a `char`, but a C `char` only represents a single byte (typically ASCII), not a full Unicode code point.
 
@@ -4691,9 +4694,9 @@ fmt.Println(a) // 10
 
 ## 150.4 Memory Model
 
-**Stack allocation** for local and short-lived variables.\
-**Heap allocation** via constructors (`make`, `append`, etc.).\
-**No garbage collector** — all lifetimes are explicit and predictable.\
+**Stack allocation** for local and short-lived variables.  
+**Heap allocation** via constructors (`make`, `append`, etc.).  
+**No garbage collector** — all lifetimes are explicit and predictable.  
 **Temporary values** exist within their lexical scope.
 
 Ori may later introduce scoped automatic cleanup (RAII-like aka **Resource Acquisition Is Initialization** aka defer) but currently follows deterministic scope-based lifetime rules.
@@ -4714,7 +4717,7 @@ Ori may later introduce scoped automatic cleanup (RAII-like aka **Resource Acqui
 
 ### Definition
 
-A `rune` represents **one Unicode code point** (UTF-32).\
+A `rune` represents **one Unicode code point** (UTF-32).  
 A `string` represents a **UTF-8 encoded sequence** of runes.
 
 Example:
@@ -4744,8 +4747,8 @@ Conversions between `rune` and `string` are **explicit** and do not perform auto
 
 ### Pitfalls to Avoid
 
-A “character” in a string is **not always one byte** — UTF-8 uses 1–4 bytes per rune.\
-`len(s)` returns **byte length**, not the number of runes.\
+A "character" in a string is **not always one byte** — UTF-8 uses 1–4 bytes per rune.  
+`len(s)` returns **byte length**, not the number of runes.  
 Comparing different types is invalid:
 
 ```ori
@@ -4753,7 +4756,7 @@ if 'O' == "O" { ... } // ❌ Type mismatch
 if string('O') == "O" { ... } // ✅ Explicit conversion
 ```
 
-Indexing strings returns bytes, not runes; use iteration to access characters safely.\
+Indexing strings returns bytes, not runes; use iteration to access characters safely.  
 Truncating strings mid-sequence can break UTF-8 integrity.
 
 ---
@@ -4795,9 +4798,9 @@ Truncating strings mid-sequence can break UTF-8 integrity.
 
 ## 150.8 Lifetime Rules
 
-Values are destroyed when leaving their lexical scope.\
-`view` references cannot outlive their source.\
-No dynamic runtime lifetime analysis — static scope visibility only.\
+Values are destroyed when leaving their lexical scope.  
+`view` references cannot outlive their source.  
+No dynamic runtime lifetime analysis — static scope visibility only.  
 `ref` must be used carefully; future versions may enforce lifetime tracking.
 
 ---
@@ -4809,8 +4812,8 @@ var arr = make([]int, 10) // Allocates on the heap
 free(arr)                 // Planned for future versions
 ```
 
-`make` constructs heap-allocated objects (arrays, slices, maps).\
-Deallocation is explicit and deterministic.\
+`make` constructs heap-allocated objects (arrays, slices, maps).  
+Deallocation is explicit and deterministic.  
 No garbage collection or implicit memory reuse.
 
 ---
@@ -4835,17 +4838,17 @@ unsafe {
 }
 ```
 
-Unsafe operations are intended for system-level code or FFI integration, not general use.\
+Unsafe operations are intended for system-level code or FFI integration, not general use.  
 The Unsafe syntax and usage will be discussed in future versions.
 
 ---
 
 ## 150.12 Design Summary
 
-No garbage collector.\
-No hidden heap allocations.\
-All values and references are explicit.\
-`rune` (UTF-32) and `string` (UTF-8) separation ensures encoding clarity.\
+No garbage collector.  
+No hidden heap allocations.  
+All values and references are explicit.  
+`rune` (UTF-32) and `string` (UTF-8) separation ensures encoding clarity.  
 Ownership and lifetime rules are simple and predictable.
 
 ---
@@ -4860,12 +4863,10 @@ Ownership and lifetime rules are simple and predictable.
 
 ---
 
----
-
 
 # 160. Control Flow
 
-Control flow in Ori governs how statements are executed in sequence or conditionally.\
+Control flow in Ori governs how statements are executed in sequence or conditionally.  
 All control constructs are **explicit**, **deterministic**, and designed to avoid hidden behaviors.
 
 ---
@@ -4878,7 +4879,7 @@ Ori provides structured flow-control statements for:
 - Multi-branch dispatch (`switch`)
 - Flow modification (`break`, `continue`, `fallthrough`, `return`)
 
-No implicit truthiness, automatic conversions, or silent fallthroughs exist.\
+No implicit truthiness, automatic conversions, or silent fallthroughs exist.  
 All flow control follows a **block-based** structure.
 
 ---
@@ -4892,7 +4893,7 @@ The `if` statement evaluates a condition and executes the associated block if it
 IfStmt = "if" [ SimpleStmt ";" ] Expression Block [ "else" ( IfStmt | Block ) ] .
 ```
 
-`SimpleStmt` allows short variable declarations scoped to the `if` statement.\
+`SimpleStmt` allows short variable declarations scoped to the `if` statement.  
 The condition must be a boolean expression.
 
 ### Examples
@@ -4915,7 +4916,7 @@ if v := compute(); v > 10 {
 
 ## 160.3 Loops (`for`)
 
-Ori uses a single `for` keyword for all loop types.\
+Ori uses a single `for` keyword for all loop types.  
 No `while` keyword exists; `for` covers all cases.
 
 ### Grammar
@@ -4980,7 +4981,7 @@ for i := 0; i < 10; i += 1 {
 
 ## 160.4 Switch Statement
 
-The `switch` statement selects among multiple branches based on value matching.\
+The `switch` statement selects among multiple branches based on value matching.  
 It evaluates the expression once, then compares against each `case` in order.
 
 ### Grammar
@@ -4993,9 +4994,9 @@ FallthroughStmt = "fallthrough" .
 
 ### Semantics
 
-The `switch` expression is evaluated once.\
-Each `case` is checked sequentially until a match is found.\
-The first matching case executes; execution ends unless a `fallthrough` is explicitly declared.\
+The `switch` expression is evaluated once.  
+Each `case` is checked sequentially until a match is found.  
+The first matching case executes; execution ends unless a `fallthrough` is explicitly declared.  
 The optional `default` clause executes if no case matches.
 
 ### Examples
@@ -5058,11 +5059,11 @@ This form is useful for multi-branch conditionals where each branch has a distin
 
 ### Notes
 
-Each **case** is evaluated in order.\
-The first true condition executes.\
-**default** runs if none of the conditions match.\
-Fallthrough can only occur at the **end** of a case block.\
-Fallthrough transfers control to the **immediately following** case.\
+Each **case** is evaluated in order.  
+The first true condition executes.  
+**default** runs if none of the conditions match.  
+Fallthrough can only occur at the **end** of a case block.  
+Fallthrough transfers control to the **immediately following** case.
 
 ---
 
@@ -5078,7 +5079,7 @@ ReturnStmt = "return" [ ExpressionList ] .
 
 ### Rules
 
-If the function declares results, the number and types of expressions must match.\
+If the function declares results, the number and types of expressions must match.  
 `return` without expressions is only allowed when all results are named.
 
 ### Examples
@@ -6307,7 +6308,7 @@ Ori forbids unsynchronized concurrent mutation.
 func safeIncrement(counter *int) {
     var mu Mutex // scoped synchronization primitive
     mu.lock()
-    *counter += 1
+    counter += 1
     mu.unlock()
 }
 ```

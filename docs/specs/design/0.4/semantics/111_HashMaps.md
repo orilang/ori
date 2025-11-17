@@ -22,11 +22,11 @@ counts["orange"] = 3
 
 ## 111.2 Philosophy and Guarantees
 
-**Unordered iteration** — iteration order is undefined; may change between runs or insertions.\
-**Explicit allocation** — created using `make`, optional capacity hint accepted.\
-**Deterministic hashing** — Ori’s runtime uses stable hashing for reproducible builds (same input → same layout).\
-**Fast-path performance** — optimized for O(1) average access.\
-**No implicit synchronization** — not thread-safe; external synchronization required for concurrent access.\
+**Unordered iteration** — iteration order is undefined; may change between runs or insertions.  
+**Explicit allocation** — created using `make`, optional capacity hint accepted.  
+**Deterministic hashing** — Ori’s runtime uses stable hashing for reproducible builds (same input → same layout).  
+**Fast-path performance** — optimized for O(1) average access.  
+**No implicit synchronization** — not thread-safe; external synchronization required for concurrent access.  
 **Explicit error handling** — lookup returns zero value if missing; two-value lookup form available.
 
 ---
@@ -67,9 +67,8 @@ Use the two-value form to check for existence:
 
 ```ori
 var v int
-var ok bool
 
-v, ok = h["pear"]
+v, ok := h["pear"]
 if ok {
     fmt.Println("Found pear")
 } else {
@@ -148,9 +147,9 @@ Always allocate hashmaps using `make()`.
 
 ## 111.10 Memory and Growth
 
-HashMaps expand automatically as elements are inserted.\
-Rehashing preserves key-value pairs but not bucket order.\
-Growth is **amortized O(1)**; capacity may double on expansion.\
+HashMaps expand automatically as elements are inserted.  
+Rehashing preserves key-value pairs but not bucket order.  
+Growth is **amortized O(1)**; capacity may double on expansion.  
 `cap(h)` reports the internal bucket count (for tuning, not iteration).
 
 ---

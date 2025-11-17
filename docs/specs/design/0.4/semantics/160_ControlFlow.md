@@ -1,6 +1,6 @@
 # 160. Control Flow
 
-Control flow in Ori governs how statements are executed in sequence or conditionally.\
+Control flow in Ori governs how statements are executed in sequence or conditionally.  
 All control constructs are **explicit**, **deterministic**, and designed to avoid hidden behaviors.
 
 ---
@@ -13,7 +13,7 @@ Ori provides structured flow-control statements for:
 - Multi-branch dispatch (`switch`)
 - Flow modification (`break`, `continue`, `fallthrough`, `return`)
 
-No implicit truthiness, automatic conversions, or silent fallthroughs exist.\
+No implicit truthiness, automatic conversions, or silent fallthroughs exist.  
 All flow control follows a **block-based** structure.
 
 ---
@@ -27,7 +27,7 @@ The `if` statement evaluates a condition and executes the associated block if it
 IfStmt = "if" [ SimpleStmt ";" ] Expression Block [ "else" ( IfStmt | Block ) ] .
 ```
 
-`SimpleStmt` allows short variable declarations scoped to the `if` statement.\
+`SimpleStmt` allows short variable declarations scoped to the `if` statement.  
 The condition must be a boolean expression.
 
 ### Examples
@@ -50,7 +50,7 @@ if v := compute(); v > 10 {
 
 ## 160.3 Loops (`for`)
 
-Ori uses a single `for` keyword for all loop types.\
+Ori uses a single `for` keyword for all loop types.  
 No `while` keyword exists; `for` covers all cases.
 
 ### Grammar
@@ -115,7 +115,7 @@ for i := 0; i < 10; i += 1 {
 
 ## 160.4 Switch Statement
 
-The `switch` statement selects among multiple branches based on value matching.\
+The `switch` statement selects among multiple branches based on value matching.  
 It evaluates the expression once, then compares against each `case` in order.
 
 ### Grammar
@@ -128,9 +128,9 @@ FallthroughStmt = "fallthrough" .
 
 ### Semantics
 
-The `switch` expression is evaluated once.\
-Each `case` is checked sequentially until a match is found.\
-The first matching case executes; execution ends unless a `fallthrough` is explicitly declared.\
+The `switch` expression is evaluated once.  
+Each `case` is checked sequentially until a match is found.  
+The first matching case executes; execution ends unless a `fallthrough` is explicitly declared.  
 The optional `default` clause executes if no case matches.
 
 ### Examples
@@ -193,11 +193,11 @@ This form is useful for multi-branch conditionals where each branch has a distin
 
 ### Notes
 
-Each **case** is evaluated in order.\
-The first true condition executes.\
-**default** runs if none of the conditions match.\
-Fallthrough can only occur at the **end** of a case block.\
-Fallthrough transfers control to the **immediately following** case.\
+Each **case** is evaluated in order.  
+The first true condition executes.  
+**default** runs if none of the conditions match.  
+Fallthrough can only occur at the **end** of a case block.  
+Fallthrough transfers control to the **immediately following** case.
 
 ---
 
@@ -213,7 +213,7 @@ ReturnStmt = "return" [ ExpressionList ] .
 
 ### Rules
 
-If the function declares results, the number and types of expressions must match.\
+If the function declares results, the number and types of expressions must match.  
 `return` without expressions is only allowed when all results are named.
 
 ### Examples

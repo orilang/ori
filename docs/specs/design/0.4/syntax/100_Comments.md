@@ -22,7 +22,7 @@ A line comment begins with `//` and continues until the end of the line.
 var x int = 10  // Inline comment after a statement
 ```
 
-Line comments can appear anywhere whitespace is allowed.\
+Line comments can appear anywhere whitespace is allowed.  
 They do not nest.
 
 ---
@@ -40,8 +40,8 @@ It can span several lines.
 
 ### Rules
 
-Block comments **cannot nest**.\
-Can start or end anywhere, whitespace is valid.\
+Block comments **cannot nest**.  
+Can start or end anywhere, whitespace is valid.  
 Are typically used for large explanations or temporary code disabling.
 
 ---
@@ -76,9 +76,9 @@ These may later integrate with a `oridoc` tool for documentation generation.
 
 ## 100.6 Best Practices
 
-Use **line comments (`//`)** for normal documentation.\
-Reserve **block comments (`/* */`)** for large text or disabled code.\
-Keep doc comments short and focused.\
+Use **line comments (`//`)** for normal documentation.  
+Reserve **block comments (`/* */`)** for large text or disabled code.  
+Keep doc comments short and focused.  
 Avoid comment drift — keep them up-to-date with code behavior.
 
 ---
