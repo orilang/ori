@@ -50,9 +50,6 @@ This directory contains the official specification, structured into thematic sec
 - [Concurrency And Predictability](design_principles/005_ConcurrencyAndPredictability.md)
 - [Imports And Visibility](design_principles/006_ImportsAndVisibility.md)
 - [Type System Philosophy](design_principles/007_TypeSystemPhilosophy.md)
-- [Philosophy](design_principles/200_Design_Philosophy.md)
-- [Comparison Table](design_principles/210_Comparison_Table.md)
-- [Language Influences](design_principles/220_Language_Influences.md)
 
 ### Appendix
 - [Keywords](appendix/001_Keywords.md)
