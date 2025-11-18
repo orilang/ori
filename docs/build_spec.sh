@@ -20,7 +20,7 @@ FOOTER="\n© $(date +%Y) Ori Language — Design Spec"
 > ${GLOBAL_FILE_NAME}
 > ${SPEC_FILE_NAME}
 
-for file in $(find ${ROOT_DIR} -maxdepth 1 -type f -name "*.md" |grep -vE "README.md|${FILE_NAME}" | sort)
+for file in $(find ${ROOT_DIR} -maxdepth 1 -type f -name "*.md" |grep -vE "README.md|ROADMAP|${FILE_NAME}" | sort)
 do
   echo "${file}"
   cat ${file} >> ${SPEC_FILE_NAME}
