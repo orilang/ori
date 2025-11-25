@@ -289,7 +289,7 @@ max[float64](3.14, 2.71) // → max_float64
 
 **Dynamic polymorphism** means method selection occurs **at runtime** through interfaces.
 
-### Example (current v0.5)
+### Example
 ```ori
 interface Drawable {
     draw()
@@ -349,7 +349,7 @@ Use **generics** when you need **maximum performance** and **compile-time specia
 | Performance | Maximum (zero overhead) | Slight overhead |
 | Code size | Larger (one per specialization) | Compact (shared code) |
 | Use cases | Numerics, algorithms | Interfaces, plugin systems |
-| Status in Ori | Planned (v0.5+) | Implemented (v0.5) |
+| Status in Ori | Implemented | Implemented |
 
 ---
 

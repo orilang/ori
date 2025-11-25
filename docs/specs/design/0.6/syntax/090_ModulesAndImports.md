@@ -28,7 +28,7 @@ func main() {
 
 ## 90.2 Module Definition
 
-Modules are defined by a top-level manifest file (planned for v0.5) or inferred from directory structure.
+Modules are defined by a top-level manifest file or inferred from directory structure.
 
 Example project layout:
 

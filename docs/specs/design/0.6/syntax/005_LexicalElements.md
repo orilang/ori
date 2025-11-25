@@ -61,7 +61,7 @@ Names beginning with an uppercase letter are **exported** (visible across packag
 The following words are reserved and cannot be used as identifiers:
 
 ```
-package import var const func type struct if else for switch return break continue true false nil interface
+package import var const func type struct if else for switch return break continue true false nil interface destructor
 ```
 
 ---

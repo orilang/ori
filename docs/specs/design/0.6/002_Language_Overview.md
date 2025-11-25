@@ -99,8 +99,8 @@ See: [Statements](syntax/060_Statements.md)
 | Feature | Ori | Go | Rust | Zig |
 |----------|-----|----|------|-----|
 | Memory Model | Value + explicit refs | GC | Ownership | Manual/Allocator |
-| Errors | Result-style | `error` | `Result` | `error union` |
-| Generics | Planned | Yes (Go 1.18+) | Yes | Yes |
+| Errors | `T, error` | `error` | `Result` | `error union` |
+| Generics | Yes | Yes (Go 1.18+) | Yes | Yes |
 | FFI | Planned, C-compatible | Yes | Yes | Yes |
 | Build Philosophy | Unified toolchain | Unified | Cargo-based | Self-hosted |
 

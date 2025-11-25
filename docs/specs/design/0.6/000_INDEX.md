@@ -1,6 +1,6 @@
-# Ori Design Specification — Version 0.5
+# Ori Design Specification
 
-Welcome to the Ori language design documentation (v0.5).
+Welcome to the Ori language design documentation.  
 This directory contains the official specification, structured into thematic sections.
 
 ---
@@ -44,7 +44,7 @@ This directory contains the official specification, structured into thematic sec
 - [Concurrency](semantics/190_Concurrency.md)
 - [Generic Types](semantics/200_GenericTypes.md)
 - [Sum Types](semantics/210_SumTypes.md)
-- [Interfaces](semantics/230_Interfaces.md)
+- [Deterministic Destruction](semantics/220_DeterministicDestruction.md)
 
 ### Design Principles
 - [Language Philosophy](design_principles/001_LanguagePhilosophy.md)

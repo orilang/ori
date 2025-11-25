@@ -1,6 +1,6 @@
-# Ori Design Specification — Version 0.5
+# Ori Design Specification
 
-Welcome to the Ori language design documentation (v0.5).
+Welcome to the Ori language design documentation.  
 This directory contains the official specification, structured into thematic sections.
 
 ---
@@ -44,6 +44,7 @@ This directory contains the official specification, structured into thematic sec
 - [Concurrency](semantics/190_Concurrency.md)
 - [Generic Types](semantics/200_GenericTypes.md)
 - [Sum Types](semantics/210_SumTypes.md)
+- [Deterministic Destruction](semantics/220_DeterministicDestruction.md)
 
 ### Design Principles
 - [Language Philosophy](design_principles/001_LanguagePhilosophy.md)
@@ -226,8 +227,8 @@ See: [Statements](syntax/060_Statements.md)
 | Feature | Ori | Go | Rust | Zig |
 |----------|-----|----|------|-----|
 | Memory Model | Value + explicit refs | GC | Ownership | Manual/Allocator |
-| Errors | Result-style | `error` | `Result` | `error union` |
-| Generics | Planned | Yes (Go 1.18+) | Yes | Yes |
+| Errors | `T, error` | `error` | `Result` | `error union` |
+| Generics | Yes | Yes (Go 1.18+) | Yes | Yes |
 | FFI | Planned, C-compatible | Yes | Yes | Yes |
 | Build Philosophy | Unified toolchain | Unified | Cargo-based | Self-hosted |
 
@@ -301,7 +302,7 @@ Names beginning with an uppercase letter are **exported** (visible across packag
 The following words are reserved and cannot be used as identifiers:
 
 ```
-package import var const func type struct if else for switch return break continue true false nil interface
+package import var const func type struct if else for switch return break continue true false nil interface destructor
 ```
 
 ---
@@ -387,7 +388,7 @@ import io "os/io"
 
 - The alias `io` is used to reference the imported package
 - The underscore `_` alias (blank import) is forbidden
-- The ot `.` import is forbidden
+- The dot `.` import is forbidden
 
 See: [Modules and Imports](syntax/090_ModulesAndImports.md)
 
@@ -545,7 +546,7 @@ Raw strings using backticks (planned).
 
 ---
 
-## 15.5 Rune Literals (Planned)
+## 15.5 Rune Literals
 
 Rune literals represent single Unicode code points.
 
@@ -1227,9 +1228,7 @@ var y float64 = float64(x)
 
 ## 50.10 Pointer and Reference Types
 
-Planned feature for v0.5.  
 Pointers will allow explicit referencing and dereferencing:
-
 ```ori
 var p = &value
 var v = *p
@@ -1641,7 +1640,7 @@ Blocks define their own lexical scope.
 
 ## 60.10 Defer and Panic (Planned)
 
-Deferred calls and panic recovery are **not included in v0.5**, but may be explored later as structured constructs.
+Deferred calls and panic recovery are **not included in current version**, but may be explored later as structured constructs.
 
 ---
 
@@ -1977,7 +1976,7 @@ func main() {
 
 ## 90.2 Module Definition
 
-Modules are defined by a top-level manifest file (planned for v0.5) or inferred from directory structure.
+Modules are defined by a top-level manifest file or inferred from directory structure.
 
 Example project layout:
 
@@ -5465,7 +5464,7 @@ max[float64](3.14, 2.71) // → max_float64
 
 **Dynamic polymorphism** means method selection occurs **at runtime** through interfaces.
 
-### Example (current v0.5)
+### Example
 ```ori
 interface Drawable {
     draw()
@@ -5525,7 +5524,7 @@ Use **generics** when you need **maximum performance** and **compile-time specia
 | Performance | Maximum (zero overhead) | Slight overhead |
 | Code size | Larger (one per specialization) | Compact (shared code) |
 | Use cases | Numerics, algorithms | Interfaces, plugin systems |
-| Status in Ori | Planned (v0.5+) | Implemented (v0.5) |
+| Status in Ori | Implemented | Implemented |
 
 ---
 
@@ -6172,7 +6171,7 @@ Ori permanently **forbids** `Close()` semantics.
 
 ## 190.16 Task Cancellation
 
-No cancellation API in v0.5.
+No cancellation API for now.
 
 ---
 
@@ -9876,15 +9875,15 @@ Includes file and line number information.
 
 ---
 
-### Ref
-A planned qualifier for referencing values without copying.  
-Future feature for fine-grained control over memory semantics.
-
----
-
 ### Rune
 Represents a single Unicode code point.  
 Equivalent to a `char` in C, but safe for multibyte characters.
+
+---
+
+### Shared
+A qualifier for referencing values without copying.  
+Future feature for fine-grained control over memory semantics.
 
 ---
 

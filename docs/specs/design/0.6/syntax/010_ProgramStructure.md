@@ -64,7 +64,7 @@ import io "os/io"
 
 - The alias `io` is used to reference the imported package
 - The underscore `_` alias (blank import) is forbidden
-- The ot `.` import is forbidden
+- The dot `.` import is forbidden
 
 See: [Modules and Imports](syntax/090_ModulesAndImports.md)
 

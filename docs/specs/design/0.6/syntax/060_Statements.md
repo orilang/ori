@@ -325,7 +325,7 @@ Blocks define their own lexical scope.
 
 ## 60.10 Defer and Panic (Planned)
 
-Deferred calls and panic recovery are **not included in v0.5**, but may be explored later as structured constructs.
+Deferred calls and panic recovery are **not included in current version**, but may be explored later as structured constructs.
 
 ---
 

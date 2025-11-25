@@ -102,15 +102,15 @@ Includes file and line number information.
 
 ---
 
-### Ref
-A planned qualifier for referencing values without copying.  
-Future feature for fine-grained control over memory semantics.
-
----
-
 ### Rune
 Represents a single Unicode code point.  
 Equivalent to a `char` in C, but safe for multibyte characters.
+
+---
+
+### Shared
+A qualifier for referencing values without copying.  
+Future feature for fine-grained control over memory semantics.
 
 ---
 

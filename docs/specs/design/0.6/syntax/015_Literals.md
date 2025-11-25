@@ -72,7 +72,7 @@ Raw strings using backticks (planned).
 
 ---
 
-## 15.5 Rune Literals (Planned)
+## 15.5 Rune Literals
 
 Rune literals represent single Unicode code points.
 

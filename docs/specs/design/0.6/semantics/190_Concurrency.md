@@ -427,7 +427,7 @@ Ori permanently **forbids** `Close()` semantics.
 
 ## 190.16 Task Cancellation
 
-No cancellation API in v0.5.
+No cancellation API for now.
 
 ---
 
