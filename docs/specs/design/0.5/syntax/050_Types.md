@@ -132,7 +132,6 @@ var y float64 = float64(x)
 
 ## 50.10 Pointer and Reference Types
 
-Planned feature for v0.5.  
 Pointers will allow explicit referencing and dereferencing:
 
 ```ori
