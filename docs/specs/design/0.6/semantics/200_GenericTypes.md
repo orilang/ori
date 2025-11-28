@@ -65,7 +65,7 @@ func max[T](a T, b T) T {
 
 ### Structs
 ```
-struct Box[T] {
+type struct Box[T] {
     value T
 }
 ```
@@ -148,7 +148,7 @@ var m map[string, List[int]]
 ### 200.4.5 Multiple Type Parameters
 
 ```
-struct Pair[T, U] {
+type struct Pair[T, U] {
     left  T
     right U
 }
@@ -221,7 +221,7 @@ Instantiation happens at **use site**, not definition site.
 Library:
 
 ```
-struct Box[T] { value T }
+type struct Box[T] { value T }
 ```
 
 Application:
@@ -460,7 +460,7 @@ In current version, type parameters are types only, not values.
 So we do not have:
 ```
 // ❌ not in current version
-struct Matrix[T, N int] {
+type struct Matrix[T, N int] {
     data [N][N]T
 }
 [T = int](v T) []byte { ...special int version... }
@@ -496,7 +496,7 @@ var x int = NewZero[int]()
 ### 200.8.6 No Type Inference for Generic Types
 
 ```
-struct Box[T] { value T }
+type struct Box[T] { value T }
 
 var b Box[int]          // ✅
 var c Box               // ❌ missing [T]
@@ -508,7 +508,7 @@ var e = Box{ ... }      // ❌ cannot omit [T]
 ### 200.8.7 No Type Parameter Defaults
 
 ```
-struct map[K, V = any]   // ❌
+type struct map[K, V = any]   // ❌
 // ❌ invalid idea: leaving second parameter as wildcard
 type IntMap[V] = Map[int, V]        // this is OK as alias
 var m Map[int, _]                   // ❌ no placeholder `_`
@@ -517,7 +517,7 @@ var m Map[int, _]                   // ❌ no placeholder `_`
 ### 200.8.8 No Variadic Type Parameters
 
 ```
-struct Tuple[...T]   // ❌
+type struct Tuple[...T]   // ❌
 ```
 
 ### 200.8.9 No Runtime Type Introspection

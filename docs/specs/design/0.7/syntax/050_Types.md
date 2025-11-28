@@ -65,7 +65,7 @@ Use the `type` keyword to define new named types:
 
 ```ori
 type ID int
-type User struct {
+type struct User {
     id: ID
     name: string
 }
@@ -80,7 +80,7 @@ Named types create distinct semantic types even if the underlying representation
 Structs group multiple named fields into one type.
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }
@@ -164,7 +164,7 @@ This note integrates the canonical `Error` struct into the type system.
 Ori defines one builtin error struct:
 
 ```ori
-struct Error {
+type struct Error {
     Message const string
     Code    const int
 }

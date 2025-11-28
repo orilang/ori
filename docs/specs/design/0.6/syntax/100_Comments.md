@@ -54,7 +54,7 @@ Example (planned):
 
 ```ori
 // Represents a user account in the system.
-type User struct {
+type struct User {
     id int
     name string
 }

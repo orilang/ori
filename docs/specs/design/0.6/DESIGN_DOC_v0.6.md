@@ -604,7 +604,7 @@ A **declaration** introduces a new name into the program scope and binds it to a
 
 ```ori
 const float PI = 3.1415
-type User struct {
+type struct User {
   id int
   name string
 }
@@ -622,7 +622,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type Point struct { x int, y int }` |
+| Struct | `struct` | `type struct Point { x int, y int }` |
 
 ---
 
@@ -645,7 +645,7 @@ Type aliases and named types provide clarity and stronger semantics.
 
 ```ori
 type ID int
-type User struct {
+type struct User {
     id ID
     name string
 }
@@ -673,7 +673,7 @@ See: [Functions](syntax/040_Functions.md)
 Structs define aggregate types with named fields.
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }
@@ -986,7 +986,7 @@ Named return variables are under consideration.
 Functions can be declared with an explicit **receiver** to define methods on types:
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }
@@ -1161,7 +1161,7 @@ Use the `type` keyword to define new named types:
 
 ```ori
 type ID int
-type User struct {
+type struct User {
     id: ID
     name: string
 }
@@ -1176,7 +1176,7 @@ Named types create distinct semantic types even if the underlying representation
 Structs group multiple named fields into one type.
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }
@@ -1260,7 +1260,7 @@ This note integrates the canonical `Error` struct into the type system.
 Ori defines one builtin error struct:
 
 ```ori
-struct Error {
+type struct Error {
     Message const string
     Code    const int
 }
@@ -2302,7 +2302,7 @@ Example (planned):
 
 ```ori
 // Represents a user account in the system.
-type User struct {
+type struct User {
     id int
     name string
 }
@@ -4091,7 +4091,7 @@ FieldDecl  = Identifier Type [ "=" Expression ] .
 ### Example
 
 ```ori
-struct User {
+type struct User {
     name string
     age  int
 }
@@ -4100,7 +4100,7 @@ struct User {
 Optional field defaults can be specified:
 
 ```ori
-struct Config {
+type struct Config {
     host string = "localhost"
     port int = 8080
 }
@@ -4120,7 +4120,7 @@ var u User = User{name: "Ori", age: 20} // ✅ valid
 All fields must be provided, either directly or through explicit defaults.
 
 ```ori
-struct Config {
+type struct Config {
     host string = "localhost"
     port int = 8080
 }
@@ -4140,7 +4140,7 @@ Field visibility is determined by capitalization:
 | Starts with lowercase | Private to the defining package |
 
 ```ori
-struct User {
+type struct User {
     Name string // public
     email string // private
 }
@@ -4207,7 +4207,7 @@ MethodDecl = "func" "(" Receiver ")" Identifier "(" [ Parameters ] ")" [ ReturnT
 ### Example
 
 ```ori
-struct User {
+type struct User {
     name string
     age  int
 }
@@ -4238,12 +4238,12 @@ Ori **does not support type-name embedding** or **field promotion**.
 ### ❌ Invalid
 
 ```ori
-struct Address {
+type struct Address {
     city string
     country string
 }
 
-struct User {
+type struct User {
     name string
     Address // forbidden
 }
@@ -4252,12 +4252,12 @@ struct User {
 ### ✅ Valid
 
 ```ori
-struct Address {
+type struct Address {
     city string
     country string
 }
 
-struct User {
+type struct User {
     name string
     addr Address
 }
@@ -4299,7 +4299,7 @@ This ensures efficient CPU access.
 
 Unused bytes may be inserted between fields to maintain alignment:
 ```ori
-struct Example {
+type struct Example {
     a byte   // 1 byte
     b int32  // may start at offset 4, with 3 bytes of padding
 }
@@ -4370,7 +4370,7 @@ There is exactly **one builtin error type**, and all error handling follows a pr
 Ori provides **one canonical error type**:
 
 ```ori
-struct Error {
+type struct Error {
     Message const string
     Code    const int
 }
@@ -4458,7 +4458,7 @@ Identity is defined by `(Message, Code)` for the builtin `Error` type.
 ## 140.7 Custom Error Types
 
 ```ori
-struct ParseError {
+type struct ParseError {
     Message const string
     Line    const int
 }
@@ -5213,7 +5213,7 @@ ReceiverModifier = "ref" | "const" .
 
 ### Example
 ```ori
-struct User {
+type struct User {
     name string
 }
 
@@ -5241,7 +5241,7 @@ This design prevents ambiguity and ensures clear, deterministic method resolutio
 
 ### ✅ Valid
 ```ori
-struct User {
+type struct User {
     name string
 }
 
@@ -5283,7 +5283,7 @@ MethodSig     = Identifier "(" [ ParameterList ] ")" [ FuncResult ] .
 
 ### Example
 ```ori
-interface Greeter {
+type interface Greeter {
     greet() string
 }
 ```
@@ -5295,12 +5295,12 @@ Otherwise, the compiler emits an explicit error.
 
 Example:
 ```ori
-interface Greeter {
+type interface Greeter {
     greet() string
     identify() string
 }
 
-struct User { name string }
+type struct User { name string }
 
 User implements Greeter
 
@@ -5329,18 +5329,18 @@ A type must declare that it implements an interface before being used as such.
 
 #### Step 1. Define the interface
 ```ori
-interface Greeter {
+type interface Greeter {
     greet() string
 }
 ```
 
 #### Step 2. Define concrete types
 ```ori
-struct User {
+type struct User {
     name string
 }
 
-struct Bot {
+type struct Bot {
     id int
 }
 ```
@@ -5396,7 +5396,7 @@ Each element in `greeters` can be a different type, as long as it implements `Gr
 
 | Concept | Meaning |
 |----------|----------|
-| `interface Greeter` | Declares required methods. |
+| `type interface Greeter` | Declares required methods. |
 | `User implements Greeter` | Declares explicit relationship between type and interface. |
 | `func (u User) greet()` | Defines method required by the interface. |
 | `Greeter` in function parameter | Enables runtime polymorphism. |
@@ -5466,12 +5466,12 @@ max[float64](3.14, 2.71) // → max_float64
 
 ### Example
 ```ori
-interface Drawable {
+type interface Drawable {
     draw()
 }
 
-struct Circle { radius int }
-struct Square { size int }
+type struct Circle { radius int }
+type struct Square { size int }
 
 Circle implements Drawable
 Square implements Drawable
@@ -5533,7 +5533,7 @@ Use **generics** when you need **maximum performance** and **compile-time specia
 | Concept | Description |
 |----------|--------------|
 | **Method** | Function bound to a type. |
-| **Receiver** | `ref`, `const`, or value; defines access semantics. |
+| **Receiver** | `shared`, `const`, or value; defines access semantics. |
 | **Interface** | Declares a set of required methods. |
 | **implements** | Declares explicit conformance between a type and an interface. |
 | **No overloading** | Prevents ambiguity in method lookup. |
@@ -6184,7 +6184,7 @@ This note specifies how the unified `Error` type is used in task handling.
 Task handles expose a `Wait` method that returns the canonical `Error` type:
 
 ```ori
-struct Task {
+type struct Task {
     // internal fields not exposed here
 }
 
@@ -6303,7 +6303,7 @@ func max[T](a T, b T) T {
 
 ### Structs
 ```
-struct Box[T] {
+type struct Box[T] {
     value T
 }
 ```
@@ -6386,7 +6386,7 @@ var m map[string, List[int]]
 ### 200.4.5 Multiple Type Parameters
 
 ```
-struct Pair[T, U] {
+type struct Pair[T, U] {
     left  T
     right U
 }
@@ -6459,7 +6459,7 @@ Instantiation happens at **use site**, not definition site.
 Library:
 
 ```
-struct Box[T] { value T }
+type struct Box[T] { value T }
 ```
 
 Application:
@@ -6698,7 +6698,7 @@ In current version, type parameters are types only, not values.
 So we do not have:
 ```
 // ❌ not in current version
-struct Matrix[T, N int] {
+type struct Matrix[T, N int] {
     data [N][N]T
 }
 [T = int](v T) []byte { ...special int version... }
@@ -6734,7 +6734,7 @@ var x int = NewZero[int]()
 ### 200.8.6 No Type Inference for Generic Types
 
 ```
-struct Box[T] { value T }
+type struct Box[T] { value T }
 
 var b Box[int]          // ✅
 var c Box               // ❌ missing [T]
@@ -6746,7 +6746,7 @@ var e = Box{ ... }      // ❌ cannot omit [T]
 ### 200.8.7 No Type Parameter Defaults
 
 ```
-struct map[K, V = any]   // ❌
+type struct map[K, V = any]   // ❌
 // ❌ invalid idea: leaving second parameter as wildcard
 type IntMap[V] = Map[int, V]        // this is OK as alias
 var m Map[int, _]                   // ❌ no placeholder `_`
@@ -6755,7 +6755,7 @@ var m Map[int, _]                   // ❌ no placeholder `_`
 ### 200.8.8 No Variadic Type Parameters
 
 ```
-struct Tuple[...T]   // ❌
+type struct Tuple[...T]   // ❌
 ```
 
 ### 200.8.9 No Runtime Type Introspection
@@ -7281,7 +7281,7 @@ destructor TypeName {
 Example:
 
 ```ori
-struct File {
+type struct File {
     fd int
 }
 
@@ -7312,7 +7312,7 @@ Inside a destructor:
 #### Simple Resource Destructor
 
 ```ori
-struct File {
+type struct File {
     fd int
 }
 
@@ -7326,7 +7326,7 @@ destructor File {
 #### Struct with Fields
 
 ```ori
-struct Connection {
+type struct Connection {
     file File
     lock Mutex
 }
@@ -7466,7 +7466,7 @@ func test() {
 #### 220.10.2.13 Using moved-out fields
 
 ```ori
-struct S {
+type struct S {
     x Resource
     y Resource
 }
@@ -7604,12 +7604,12 @@ No destructor (neither user-defined nor synthesized) is created when:
 
 Examples:
 ```ori
-struct Point {
+type struct Point {
     x float
     y float
 }
 
-struct Id {
+type struct Id {
     value int
 }
 ```
@@ -7626,7 +7626,7 @@ If a type has **no user-declared destructor** but contains fields whose types ha
 
 Example:
 ```ori
-struct Session {
+type struct Session {
     conn Connection  // Connection has a destructor
     token string
 }
@@ -7650,11 +7650,11 @@ Notes:
 ### 220.18.3 Example – Nested Structs
 
 ```ori
-struct Cache {
+type struct Cache {
     buf Buffer    // Buffer has destructor
 }
 
-struct State {
+type struct State {
     cache Cache   // Cache requires destruction
     id    Id      // Id has no destructor
 }
@@ -7691,7 +7691,7 @@ When the user declares a destructor for a type `T`, the compiler:
 Example:
 
 ```ori
-struct Resource {
+type struct Resource {
     data view[byte]
     alloc Allocator
 }
@@ -7725,7 +7725,7 @@ Rules:
 ### 220.18.5 Example – Partial Moves and Synthesis
 
 ```ori
-struct Pair {
+type struct Pair {
     left  File
     right File
 }
@@ -7803,9 +7803,9 @@ Ori guarantees:
 This applies even for deep nesting:
 
 ```ori
-struct A { x int }
-struct B { a A }
-struct C { b B }
+type struct A { x int }
+type struct B { a A }
+type struct C { b B }
 ```
 
 None of `A`, `B`, `C` get destructors or destruction tails.
@@ -7829,7 +7829,7 @@ All such errors should point to:
 ### 220.18.8.1 Error: Synthesized destructor must destroy a field that was moved out
 
 ```ori
-struct Pair {
+type struct Pair {
     left  File
     right File
 }
@@ -7852,7 +7852,7 @@ help: consider writing a custom destructor for 'Pair'
 ### 220.18.8.2 Error: User-defined destructor conflicts with synthesized field destruction
 
 ```ori
-struct Holder {
+type struct Holder {
     buf Buffer
 }
 
@@ -7874,7 +7874,7 @@ help: do not manually destroy fields; only write type-level cleanup.
 ### 220.18.8.3 Error: User-defined destructor attempts to destroy a moved-out field
 
 ```ori
-struct Frame {
+type struct Frame {
     tmp TempBuf
     img Image
 }
@@ -7901,7 +7901,7 @@ help: remove manual field destruction; rely on automatic destruction
 ### 220.18.8.4 Error: Recursive type requiring synthesis but containing owned fields
 
 ```ori
-struct Node {
+type struct Node {
     next Node     // ❌ illegal: recursive value containment
     data Buffer
 }
@@ -7920,7 +7920,7 @@ help: use a pointer to 'Node' instead
 ### 220.18.8.5 Error: Ambiguous ownership in generic types
 
 ```ori
-struct Box[T] {
+type struct Box[T] {
     item T
 }
 
@@ -7942,9 +7942,9 @@ help: require 'T' to be move-only or panic-free via a generic constraint
 ### 220.18.8.6 Example – Using Generic Constraints
 
 ```ori
-interface Disposable { }
+type interface Disposable { }
 
-struct Box[T Disposable] {
+type struct Box[T Disposable] {
     item T
 }
 ```
@@ -7954,11 +7954,11 @@ struct Box[T Disposable] {
 ### 220.18.8.7 Error: Interface object cannot infer destructor requirements
 
 ```ori
-interface Writer {
+type interface Writer {
     write(view[byte]) int
 }
 
-struct FileWriter {
+type struct FileWriter {
     file File
 }
 
@@ -7978,9 +7978,9 @@ help: store concrete types, or wrap the resource in an owning struct
 ### 220.18.8.8 Error: Synthesized destructor would require dynamic dispatch
 
 ```ori
-interface Closeable { }
+type interface Closeable { }
 
-struct Handle[T Closeable] {
+type struct Handle[T Closeable] {
     obj T
 }
 
@@ -8149,9 +8149,9 @@ At destruction:
 Example: types that *always* require destruction:
 
 ```ori
-interface Disposable { }
+type interface Disposable { }
 
-struct Box[T Disposable] {
+type struct Box[T Disposable] {
     item T
 }
 ```
@@ -8166,9 +8166,9 @@ destructor Box[T Disposable] {
 Types that *never* require destruction:
 
 ```ori
-interface Copyable { }
+type interface Copyable { }
 
-struct PodBox[T Copyable] {
+type struct PodBox[T Copyable] {
     item T
 }
 ```
@@ -8455,7 +8455,7 @@ Ori guarantees:
 Module B:
 
 ```ori
-struct File { fd int }
+type struct File { fd int }
 destructor File {
     if value.fd >= 0 { close_fd(value.fd) }
 }

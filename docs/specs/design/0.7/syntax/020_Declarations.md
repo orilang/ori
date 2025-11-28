@@ -51,7 +51,7 @@ Type aliases and named types provide clarity and stronger semantics.
 
 ```ori
 type ID int
-type User struct {
+type struct User {
     id ID
     name string
 }
@@ -79,7 +79,7 @@ See: [Functions](syntax/040_Functions.md)
 Structs define aggregate types with named fields.
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }

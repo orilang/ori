@@ -10,7 +10,7 @@ A **declaration** introduces a new name into the program scope and binds it to a
 
 ```ori
 const float PI = 3.1415
-type User struct {
+type struct User {
   id int
   name string
 }
@@ -28,7 +28,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type Point struct { x int, y int }` |
+| Struct | `struct` | `type struct Point { x int, y int }` |
 
 ---
 
@@ -51,7 +51,7 @@ Type aliases and named types provide clarity and stronger semantics.
 
 ```ori
 type ID int
-type User struct {
+type struct User {
     id ID
     name string
 }
@@ -79,7 +79,7 @@ See: [Functions](syntax/040_Functions.md)
 Structs define aggregate types with named fields.
 
 ```ori
-type Point struct {
+type struct Point {
     x int
     y int
 }
