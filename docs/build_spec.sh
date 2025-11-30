@@ -14,7 +14,7 @@ ROOT_DIR="specs/design/${VERSION}"
 FILE_NAME="DESIGN_DOC_v${VERSION}.md"
 GLOBAL_FILE_NAME="specs/${FILE_NAME}"
 SPEC_FILE_NAME="${ROOT_DIR}/${FILE_NAME}"
-DIRECTORIES="syntax semantics design_principles appendix"
+DIRECTORIES="syntax semantics design_principles appendix ecosystem tooling"
 FOOTER="\n© $(date +%Y) Ori Language — Design Spec"
 
 > ${GLOBAL_FILE_NAME}
