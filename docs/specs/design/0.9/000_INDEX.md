@@ -55,6 +55,7 @@ This directory contains the official specification, structured into thematic sec
 - [Pointers](semantics/310_Pointers.md)
 - [Blank Identifier](semantics/320_BlankIdentifier.md)
 - [Build System And Compilation Pipeline](semantics/330_BuildSystemAndCompilationPipeline.md)
+- [Compiletime Reflection](semantics/340_CompiletimeReflection.md)
 
 ### Standard Library
 - [Standard Library Foundations](ecosystem/001_StandardLibraryFoundations.md)
