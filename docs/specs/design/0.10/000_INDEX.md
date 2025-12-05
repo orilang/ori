@@ -61,6 +61,7 @@ This directory contains the official specification, structured into thematic sec
 - [Build System And Compilation Pipeline - Phase 2](semantics/330_BuildSystemAndCompilationPipeline_Phase2.md)
 - [Compiletime Reflection](semantics/340_CompiletimeReflection.md)
 - [Enums](semantics/350_Enums.md)
+- [String Builder](semantics/360_StringBuilder.md)
 
 ### Standard Library
 - [Standard Library Foundations](ecosystem/001_StandardLibraryFoundations.md)
