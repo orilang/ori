@@ -71,7 +71,7 @@ This directory contains the official specification, structured into thematic sec
 - [Standard Library Foundations](ecosystem/001_StandardLibraryFoundations.md)
 - [OS](ecosystem/001_OS.md)
 - [Time](ecosystem/003_Time.md)
-- [Core Packages Catalog](ecosystem/ecosystem/010_CorePackagesCatalog.md)
+- [Core Packages Catalog](ecosystem/010_CorePackagesCatalog.md)
 
 ### Tooling
 - [Compiler Diagnostics](tooling/001_CompilerDiagnostics.md)
