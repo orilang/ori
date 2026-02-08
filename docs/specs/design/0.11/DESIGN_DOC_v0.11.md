@@ -630,7 +630,7 @@ A **declaration** introduces a new name into the program scope and binds it to a
 
 ```ori
 const float PI = 3.1415
-type struct User {
+type User struct {
   id int
   name string
 }
@@ -648,7 +648,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type struct Point { x int, y int }` |
+| Struct | `struct` | `type Point struct { x int, y int }` |
 
 ---
 
@@ -671,7 +671,7 @@ Type aliases and named types provide clarity and stronger semantics.
 
 ```ori
 type ID int
-type struct User {
+type User struct {
     id ID
     name string
 }
@@ -699,7 +699,7 @@ See: [Functions](syntax/040_Functions.md)
 Structs define aggregate types with named fields.
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -1012,7 +1012,7 @@ Named return variables are under consideration.
 Functions can be declared with an explicit **receiver** to define methods on types:
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -1187,9 +1187,9 @@ Use the `type` keyword to define new named types:
 
 ```ori
 type ID int
-type struct User {
-    id: ID
-    name: string
+type User struct {
+    id ID
+    name string
 }
 ```
 
@@ -1202,7 +1202,7 @@ Named types create distinct semantic types even if the underlying representation
 Structs group multiple named fields into one type.
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -1286,7 +1286,7 @@ This note integrates the canonical `Error` struct into the type system.
 Ori defines one builtin error struct:
 
 ```ori
-type struct Error {
+type Error struct {
     Message const string
     Code    const int
 }
@@ -2328,7 +2328,7 @@ Example (planned):
 
 ```ori
 // Represents a user account in the system.
-type struct User {
+type User struct {
     id int
     name string
 }
@@ -4171,7 +4171,7 @@ FieldDecl  = Identifier Type [ "=" Expression ] .
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -4180,7 +4180,7 @@ type struct User {
 Optional field defaults can be specified:
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -4200,7 +4200,7 @@ var u User = User{name: "Ori", age: 20} // ✅ valid
 All fields must be provided, either directly or through explicit defaults.
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -4220,7 +4220,7 @@ Field visibility is determined by capitalization:
 | Starts with lowercase | Private to the defining package |
 
 ```ori
-type struct User {
+type User struct {
     Name string // public
     email string // private
 }
@@ -4287,7 +4287,7 @@ MethodDecl = "func" "(" Receiver ")" Identifier "(" [ Parameters ] ")" [ ReturnT
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -4317,12 +4317,12 @@ Ori **does not support type-name embedding** or **field promotion**.
 ### ❌ Invalid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     Address // forbidden
 }
@@ -4331,12 +4331,12 @@ type struct User {
 ### ✅ Valid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     addr Address
 }
@@ -4378,7 +4378,7 @@ This ensures efficient CPU access.
 
 Unused bytes may be inserted between fields to maintain alignment:
 ```ori
-type struct Example {
+type Example struct {
     a byte   // 1 byte
     b int32  // may start at offset 4, with 3 bytes of padding
 }
@@ -4449,7 +4449,7 @@ There is exactly **one builtin error type**, and all error handling follows a pr
 Ori provides **one canonical error type**:
 
 ```ori
-type struct Error {
+type Error struct {
     Message const string
     Code    const int
 }
@@ -4537,7 +4537,7 @@ Identity is defined by `(Message, Code)` for the builtin `Error` type.
 ## 140.7 Custom Error Types
 
 ```ori
-type struct ParseError {
+type ParseError struct {
     Message const string
     Line    const int
 }
@@ -5292,7 +5292,7 @@ ReceiverModifier = "shared" | "const" .
 
 ### 170.2.3 Example
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -5348,7 +5348,7 @@ This design prevents ambiguity and ensures clear, deterministic method resolutio
 
 ### ✅ Valid
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -5390,7 +5390,7 @@ MethodSig     = Identifier "(" [ ParameterList ] ")" [ FuncResult ] .
 
 ### Example
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
@@ -5402,12 +5402,12 @@ Otherwise, the compiler emits an explicit error.
 
 Example:
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
     identify() string
 }
 
-type struct User { name string }
+type User struct { name string }
 
 User implements Greeter
 
@@ -5436,18 +5436,18 @@ A type must declare that it implements an interface before being used as such.
 
 #### Step 1. Define the interface
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
 
 #### Step 2. Define concrete types
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
-type struct Bot {
+type Bot struct {
     id int
 }
 ```
@@ -5573,12 +5573,12 @@ max[float64](3.14, 2.71) // → max_float64
 
 ### Example
 ```ori
-type interface Drawable {
+type Drawable interface {
     draw()
 }
 
-type struct Circle { radius int }
-type struct Square { size int }
+type Circle struct { radius int }
+type Square struct { size int }
 
 Circle implements Drawable
 Square implements Drawable
@@ -6291,7 +6291,7 @@ This note specifies how the unified `Error` type is used in task handling.
 Task handles expose a `Wait` method that returns the canonical `Error` type:
 
 ```ori
-type struct Task {
+type Task struct {
     // internal fields not exposed here
 }
 
@@ -6410,7 +6410,7 @@ func max[T](a T, b T) T {
 
 ### Structs
 ```
-type struct Box[T] {
+type Box[T] struct {
     value T
 }
 ```
@@ -6493,7 +6493,7 @@ var m map[string, List[int]]
 ### 200.4.5 Multiple Type Parameters
 
 ```
-type struct Pair[T, U] {
+type Pair[T, U] struct {
     left  T
     right U
 }
@@ -6566,7 +6566,7 @@ Instantiation happens at **use site**, not definition site.
 Library:
 
 ```
-type struct Box[T] { value T }
+type Box[T] struct { value T }
 ```
 
 Application:
@@ -6805,7 +6805,7 @@ In current version, type parameters are types only, not values.
 So we do not have:
 ```
 // ❌ not in current version
-type struct1 Matrix[T, N int] {
+type Matrix[T, N int] struct1 {
     data [N][N]T
 }
 [T = int](v T) []byte { ...special int version... }
@@ -6841,7 +6841,7 @@ var x int = NewZero[int]()
 ### 200.8.6 No Type Inference for Generic Types
 
 ```
-type struct Box[T] { value T }
+type Box[T] struct { value T }
 
 var b Box[int]          // ✅
 var c Box               // ❌ missing [T]
@@ -6853,7 +6853,7 @@ var e = Box{ ... }      // ❌ cannot omit [T]
 ### 200.8.7 No Type Parameter Defaults
 
 ```
-type struct map[K, V = any]   // ❌
+type map[K, V = any] struct   // ❌
 // ❌ invalid idea: leaving second parameter as wildcard
 type IntMap[V] = Map[int, V]        // this is OK as alias
 var m Map[int, _]                   // ❌ no placeholder `_`
@@ -6862,7 +6862,7 @@ var m Map[int, _]                   // ❌ no placeholder `_`
 ### 200.8.8 No Variadic Type Parameters
 
 ```
-type struct Tuple[...T]   // ❌
+type Tuple[...T] struct   // ❌
 ```
 
 ### 200.8.9 No Runtime Type Introspection
@@ -7388,7 +7388,7 @@ destructor TypeName {
 Example:
 
 ```ori
-type struct File {
+type File struct {
     fd int
 }
 
@@ -7419,7 +7419,7 @@ Inside a destructor:
 #### Simple Resource Destructor
 
 ```ori
-type struct File {
+type File struct {
     fd int
 }
 
@@ -7433,7 +7433,7 @@ destructor File {
 #### Struct with Fields
 
 ```ori
-type struct Connection {
+type Connection struct {
     file File
     lock Mutex
 }
@@ -7573,7 +7573,7 @@ func test() {
 #### 220.10.2.13 Using moved-out fields
 
 ```ori
-type struct S {
+type S struct {
     x Resource
     y Resource
 }
@@ -7711,12 +7711,12 @@ No destructor (neither user-defined nor synthesized) is created when:
 
 Examples:
 ```ori
-type struct Point {
+type Point struct {
     x float
     y float
 }
 
-type struct Id {
+type Id struct {
     value int
 }
 ```
@@ -7733,7 +7733,7 @@ If a type has **no user-declared destructor** but contains fields whose types ha
 
 Example:
 ```ori
-type struct Session {
+type Session struct {
     conn Connection  // Connection has a destructor
     token string
 }
@@ -7757,11 +7757,11 @@ Notes:
 ### 220.18.3 Example – Nested Structs
 
 ```ori
-type struct Cache {
+type Cache struct {
     buf Buffer    // Buffer has destructor
 }
 
-type struct State {
+type State struct {
     cache Cache   // Cache requires destruction
     id    Id      // Id has no destructor
 }
@@ -7798,7 +7798,7 @@ When the user declares a destructor for a type `T`, the compiler:
 Example:
 
 ```ori
-type struct Resource {
+type Resource struct {
     data view[byte]
     alloc Allocator
 }
@@ -7832,7 +7832,7 @@ Rules:
 ### 220.18.5 Example – Partial Moves and Synthesis
 
 ```ori
-type struct Pair {
+type Pair struct {
     left  File
     right File
 }
@@ -7910,9 +7910,9 @@ Ori guarantees:
 This applies even for deep nesting:
 
 ```ori
-type struct A { x int }
-type struct B { a A }
-type struct C { b B }
+type A struct { x int }
+type B struct { a A }
+type C struct { b B }
 ```
 
 None of `A`, `B`, `C` get destructors or destruction tails.
@@ -7936,7 +7936,7 @@ All such errors should point to:
 ### 220.18.8.1 Error: Synthesized destructor must destroy a field that was moved out
 
 ```ori
-type struct Pair {
+type Pair struct {
     left  File
     right File
 }
@@ -7959,7 +7959,7 @@ help: consider writing a custom destructor for 'Pair'
 ### 220.18.8.2 Error: User-defined destructor conflicts with synthesized field destruction
 
 ```ori
-type struct Holder {
+type Holder struct {
     buf Buffer
 }
 
@@ -7981,7 +7981,7 @@ help: do not manually destroy fields; only write type-level cleanup.
 ### 220.18.8.3 Error: User-defined destructor attempts to destroy a moved-out field
 
 ```ori
-type struct Frame {
+type Frame struct {
     tmp TempBuf
     img Image
 }
@@ -8008,7 +8008,7 @@ help: remove manual field destruction; rely on automatic destruction
 ### 220.18.8.4 Error: Recursive type requiring synthesis but containing owned fields
 
 ```ori
-type struct Node {
+type Node struct {
     next Node     // ❌ illegal: recursive value containment
     data Buffer
 }
@@ -8027,7 +8027,7 @@ help: use a pointer to 'Node' instead
 ### 220.18.8.5 Error: Ambiguous ownership in generic types
 
 ```ori
-type struct Box[T] {
+type Box[T] struct {
     item T
 }
 
@@ -8049,9 +8049,9 @@ help: require 'T' to be move-only or panic-free via a generic constraint
 ### 220.18.8.6 Example – Using Generic Constraints
 
 ```ori
-type interface Disposable { }
+type Disposable interface { }
 
-type struct Box[T Disposable] {
+type Box[T Disposable] struct {
     item T
 }
 ```
@@ -8061,11 +8061,11 @@ type struct Box[T Disposable] {
 ### 220.18.8.7 Error: Interface object cannot infer destructor requirements
 
 ```ori
-type interface Writer {
+type Writer interface {
     write(view[byte]) int
 }
 
-type struct FileWriter {
+type structWriter File {
     file File
 }
 
@@ -8085,9 +8085,9 @@ help: store concrete types, or wrap the resource in an owning struct
 ### 220.18.8.8 Error: Synthesized destructor would require dynamic dispatch
 
 ```ori
-type interface Closeable { }
+type Closeable interface { }
 
-type struct Handle[T Closeable] {
+type Handle[T Closeable] struct {
     obj T
 }
 
@@ -8256,9 +8256,9 @@ At destruction:
 Example: types that *always* require destruction:
 
 ```ori
-type interface Disposable { }
+type Disposable interface { }
 
-type struct Box[T Disposable] {
+type Box[T Disposable] struct {
     item T
 }
 ```
@@ -8273,9 +8273,9 @@ destructor Box[T Disposable] {
 Types that *never* require destruction:
 
 ```ori
-type interface Copyable { }
+type Copyable interface { }
 
-type struct PodBox[T Copyable] {
+type PodBox[T Copyable] struct {
     item T
 }
 ```
@@ -8562,7 +8562,7 @@ Ori guarantees:
 Module B:
 
 ```ori
-type struct File { fd int }
+type File struct { fd int }
 destructor File {
     if value.fd >= 0 { close_fd(value.fd) }
 }
@@ -8670,7 +8670,7 @@ They **do not own** the underlying object; they are non‑owning views.
 ### 230.2.1 Syntax
 
 ```
-type interface Greeter {
+type Greeter interface {
     greet() string
     identify() string
 }
@@ -8717,11 +8717,11 @@ If any method is missing or mismatched, compilation fails at the `implements` de
 ### 230.4.1 Basic form
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type struct File {
+type File struct {
     Path string
 }
 
@@ -8760,15 +8760,15 @@ Pointer, alias, and sum‑type method‑set rules come from `170_MethodsAndInter
 ### 230.5.1 Syntax
 
 ```
-type interface Reader {
+type Reader interface {
     Read(p []byte) int
 }
 
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type interface ReadWriter {
+type ReadWriter interface {
     Reader
     Writer
 }
@@ -8781,15 +8781,15 @@ Composition is **shallow**; no new semantics added; conflicts cause compile-time
 ### 230.5.2 Conflict handling
 
 ```
-type interface A {
+type A interface {
     process(x int) int
 }
 
-type interface B {
+type B interface {
     process(x string) int
 }
 
-type interface C {
+type C interface {
     A
     B
 }
@@ -8977,11 +8977,11 @@ if T implements Writer {
 #### 1. Missing method
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type struct File {}
+type File struct {}
 
 File implements Writer
 // ERROR: File lacks Write(p []byte) int
@@ -8990,7 +8990,7 @@ File implements Writer
 #### 2. Signature mismatch
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
@@ -10580,7 +10580,7 @@ Example (valid multi-file type definition):
 
 ```ori
 package user
-type struct User {
+type User struct {
     Name string
 }
 ```
@@ -10595,8 +10595,8 @@ func (u User) Greet() string { return "Hello " + u.Name }
 Invalid (duplicate):
 
 ```
-type struct User { Name string }
-type struct User { Age int }    // ❌ duplicate type
+type User struct { Name string }
+type User struct { Age int }    // ❌ duplicate type
 ```
 
 ---
@@ -10618,7 +10618,7 @@ name, user, parse, httpServer
 Examples:
 
 ```ori
-type struct User {
+type User struct {
     Name string   // exported
     age  int      // internal
 }
@@ -10729,15 +10729,15 @@ const A = 2    // ❌
 ### Type cycles (value embedding):
 
 ```
-type struct A { b B }
-type struct B { a A }   // ❌ infinite size
+type A struct { b B }
+type B struct { a A }   // ❌ infinite size
 ```
 
 Valid pointer cycle:
 
 ```
-type struct A { b *B }
-type struct B { a *A }  // OK
+type A struct { b *B }
+type B struct { a *A }  // OK
 ```
 
 ### Top-level var:
@@ -11110,12 +11110,12 @@ This avoids ambiguity and keeps FFI contracts explicit.
 Declares a struct type whose layout and ABI are defined externally (typically by C):
 
 ```ori
-extern type struct Timeval {
+extern type Timeval struct {
     tv_sec  int64
     tv_usec int64
 }
 
-extern type struct FILE
+extern type File struct
 ```
 
 There are two sub-kinds:
@@ -11134,7 +11134,7 @@ Rules:
 Opaque structs (no fields) are used as handles:
 
 ```ori
-extern type struct FILE
+extern type File struct
 
 extern func fopen(path *int8, mode *int8) *FILE
 extern func fclose(f *FILE) int32
@@ -11304,7 +11304,7 @@ Rules:
 For a transparent extern struct:
 
 ```ori
-extern type struct Timeval {
+extern type Timeval struct {
     tv_sec  int64
     tv_usec int64
 }
@@ -11321,7 +11321,7 @@ Allowed:
 Not allowed:
 - Defining methods with receivers:
   ```ori
-  extern type struct Timeval { tv_sec int64, tv_usec int64 }
+  extern type Timeval struct { tv_sec int64, tv_usec int64 }
 
   func (t *Timeval) ToMillis() int64 { ... }  // forbidden, compile-time error
   ```
@@ -11330,7 +11330,7 @@ Not allowed:
 
 For an opaque extern struct:
 ```ori
-extern type struct FILE
+extern type File struct
 ```
 
 - Values of type `FILE` cannot be constructed or copied in Ori.
@@ -12446,7 +12446,7 @@ var y = *p        // y = 10
 ```
 
 ```ori
-type struct Node {
+type Node struct {
     value int
     next  *Node
 }
@@ -12650,7 +12650,7 @@ import "math" { Sin, _ }      // ❌ forbidden
 ### 320.3.4 As a Field Name
 
 ```
-type struct User {
+type User struct {
     _ int      // ❌ forbidden
 }
 ```
@@ -13288,7 +13288,7 @@ Properties:
 
 CTR exposes type structure through:
 ```ori
-type struct TypeInfo {
+type TypeInfo struct {
     kind       TypeKind
     typeName   string
 
@@ -13334,13 +13334,13 @@ type enum TypeKind {
 ### 340.7.1 Structs
 
 ```ori
-type struct StructInfo {
+type StructInfo struct {
     size       int
     alignment  int
     fields []FieldInfo
 }
 
-type struct FieldInfo {
+type FieldInfo struct {
     name      string
     type      type
     exported  bool
@@ -13352,11 +13352,11 @@ type struct FieldInfo {
 ### 340.7.2 Sum Types
 
 ```ori
-type struct SumTypeInfo {
+type SumTypeInfo struct {
     variants []SumTypeVariantInfo
 }
 
-type struct SumTypeVariantInfo {
+type SumTypeVariantInfo struct {
     name       string
     fields     []FieldInfo
     hasPayload bool
@@ -13368,13 +13368,13 @@ type struct SumTypeVariantInfo {
 ### 340.7.3 Enums
 
 ```ori
-type struct EnumInfo {
+type EnumInfo struct {
     size       int
     alignment  int
     variants []EnumVariantInfo
 }
 
-type struct EnumVariantInfo {
+type EnumVariantInfo struct {
     name string
 }
 ```
@@ -13386,11 +13386,11 @@ type struct EnumVariantInfo {
 ### 340.7.4 Interfaces
 
 ```ori
-type struct InterfaceInfo {
+type InterfaceInfo struct {
     methods []MethodInfo
 }
 
-type struct MethodInfo {
+type MethodInfo struct {
     name       string
     params     []type
     returns    []type
@@ -13403,7 +13403,7 @@ type struct MethodInfo {
 ### 340.7.5 Arrays
 
 ```ori
-type struct ArrayInfo {
+type ArrayInfo struct {
     size       int
     alignment  int
     element type
@@ -13416,7 +13416,7 @@ type struct ArrayInfo {
 ### 340.7.6 Slices
 
 ```ori
-type struct SliceInfo {
+type SliceInfo struct {
     element type
 }
 ```
@@ -13426,12 +13426,12 @@ type struct SliceInfo {
 ### 340.7.7 Maps & HashMaps
 
 ```ori
-type struct MapInfo {
+type MapInfo struct {
     key   type
     value type
 }
 
-type struct HashMapInfo {
+type HashMapInfo struct {
     key   type
     value type
 }
@@ -13442,7 +13442,7 @@ type struct HashMapInfo {
 ### 340.7.8 Pointers
 
 ```ori
-type struct PointerInfo {
+type Point structerInfo {
     size       int
     alignment  int
     target     type
@@ -13454,7 +13454,7 @@ type struct PointerInfo {
 ### 340.7.9 Shared
 
 ```ori
-type struct SharedInfo {
+type SharedInfo struct {
     underlying type
 }
 ```
@@ -13464,7 +13464,7 @@ type struct SharedInfo {
 ### 340.7.10 Views
 
 ```ori
-type struct ViewInfo {
+type ViewInfo struct {
     underlying type
 }
 ```
@@ -13474,7 +13474,7 @@ type struct ViewInfo {
 ### 340.7.11 Functions
 
 ```ori
-type struct FuncInfo {
+type FuncInfo struct {
     params     []type
     returns    []type
     isVariadic bool
@@ -13999,7 +13999,7 @@ It follows the same ownership, aliasing, and deterministic destruction rules as 
 
 The core definition of `StringBuilder` is:
 ```ori
-type struct StringBuilder {
+type StringBuilder struct {
     buf []byte   // unexported; may be nil or a valid slice
 }
 ```
@@ -14804,7 +14804,7 @@ This semantic file does not fix API names, only required behavior.
 
 Loggers send serialized log records to a `Writer`:
 ```ori
-type interface Writer {
+type Writer interface {
     Write(buf []byte) (int, error)
 }
 ```
@@ -14824,7 +14824,7 @@ Some writers buffer data internally and support explicit flushing.
 
 Ori defines a **public**, but minimal, interface for this capability:
 ```ori
-type interface Flusher {
+type Flusher interface {
     Flush() error
 }
 ```
@@ -14846,7 +14846,7 @@ Custom writers MAY implement `Flusher` to participate in flush semantics.
 
 A canonical logger has at least the following conceptual shape:
 ```ori
-type struct Logger {
+type Logger struct {
     mu          Mutex        // protects all internal state
     writer      Writer
     level       LogLevel
@@ -15386,7 +15386,7 @@ Threads safely isolate blocking operations.
 ### 400.5.1 CancelSignal
 
 ```
-type struct CancelSignal { /* opaque */ }
+type CancelSignal struct { /* opaque */ }
 
 func MakeCancelSignal() CancelSignal
 func (s CancelSignal) Trigger()
@@ -15402,7 +15402,7 @@ Characteristics:
 ### 400.5.2 DeadlineSignal
 
 ```
-type struct DeadlineSignal { /* opaque */ }
+type DeadlineSignal struct { /* opaque */ }
 
 func MakeDeadlineSignal(d Duration) DeadlineSignal
 func (d DeadlineSignal) IsExceeded() bool
@@ -15466,7 +15466,7 @@ It does **not**:
 ### 400.7.2 API
 
 ```
-type struct TaskGroup { /* opaque */ }
+type Task structGroup { /* opaque */ }
 
 func MakeTaskGroup() TaskGroup
 func (g TaskGroup) SpawnTask(fn func() Error)
@@ -16986,7 +16986,7 @@ This document describes the **complete OS API**.
 ```ori
 package os
 
-type struct File {
+type File struct {
     // internal representation is opaque and implementation-defined
 }
 ```
@@ -17036,7 +17036,7 @@ Ori does **not yet** support octal integer literals in the core language, but th
 ### 001.2.3 `FileInfo`
 
 ```ori
-type struct FileInfo {
+type File structInfo {
     Name const string     // base name, not a full path
     Size const int64      // size in bytes for regular files
     Mode const FileMode   // permission bits and basic type info
@@ -17052,7 +17052,7 @@ type struct FileInfo {
 ### 001.2.4 `DirEntry`
 
 ```ori
-type struct DirEntry {
+type DirEntry struct {
     Name const string     // entry name, not a full path
     IsDir const bool      // true if the entry is a directory
     Mode const FileMode   // best-effort mode information
@@ -17082,7 +17082,7 @@ const (
 ### 001.2.6 `OpenOptions`
 
 ```ori
-type struct OpenOptions {
+type OpenOptions struct {
     Read      bool
     Write     bool
     Append    bool
@@ -17743,7 +17743,7 @@ comparisons, etc.
 ### 003.2.2 Time
 
 ```
-type struct Time {
+type Time struct {
     unixNano int64   // wall-clock timestamp, nanoseconds since Unix epoch
 }
 ```
@@ -18891,7 +18891,7 @@ Defined in: `math/add.ori:14`
 
 Example hover for struct:
 ```
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -18922,4 +18922,4 @@ These are excluded from current version to preserve deterministic behavior and a
 
 
 
-© 2025 Ori Language — Design Spec
+© 2026 Ori Language — Design Spec

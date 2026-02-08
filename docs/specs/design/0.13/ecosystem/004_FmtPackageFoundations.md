@@ -119,11 +119,11 @@ The `fmt` package is built on the following concepts and existing interfaces.
 
 The logging framework defines minimal IO abstractions:
 ```ori
-type interface Writer {
+type Writer interface {
     Write(buf []byte) (int, Error)
 }
 
-type interface Flusher {
+type Flusher interface {
     Flush() Error
 }
 ```
@@ -142,14 +142,14 @@ Standard library components that implement `Writer` include, but are not limited
 
 The formatting semantics document (`semantics/410_FormattingAndFmtPrerequisites.md`) defines the core formatting interfaces, roughly:
 ```ori
-type interface Formattable {
+type Formattable interface {
     // Format writes a human‑oriented representation of the value
     // into the provided context. It must respect the format verb,
     // width, precision, and other options present in ctx.
     Format(ctx *FormatContext) Error
 }
 
-type interface DebugFormattable {
+type DebugFormattable interface {
     // FormatDebug writes a debug‑oriented representation of the value.
     // This representation may include additional fields or internal state.
     // It is intended for debugging and logging, not for stable user‑facing text.

@@ -358,7 +358,7 @@ var y = *p        // y = 10
 ```
 
 ```ori
-type struct Node {
+type Node struct {
     value int
     next  *Node
 }

@@ -275,7 +275,7 @@ Defined in: `math/add.ori:14`
 
 Example hover for struct:
 ```
-type struct User {
+type User struct {
     name string
     age  int
 }

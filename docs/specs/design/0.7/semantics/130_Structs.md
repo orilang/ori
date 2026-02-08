@@ -49,7 +49,7 @@ FieldDecl  = Identifier Type [ "=" Expression ] .
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -58,7 +58,7 @@ type struct User {
 Optional field defaults can be specified:
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -78,7 +78,7 @@ var u User = User{name: "Ori", age: 20} // ✅ valid
 All fields must be provided, either directly or through explicit defaults.
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -98,7 +98,7 @@ Field visibility is determined by capitalization:
 | Starts with lowercase | Private to the defining package |
 
 ```ori
-type struct User {
+type User struct {
     Name string // public
     email string // private
 }
@@ -165,7 +165,7 @@ MethodDecl = "func" "(" Receiver ")" Identifier "(" [ Parameters ] ")" [ ReturnT
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -196,12 +196,12 @@ Ori **does not support type-name embedding** or **field promotion**.
 ### ❌ Invalid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     Address // forbidden
 }
@@ -210,12 +210,12 @@ type struct User {
 ### ✅ Valid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     addr Address
 }
@@ -257,7 +257,7 @@ This ensures efficient CPU access.
 
 Unused bytes may be inserted between fields to maintain alignment:
 ```ori
-type struct Example {
+type Example struct {
     a byte   // 1 byte
     b int32  // may start at offset 4, with 3 bytes of padding
 }

@@ -213,7 +213,7 @@ import (
 
 const defaultTimeout Duration = 5 * time.Second
 
-type struct Config {
+type Config struct {
     path   string
     repeat int
 }
@@ -274,12 +274,12 @@ func noop() {
 
 Example:
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
 
-type struct Config {
+type Config struct {
     path     string
     retries  int
     timeout  Duration
@@ -293,8 +293,7 @@ The formatter enforces that:
 
 So inputs like:
 ```ori
-type struct Config {
-
+type Config struct {
     path     string
     retries  int
     timeout  Duration
@@ -304,7 +303,7 @@ type struct Config {
 
 are normalized to:
 ```ori
-type struct Config {
+type Config struct {
     path     string
     retries  int
     timeout  Duration
@@ -554,7 +553,7 @@ ori test
 package main
 import "time"
 import "os"
-type struct Config {
+type Config struct {
 
     path string
 retries int
@@ -580,7 +579,7 @@ import (
     "time"
 )
 
-type struct Config {
+type Config struct {
     path    string
     retries int
     timeout Duration

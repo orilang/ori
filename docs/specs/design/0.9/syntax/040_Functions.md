@@ -76,7 +76,7 @@ Named return variables are under consideration.
 Functions can be declared with an explicit **receiver** to define methods on types:
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }

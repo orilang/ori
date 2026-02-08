@@ -82,7 +82,7 @@ Higher-level libraries like `fmt` and logging:
 
 A **format sink** is any value that can receive formatted text:
 ```ori
-type interface FormatSink {
+type FormatSink interface {
     WriteString(s string) Error
     WriteRune(r rune) Error
 }
@@ -111,7 +111,7 @@ Sinks may wrap:
 
 Phase 1 of the logging framework defines a `Writer` interface:
 ```ori
-type interface Writer {
+type Writer interface {
     Write(buf []byte) (int, error)
 }
 ```
@@ -172,7 +172,7 @@ type enum Align {
 
 A **format specification** is represented as:
 ```ori
-type struct FormatSpec {
+type FormatSpec struct {
     kind      FormatKind
     width     int  // minimum field width; -1 = unspecified
     precision int  // interpretation depends on kind; -1 = unspecified
@@ -183,7 +183,7 @@ type struct FormatSpec {
 The **format context** passed to formatting methods is:
 
 ```ori
-type struct FormatContext {
+type FormatContext struct {
     sink  FormatSink
     spec  FormatSpec
 }
@@ -213,7 +213,7 @@ Rules:
 
 The primary interface for human‑oriented formatting:
 ```ori
-type interface Formattable {
+type Formattable interface {
     Format(ctx *FormatContext) Error
 }
 ```
@@ -229,7 +229,7 @@ Rules:
 
 A secondary interface for developer/debug output:
 ```ori
-type interface DebugFormattable {
+type DebugFormattable interface {
     FormatDebug(ctx *FormatContext) Error
 }
 ```

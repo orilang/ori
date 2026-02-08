@@ -21,7 +21,7 @@ It follows the same ownership, aliasing, and deterministic destruction rules as 
 
 The core definition of `StringBuilder` is:
 ```ori
-type struct StringBuilder {
+type StringBuilder struct {
     buf []byte   // unexported; may be nil or a valid slice
 }
 ```

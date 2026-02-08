@@ -604,7 +604,7 @@ A **declaration** introduces a new name into the program scope and binds it to a
 
 ```ori
 const float PI = 3.1415
-type struct User {
+type User struct {
   id int
   name string
 }
@@ -622,7 +622,7 @@ Declarations appear at package, function, or block level.
 | Variable | `var` | `var count int = 0` |
 | Function | `func` | `func add(a, b int) int { return a + b }` |
 | Type | `type` | `type Age = int` |
-| Struct | `struct` | `type struct Point { x int, y int }` |
+| Struct | `struct` | `type Point struct { x int, y int }` |
 
 ---
 
@@ -645,7 +645,7 @@ Type aliases and named types provide clarity and stronger semantics.
 
 ```ori
 type ID int
-type struct User {
+type User struct {
     id ID
     name string
 }
@@ -673,7 +673,7 @@ See: [Functions](syntax/040_Functions.md)
 Structs define aggregate types with named fields.
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -986,7 +986,7 @@ Named return variables are under consideration for future versions but are **not
 Functions can be declared with an explicit **receiver** to define methods on types:
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -1161,9 +1161,9 @@ Use the `type` keyword to define new named types:
 
 ```ori
 type ID int
-type struct User {
-    id: ID
-    name: string
+type User struct {
+    id ID
+    name string
 }
 ```
 
@@ -1176,7 +1176,7 @@ Named types create distinct semantic types even if the underlying representation
 Structs group multiple named fields into one type.
 
 ```ori
-type struct Point {
+type Point struct {
     x int
     y int
 }
@@ -1261,7 +1261,7 @@ This note integrates the canonical `Error` struct into the type system.
 Ori defines one builtin error struct:
 
 ```ori
-type struct Error {
+type Error struct {
     Message const string
     Code    const int
 }
@@ -2320,7 +2320,7 @@ Example (planned):
 
 ```ori
 // Represents a user account in the system.
-type struct User {
+type User struct {
     id int
     name string
 }
@@ -4165,7 +4165,7 @@ FieldDecl  = Identifier Type [ "=" Expression ] .
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -4174,7 +4174,7 @@ type struct User {
 Optional field defaults can be specified:
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -4194,7 +4194,7 @@ var u User = User{name: "Ori", age: 20} // ✅ valid
 All fields must be provided, either directly or through explicit defaults.
 
 ```ori
-type struct Config {
+type Config struct {
     host string = "localhost"
     port int = 8080
 }
@@ -4214,7 +4214,7 @@ Field visibility is determined by capitalization:
 | Starts with lowercase | Private to the defining package |
 
 ```ori
-type struct User {
+type User struct {
     Name string // public
     email string // private
 }
@@ -4285,7 +4285,7 @@ MethodDecl = "func" "(" Receiver ")" Identifier "(" [ Parameters ] ")" [ ReturnT
 ### Example
 
 ```ori
-type struct User {
+type User struct {
     name string
     age  int
 }
@@ -4316,12 +4316,12 @@ Ori **does not support type-name embedding** or **field promotion**.
 ### ❌ Invalid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     Address // forbidden
 }
@@ -4330,12 +4330,12 @@ type struct User {
 ### ✅ Valid
 
 ```ori
-type struct Address {
+type Address struct {
     city string
     country string
 }
 
-type struct User {
+type User struct {
     name string
     addr Address
 }
@@ -4377,7 +4377,7 @@ This ensures efficient CPU access.
 
 Unused bytes may be inserted between fields to maintain alignment:
 ```ori
-type struct Example {
+type Example struct {
     a byte   // 1 byte
     b int32  // may start at offset 4, with 3 bytes of padding
 }
@@ -4458,7 +4458,7 @@ There is exactly **one builtin error type**, and all error handling follows a pr
 Ori provides **one canonical error type**:
 
 ```ori
-type struct Error {
+type Error struct {
     Message const string
     Code    const int
 }
@@ -4546,7 +4546,7 @@ Identity is defined by `(Message, Code)` for the builtin `Error` type.
 ## 140.7 Custom Error Types
 
 ```ori
-type struct ParseError {
+type ParseError struct {
     Message const string
     Line    const int
 }
@@ -5319,7 +5319,7 @@ ReceiverModifier = "ref" | "const" .
 
 ### Example
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -5347,7 +5347,7 @@ This design prevents ambiguity and ensures clear, deterministic method resolutio
 
 ### ✅ Valid
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -5389,7 +5389,7 @@ MethodSig     = Identifier "(" [ ParameterList ] ")" [ FuncResult ] .
 
 ### Example
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
@@ -5401,12 +5401,12 @@ Otherwise, the compiler emits an explicit error.
 
 Example:
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
     identify() string
 }
 
-type struct User { name string }
+type User struct { name string }
 
 User implements Greeter
 
@@ -5435,18 +5435,18 @@ A type must declare that it implements an interface before being used as such.
 
 #### Step 1. Define the interface
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
 
 #### Step 2. Define concrete types
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
-type struct Bot {
+type Bot struct {
     id int
 }
 ```
@@ -5502,7 +5502,7 @@ Each element in `greeters` can be a different type, as long as it implements `Gr
 
 | Concept | Meaning |
 |----------|----------|
-| `type interface Greeter` | Declares required methods. |
+| `type Greeter interface` | Declares required methods. |
 | `User implements Greeter` | Declares explicit relationship between type and interface. |
 | `func (u User) greet()` | Defines method required by the interface. |
 | `Greeter` in function parameter | Enables runtime polymorphism. |
@@ -5574,12 +5574,12 @@ max[float64](3.14, 2.71) // → max_float64
 
 ### Example (current v0.5)
 ```ori
-type interface Drawable {
+type Drawable interface {
     draw()
 }
 
-type struct Circle { radius int }
-type struct Square { size int }
+type Circle struct { radius int }
+type Square struct { size int }
 
 Circle implements Drawable
 Square implements Drawable
@@ -6292,7 +6292,7 @@ This note specifies how the unified `Error` type is used in task handling.
 Task handles expose a `Wait` method that returns the canonical `Error` type:
 
 ```ori
-type struct Task {
+type Task struct {
     // internal fields not exposed here
 }
 
@@ -7755,4 +7755,4 @@ Intended for safe, efficient read-only access.
 
 
 
-© 2025 Ori Language — Design Spec
+© 2026 Ori Language — Design Spec

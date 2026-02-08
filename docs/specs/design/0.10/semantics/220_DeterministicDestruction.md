@@ -192,7 +192,7 @@ destructor TypeName {
 Example:
 
 ```ori
-type struct File {
+type File struct {
     fd int
 }
 
@@ -223,7 +223,7 @@ Inside a destructor:
 #### Simple Resource Destructor
 
 ```ori
-type struct File {
+type File struct {
     fd int
 }
 
@@ -237,7 +237,7 @@ destructor File {
 #### Struct with Fields
 
 ```ori
-type struct Connection {
+type Connection struct {
     file File
     lock Mutex
 }
@@ -377,7 +377,7 @@ func test() {
 #### 220.10.2.13 Using moved-out fields
 
 ```ori
-type struct S {
+type S struct {
     x Resource
     y Resource
 }
@@ -515,12 +515,12 @@ No destructor (neither user-defined nor synthesized) is created when:
 
 Examples:
 ```ori
-type struct Point {
+type Point struct {
     x float
     y float
 }
 
-type struct Id {
+type Id struct {
     value int
 }
 ```
@@ -537,7 +537,7 @@ If a type has **no user-declared destructor** but contains fields whose types ha
 
 Example:
 ```ori
-type struct Session {
+type Session struct {
     conn Connection  // Connection has a destructor
     token string
 }
@@ -561,11 +561,11 @@ Notes:
 ### 220.18.3 Example – Nested Structs
 
 ```ori
-type struct Cache {
+type Cache struct {
     buf Buffer    // Buffer has destructor
 }
 
-type struct State {
+type State struct {
     cache Cache   // Cache requires destruction
     id    Id      // Id has no destructor
 }
@@ -602,7 +602,7 @@ When the user declares a destructor for a type `T`, the compiler:
 Example:
 
 ```ori
-type struct Resource {
+type Resource struct {
     data view[byte]
     alloc Allocator
 }
@@ -636,7 +636,7 @@ Rules:
 ### 220.18.5 Example – Partial Moves and Synthesis
 
 ```ori
-type struct Pair {
+type Pair struct {
     left  File
     right File
 }
@@ -714,9 +714,9 @@ Ori guarantees:
 This applies even for deep nesting:
 
 ```ori
-type struct A { x int }
-type struct B { a A }
-type struct C { b B }
+type A struct { x int }
+type B struct { a A }
+type C struct { b B }
 ```
 
 None of `A`, `B`, `C` get destructors or destruction tails.
@@ -740,7 +740,7 @@ All such errors should point to:
 ### 220.18.8.1 Error: Synthesized destructor must destroy a field that was moved out
 
 ```ori
-type struct Pair {
+type Pair struct {
     left  File
     right File
 }
@@ -763,7 +763,7 @@ help: consider writing a custom destructor for 'Pair'
 ### 220.18.8.2 Error: User-defined destructor conflicts with synthesized field destruction
 
 ```ori
-type struct Holder {
+type Holder struct {
     buf Buffer
 }
 
@@ -785,7 +785,7 @@ help: do not manually destroy fields; only write type-level cleanup.
 ### 220.18.8.3 Error: User-defined destructor attempts to destroy a moved-out field
 
 ```ori
-type struct Frame {
+type Frame struct {
     tmp TempBuf
     img Image
 }
@@ -812,7 +812,7 @@ help: remove manual field destruction; rely on automatic destruction
 ### 220.18.8.4 Error: Recursive type requiring synthesis but containing owned fields
 
 ```ori
-type struct Node {
+type Node struct {
     next Node     // ❌ illegal: recursive value containment
     data Buffer
 }
@@ -831,7 +831,7 @@ help: use a pointer to 'Node' instead
 ### 220.18.8.5 Error: Ambiguous ownership in generic types
 
 ```ori
-type struct Box[T] {
+type Box[T] struct {
     item T
 }
 
@@ -853,9 +853,9 @@ help: require 'T' to be move-only or panic-free via a generic constraint
 ### 220.18.8.6 Example – Using Generic Constraints
 
 ```ori
-type interface Disposable { }
+type Disposable interface { }
 
-type struct Box[T Disposable] {
+type Box[T Disposable] struct {
     item T
 }
 ```
@@ -865,11 +865,11 @@ type struct Box[T Disposable] {
 ### 220.18.8.7 Error: Interface object cannot infer destructor requirements
 
 ```ori
-type interface Writer {
+type Writer interface {
     write(view[byte]) int
 }
 
-type struct FileWriter {
+type structWriter File {
     file File
 }
 
@@ -889,9 +889,9 @@ help: store concrete types, or wrap the resource in an owning struct
 ### 220.18.8.8 Error: Synthesized destructor would require dynamic dispatch
 
 ```ori
-type interface Closeable { }
+type Closeable interface { }
 
-type struct Handle[T Closeable] {
+type Handle[T Closeable] struct {
     obj T
 }
 
@@ -1060,9 +1060,9 @@ At destruction:
 Example: types that *always* require destruction:
 
 ```ori
-type interface Disposable { }
+type Disposable interface { }
 
-type struct Box[T Disposable] {
+type Box[T Disposable] struct {
     item T
 }
 ```
@@ -1077,9 +1077,9 @@ destructor Box[T Disposable] {
 Types that *never* require destruction:
 
 ```ori
-type interface Copyable { }
+type Copyable interface { }
 
-type struct PodBox[T Copyable] {
+type PodBox[T Copyable] struct {
     item T
 }
 ```
@@ -1366,7 +1366,7 @@ Ori guarantees:
 Module B:
 
 ```ori
-type struct File { fd int }
+type File struct { fd int }
 destructor File {
     if value.fd >= 0 { close_fd(value.fd) }
 }

@@ -168,7 +168,7 @@ This semantic file does not fix API names, only required behavior.
 
 Loggers send serialized log records to a `Writer`:
 ```ori
-type interface Writer {
+type Writer interface {
     Write(buf []byte) (int, error)
 }
 ```
@@ -188,7 +188,7 @@ Some writers buffer data internally and support explicit flushing.
 
 Ori defines a **public**, but minimal, interface for this capability:
 ```ori
-type interface Flusher {
+type Flusher interface {
     Flush() error
 }
 ```
@@ -210,7 +210,7 @@ Custom writers MAY implement `Flusher` to participate in flush semantics.
 
 A canonical logger has at least the following conceptual shape:
 ```ori
-type struct Logger {
+type Logger struct {
     mu          Mutex        // protects all internal state
     writer      Writer
     level       LogLevel

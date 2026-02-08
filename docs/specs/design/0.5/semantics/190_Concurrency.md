@@ -440,7 +440,7 @@ This note specifies how the unified `Error` type is used in task handling.
 Task handles expose a `Wait` method that returns the canonical `Error` type:
 
 ```ori
-type struct Task {
+type Task struct {
     // internal fields not exposed here
 }
 

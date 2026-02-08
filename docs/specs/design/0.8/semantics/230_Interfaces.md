@@ -24,7 +24,7 @@ They **do not own** the underlying object; they are non‑owning views.
 ### 230.2.1 Syntax
 
 ```
-type interface Greeter {
+type Greeter interface {
     greet() string
     identify() string
 }
@@ -71,11 +71,11 @@ If any method is missing or mismatched, compilation fails at the `implements` de
 ### 230.4.1 Basic form
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type struct File {
+type File struct {
     Path string
 }
 
@@ -114,15 +114,15 @@ Pointer, alias, and sum‑type method‑set rules come from `170_MethodsAndInter
 ### 230.5.1 Syntax
 
 ```
-type interface Reader {
+type Reader interface {
     Read(p []byte) int
 }
 
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type interface ReadWriter {
+type ReadWriter interface {
     Reader
     Writer
 }
@@ -135,15 +135,15 @@ Composition is **shallow**; no new semantics added; conflicts cause compile-time
 ### 230.5.2 Conflict handling
 
 ```
-type interface A {
+type A interface {
     process(x int) int
 }
 
-type interface B {
+type B interface {
     process(x string) int
 }
 
-type interface C {
+type C interface {
     A
     B
 }
@@ -331,11 +331,11 @@ if T implements Writer {
 #### 1. Missing method
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 
-type struct File {}
+type File struct {}
 
 File implements Writer
 // ERROR: File lacks Write(p []byte) int
@@ -344,7 +344,7 @@ File implements Writer
 #### 2. Signature mismatch
 
 ```
-type interface Writer {
+type Writer interface {
     Write(p []byte) int
 }
 

@@ -23,7 +23,7 @@ There is exactly **one builtin error type**, and all error handling follows a pr
 Ori provides **one canonical error type**:
 
 ```ori
-type struct Error {
+type Error struct {
     Message const string
     Code    const int
 }
@@ -111,7 +111,7 @@ Identity is defined by `(Message, Code)` for the builtin `Error` type.
 ## 140.7 Custom Error Types
 
 ```ori
-type struct ParseError {
+type ParseError struct {
     Message const string
     Line    const int
 }

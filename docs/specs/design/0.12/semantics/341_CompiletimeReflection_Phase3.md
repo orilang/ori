@@ -268,12 +268,12 @@ These guarantees are minimal but sufficient to implement **library-level derive 
 
 Let:
 ```ori
-type struct StructInfo {
+type StructInfo struct {
     fields []FieldInfo
     // ...
 }
 
-type struct FieldInfo {
+type FieldInfo struct {
     name      string
     type      Type
     exported  bool
@@ -313,12 +313,12 @@ comptime func structFieldNames[T type]() []string {
 
 Let:
 ```ori
-type struct EnumInfo {
+type EnumInfo struct {
     variants []EnumVariantInfo
     // ...
 }
 
-type struct EnumVariantInfo {
+type EnumVariantInfo struct {
     name string
     // ...
 }
@@ -358,12 +358,12 @@ Such helpers are particularly useful for:
 
 Let:
 ```ori
-type struct SumTypeInfo {
+type SumTypeInfo struct {
     variants []SumVariantInfo
     // ...
 }
 
-type struct SumVariantInfo {
+type SumVariantInfo struct {
     name       string
     hasPayload bool
     fields     []FieldInfo

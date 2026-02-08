@@ -117,7 +117,7 @@ Threads safely isolate blocking operations.
 ### 400.5.1 CancelSignal
 
 ```
-type struct CancelSignal { /* opaque */ }
+type CancelSignal struct { /* opaque */ }
 
 func MakeCancelSignal() CancelSignal
 func (s CancelSignal) Trigger()
@@ -133,7 +133,7 @@ Characteristics:
 ### 400.5.2 DeadlineSignal
 
 ```
-type struct DeadlineSignal { /* opaque */ }
+type DeadlineSignal struct { /* opaque */ }
 
 func MakeDeadlineSignal(d Duration) DeadlineSignal
 func (d DeadlineSignal) IsExceeded() bool
@@ -197,7 +197,7 @@ It does **not**:
 ### 400.7.2 API
 
 ```
-type struct TaskGroup { /* opaque */ }
+type Task structGroup { /* opaque */ }
 
 func MakeTaskGroup() TaskGroup
 func (g TaskGroup) SpawnTask(fn func() Error)

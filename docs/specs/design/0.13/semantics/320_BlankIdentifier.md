@@ -101,7 +101,7 @@ import "math" { Sin, _ }      // ❌ forbidden
 ### 320.3.4 As a Field Name
 
 ```
-type struct User {
+type User struct {
     _ int      // ❌ forbidden
 }
 ```

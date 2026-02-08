@@ -43,7 +43,7 @@ Constraints:
 
 Reflection in Phase 1 exposes only essential fields.
 ```ori
-type struct TypeInfo {
+type TypeInfo struct {
     kind         TypeKind
     name         string
     size         int
@@ -75,14 +75,14 @@ type enum TypeKind {
 ## 340.4 Struct Metadata
 
 ```ori
-type struct StructInfo {
+type StructInfo struct {
     fields []FieldInfo
 }
 ```
 
 Each declared field:
 ```ori
-type struct FieldInfo {
+type FieldInfo struct {
     name   string
     type   Type
     offset int
@@ -98,14 +98,14 @@ Notes:
 ## 340.5 Sum Type Metadata
 
 ```ori
-type struct SumInfo {
+type SumInfo struct {
     variants []VariantInfo
 }
 ```
 
 Each variant:
 ```ori
-type struct VariantInfo {
+type VariantInfo struct {
     name string
     fields []FieldInfo // defined in 340.4 section
 }
@@ -116,14 +116,14 @@ type struct VariantInfo {
 ## 340.6 Interface Metadata
 
 ```ori
-type struct InterfaceInfo {
+type InterfaceInfo struct {
     methods []MethodInfo
 }
 ```
 
 Each method:
 ```ori
-type struct MethodInfo {
+type MethodInfo struct {
     name string
     sig  FunctionSignature
 }
@@ -267,11 +267,11 @@ comptime func ensureImplementsSerializable(T type) {
     }
 }
 
-type interface Serializable {
+type Serializable interface {
     serialize() string
 }
 
-type struct User {
+type User struct {
     name string
 }
 
@@ -344,7 +344,7 @@ comptime func ensureNonRecursive(T type) {
 
 Use:
 ```ori
-type struct Node {
+type Node struct {
     value int
     next  Node   // invalid! should be *Node
 }

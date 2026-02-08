@@ -38,7 +38,7 @@ ReceiverModifier = "ref" | "const" .
 
 ### Example
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -66,7 +66,7 @@ This design prevents ambiguity and ensures clear, deterministic method resolutio
 
 ### ✅ Valid
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
@@ -108,7 +108,7 @@ MethodSig     = Identifier "(" [ ParameterList ] ")" [ FuncResult ] .
 
 ### Example
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
@@ -120,12 +120,12 @@ Otherwise, the compiler emits an explicit error.
 
 Example:
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
     identify() string
 }
 
-type struct User { name string }
+type User struct { name string }
 
 User implements Greeter
 
@@ -154,18 +154,18 @@ A type must declare that it implements an interface before being used as such.
 
 #### Step 1. Define the interface
 ```ori
-type interface Greeter {
+type Greeter interface {
     greet() string
 }
 ```
 
 #### Step 2. Define concrete types
 ```ori
-type struct User {
+type User struct {
     name string
 }
 
-type struct Bot {
+type Bot struct {
     id int
 }
 ```
@@ -221,7 +221,7 @@ Each element in `greeters` can be a different type, as long as it implements `Gr
 
 | Concept | Meaning |
 |----------|----------|
-| `type interface Greeter` | Declares required methods. |
+| `type Greeter interface` | Declares required methods. |
 | `User implements Greeter` | Declares explicit relationship between type and interface. |
 | `func (u User) greet()` | Defines method required by the interface. |
 | `Greeter` in function parameter | Enables runtime polymorphism. |
@@ -293,12 +293,12 @@ max[float64](3.14, 2.71) // → max_float64
 
 ### Example (current v0.5)
 ```ori
-type interface Drawable {
+type Drawable interface {
     draw()
 }
 
-type struct Circle { radius int }
-type struct Square { size int }
+type Circle struct { radius int }
+type Square struct { size int }
 
 Circle implements Drawable
 Square implements Drawable

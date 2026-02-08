@@ -350,7 +350,7 @@ Example (valid multi-file type definition):
 
 ```ori
 package user
-type struct User {
+type User struct {
     Name string
 }
 ```
@@ -365,8 +365,8 @@ func (u User) Greet() string { return "Hello " + u.Name }
 Invalid (duplicate):
 
 ```
-type struct User { Name string }
-type struct User { Age int }    // ❌ duplicate type
+type User struct { Name string }
+type User struct { Age int }    // ❌ duplicate type
 ```
 
 ---
@@ -388,7 +388,7 @@ name, user, parse, httpServer
 Examples:
 
 ```ori
-type struct User {
+type User struct {
     Name string   // exported
     age  int      // internal
 }
@@ -499,15 +499,15 @@ const A = 2    // ❌
 ### Type cycles (value embedding):
 
 ```
-type struct A { b B }
-type struct B { a A }   // ❌ infinite size
+type A struct { b B }
+type B struct { a A }   // ❌ infinite size
 ```
 
 Valid pointer cycle:
 
 ```
-type struct A { b *B }
-type struct B { a *A }  // OK
+type A struct { b *B }
+type B struct { a *A }  // OK
 ```
 
 ### Top-level var:

@@ -49,7 +49,7 @@ comparisons, etc.
 ### 003.2.2 Time
 
 ```
-type struct Time {
+type Time struct {
     unixNano int64   // wall-clock timestamp, nanoseconds since Unix epoch
 }
 ```

@@ -348,7 +348,7 @@ in a human-readable output mode, one possible line is:
 ### 381.10.2 Logging a struct with no custom formatter
 
 ```ori
-type struct Config {
+type Config struct {
     host string
     port int
 }
@@ -369,7 +369,7 @@ If `Config` does not implement any formatting interface, the logger uses the str
 ### 381.10.3 Using a custom Formattable implementation
 
 ```ori
-type struct UserID {
+type User structID {
     value string
 }
 

@@ -79,7 +79,7 @@ Properties:
 
 CTR exposes type structure through:
 ```ori
-type struct TypeInfo {
+type TypeInfo struct {
     kind       TypeKind
     typeName   string
 
@@ -125,13 +125,13 @@ type enum TypeKind {
 ### 340.7.1 Structs
 
 ```ori
-type struct StructInfo {
+type StructInfo struct {
     size       int
     alignment  int
     fields []FieldInfo
 }
 
-type struct FieldInfo {
+type FieldInfo struct {
     name      string
     type      type
     exported  bool
@@ -143,11 +143,11 @@ type struct FieldInfo {
 ### 340.7.2 Sum Types
 
 ```ori
-type struct SumTypeInfo {
+type SumTypeInfo struct {
     variants []SumTypeVariantInfo
 }
 
-type struct SumTypeVariantInfo {
+type SumTypeVariantInfo struct {
     name       string
     fields     []FieldInfo
     hasPayload bool
@@ -159,13 +159,13 @@ type struct SumTypeVariantInfo {
 ### 340.7.3 Enums
 
 ```ori
-type struct EnumInfo {
+type EnumInfo struct {
     size       int
     alignment  int
     variants []EnumVariantInfo
 }
 
-type struct EnumVariantInfo {
+type EnumVariantInfo struct {
     name string
 }
 ```
@@ -177,11 +177,11 @@ type struct EnumVariantInfo {
 ### 340.7.4 Interfaces
 
 ```ori
-type struct InterfaceInfo {
+type InterfaceInfo struct {
     methods []MethodInfo
 }
 
-type struct MethodInfo {
+type MethodInfo struct {
     name       string
     params     []type
     returns    []type
@@ -194,7 +194,7 @@ type struct MethodInfo {
 ### 340.7.5 Arrays
 
 ```ori
-type struct ArrayInfo {
+type ArrayInfo struct {
     size       int
     alignment  int
     element type
@@ -207,7 +207,7 @@ type struct ArrayInfo {
 ### 340.7.6 Slices
 
 ```ori
-type struct SliceInfo {
+type SliceInfo struct {
     element type
 }
 ```
@@ -217,12 +217,12 @@ type struct SliceInfo {
 ### 340.7.7 Maps & HashMaps
 
 ```ori
-type struct MapInfo {
+type MapInfo struct {
     key   type
     value type
 }
 
-type struct HashMapInfo {
+type HashMapInfo struct {
     key   type
     value type
 }
@@ -233,7 +233,7 @@ type struct HashMapInfo {
 ### 340.7.8 Pointers
 
 ```ori
-type struct PointerInfo {
+type Point structerInfo {
     size       int
     alignment  int
     target     type
@@ -245,7 +245,7 @@ type struct PointerInfo {
 ### 340.7.9 Shared
 
 ```ori
-type struct SharedInfo {
+type SharedInfo struct {
     underlying type
 }
 ```
@@ -255,7 +255,7 @@ type struct SharedInfo {
 ### 340.7.10 Views
 
 ```ori
-type struct ViewInfo {
+type ViewInfo struct {
     underlying type
 }
 ```
@@ -265,7 +265,7 @@ type struct ViewInfo {
 ### 340.7.11 Functions
 
 ```ori
-type struct FuncInfo {
+type FuncInfo struct {
     params     []type
     returns    []type
     isVariadic bool
