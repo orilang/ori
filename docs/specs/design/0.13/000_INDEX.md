@@ -50,6 +50,7 @@ This directory contains the official specification, structured into thematic sec
 - [Container Ownership Model](semantics/260_ContainerOwnershipModel.md)
 - [Modules And CompilationUnits - Phase 1](semantics/270_ModulesAndCompilationUnits_Phase1.md)
 - [Modules And CompilationUnits - Phase 2](semantics/270_ModulesAndCompilationUnits_Phase2.md)
+- [Private Modules And Stability Model - Phase 1](semantics/271_PrivateModulesAndStabilityModel_Phase1.md)
 - [Compiler Directives And Keywords](semantics/280_CompilerDirectivesAndKeywords.md)
 - [Foreign Function Interface](semantics/290_FFI.md)
 - [Testing Framework - Phase 1](semantics/300_TestingFramework_Phase1.md)
