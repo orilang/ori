@@ -10,7 +10,7 @@ They group related fields and can define associated methods, providing a foundat
 A `struct` represents a fixed collection of named fields, each with an explicit type.  
 Unlike some other languages, Ori **does not create implicit zero values** — every struct must be explicitly initialized.
 
-Structs are **value types** by default: assignments and returns copy their contents unless a `ref` or `view` qualifier is used.
+Structs are **value types** by default: assignments and returns copy their contents unless a `shared` or `view` qualifier is used.
 
 Struct names starting with an **uppercase** letter are **exported (public)**,  
 while lowercase struct names are **private** to their defining package or module.
@@ -126,7 +126,7 @@ b.name = "B"
 fmt.Println(a.name) // "A" — unaffected
 ```
 
-To share or mutate across copies, use the `view` or `ref` qualifier.
+To share or mutate across copies, use the `view` or `shared` qualifier.
 
 ---
 
@@ -230,7 +230,7 @@ No recursive promotion, shadowing, or method inheritance is allowed.
 1. **Name collisions:** Go silently shadows inner fields; Ori forbids ambiguous names.  
 2. **Recursive flattening:** implicit access chains like `u.name` (from nested structs) create unclear ownership.  
 3. **Method promotion:** automatically exposing inner methods leaks implementation details.  
-4. **Ownership clarity:** explicit field names allow controlled use of `view` or `ref`.
+4. **Ownership clarity:** explicit field names allow controlled use of `view` or `shared`.
 
 | Problem | Go Behavior | Ori Behavior |
 |----------|--------------|---------------|
@@ -274,7 +274,7 @@ Precise layout and alignment rules ensure compatibility across language boundari
 
 A `const` struct cannot have its fields modified after creation.  
 `view` references cannot mutate the target.  
-`ref` allows controlled mutation (experimental).  
+`shared` allows controlled mutation (experimental).  
 Structs are not implicitly thread-safe; synchronization is the developer’s responsibility.
 
 ---
