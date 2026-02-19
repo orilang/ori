@@ -14377,7 +14377,7 @@ Enums in Ori are *pure symbolic variants* with no associated payloads.
 
 An enum is declared using the `type enum` form:
 ```ori
-type enum Color =
+type Color enum =
     | Red
     | Green
     | Blue
@@ -14559,7 +14559,7 @@ The compiler must reject:
 ### 350.9.1 Duplicate Variant Names
 
 ```ori
-type enum Status =
+type Status enum =
     | Ok
     | Ok    // ❌ duplicate
 ```
@@ -14567,7 +14567,7 @@ type enum Status =
 ### 350.9.2 Missing Pipe Symbol
 
 ```ori
-type enum State =
+type State enum =
     Idle      // ❌ missing '|'
     | Running // ✔ valid
 ```
@@ -14598,7 +14598,7 @@ var s State = State() // ❌ enums have no constructor
 ### Basic Enum
 
 ```ori
-type enum Light =
+type Light enum =
     | Red
     | Yellow
     | Green
