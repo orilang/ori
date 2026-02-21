@@ -27,10 +27,8 @@ Enums in Ori are *pure symbolic variants* with no associated payloads.
 
 An enum is declared using the `type enum` form:
 ```ori
-type Color enum =
-    | Red
-    | Green
-    | Blue
+type Color enum {
+  Red, Green, Blue
 ```
 
 Each variant:
@@ -209,33 +207,25 @@ The compiler must reject:
 ### 350.9.1 Duplicate Variant Names
 
 ```ori
-type Status enum =
-    | Ok
-    | Ok    // ❌ duplicate
+type Status enum {
+   Ok,
+   Ok    // ❌ duplicate
 ```
 
-### 350.9.2 Missing Pipe Symbol
-
-```ori
-type State enum =
-    Idle      // ❌ missing '|'
-    | Running // ✔ valid
-```
-
-### 350.9.3 Unused or Unknown Enum Variant Names
+### 350.9.2 Unused or Unknown Enum Variant Names
 
 Using undeclared variants is an error:
 ```ori
 if x == Color.Purple { } // ❌ Purple not declared
 ```
 
-### 350.9.4 Attempting Numeric Conversions
+### 350.9.3 Attempting Numeric Conversions
 
 ```ori
 var n int = Color.Red // ❌ no conversion allowed
 ```
 
-### 350.9.5 Instantiating Enums Incorrectly
+### 350.9.4 Instantiating Enums Incorrectly
 
 ```ori
 var s State = State() // ❌ enums have no constructor
@@ -248,10 +238,11 @@ var s State = State() // ❌ enums have no constructor
 ### Basic Enum
 
 ```ori
-type Light enum =
-    | Red
-    | Yellow
-    | Green
+type Light enum {
+  Red,
+  Yellow,
+  Green
+}
 
 func action(l Light) string {
     switch l {

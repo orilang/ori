@@ -674,10 +674,11 @@ Any attempt in a **user-defined** destructor to explicitly destroy `value.right`
 
 Consider the sum type below:
 ```ori
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
-    | Image(buf Buffer)
+type Shape sum {
+  Circle(radius float)
+  Rect(w float, h float)
+  Image(buf Buffer)
+}
 ```
 
 If `Shape` has no explicit destructor:
@@ -911,9 +912,10 @@ help: use a concrete type argument instead of an interface
 ### 220.18.8.9 Error: Sum type variant requires custom destructor
 
 ```ori
-type Boxed =
-    | One(buf Buffer)
-    | Two(ptr *byte)
+type Boxed sum {
+  One(buf Buffer)
+  Two(ptr *byte)
+}
 
 func leak(b Boxed) {
     switch b {
@@ -1036,9 +1038,10 @@ func f() {
 ### 220.19.5 Pattern Matching and Move Semantics in Sum Types
 
 ```ori
-type Shape =
-    | Circle(r float)
-    | Image(buf Buffer)
+type Shape sum {
+  Circle(r float)
+  Image(buf Buffer)
+}
 
 func consume(s Shape) {
     switch s {

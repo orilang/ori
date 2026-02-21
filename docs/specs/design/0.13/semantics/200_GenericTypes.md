@@ -72,16 +72,17 @@ type Box[T] struct {
 
 ### Type Aliases
 ```
-type List[T] = struct {
+type List[T] struct {
     items []T
 }
 ```
 
 ### Sum Types (syntax example; generic behavior only)
 ```
-type Option[T] =
-    | Some(T)
-    | None
+type Option[T] sum {
+  Some(T)
+  None
+}
 ```
 
 ## 200.3 Generic Methods
@@ -385,9 +386,10 @@ map[int, User]    // ok
 ### 200.7.3 Sum Types
 
 ```
-type Option[T] =
-    | Some(T)
-    | None
+type Option[T] sum {
+  Some(T)
+  None
+}
 ```
 
 Fully monomorphized per T.

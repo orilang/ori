@@ -1,23 +1,21 @@
 # 210. Sum Types (Algebraic Data Types)
 
 Sum types allow a value to take one of several well-defined variants, each optionally carrying typed payload fields.  
-Ori adopts a clean, ML-style syntax (Meta Language family) using `|` to declare variants, enabling expressive modeling of states, domain data, and configuration-like structures.
 
 ---
 
 ## 210.1 Overview
 
 A sum type is declared as:
-
 ```
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
+type Shape sum {
+  Circle(radius float)
+  Rect(w float, h float)
+}
 ```
 
 Key characteristics:
-- `type Name =` introduces the sum type.
-- Each variant begins with `|`.
+- `type Name sum` introduces the sum type.
 - Each variant behaves as a **compile-time constructor** for the sum type.  
   Constructors use function-call syntax but are **not** regular functions.
 - Each variant has:
@@ -32,15 +30,14 @@ Sum types enable clean, explicit representation of data that may take multiple s
 ## 210.2 Grammar
 
 ```
-SumTypeDecl   = "type" Identifier "=" VariantList
+sumDecl   = "type" Identifier "sum" "{" VariantList "}"
 VariantList   = Variant { Variant }
-Variant       = "|" Identifier "(" [ VariantFields ] ")"
+Variant       = Identifier "(" [ VariantFields ] ")"
 VariantFields = VariantField { "," VariantField }
 VariantField  = Identifier Type
 ```
 
 Construction:
-
 ```
 VariantExpr = Identifier "(" [ Arguments ] ")"
 Arguments   = Argument { "," Argument }
@@ -48,7 +45,6 @@ Argument    = (Identifier ":" Expression) | Expression
 ```
 
 Switch (minimal, binding-only model):
-
 ```
 SwitchStmt   = "switch" Expression "{" { CaseClause } "}"
 CaseClause   = "case" Identifier("(" Identifier ")" ) ":" Block
@@ -105,10 +101,11 @@ Ori enforces full exhaustiveness for sum types.
 Example:
 
 ```
-type T =
-    | A(x int)
-    | B(y float)
-    | C(z string)
+type T sum {
+  A(x int)
+  B(y float)
+  C(z string)
+}
 ```
 
 Invalid:
@@ -202,27 +199,29 @@ Correct generic sum type examples:
 ### Optional values
 
 ```
-type Option[T] =
-    | Some(value T)
-    | None
+type Option[T] sum {
+  Some(value T),
+  None
+}
 ```
 
 ### Domain modeling (not error handling)
 
 ```
-type ParseNode =
-    | Number(value int)
-    | Text(value string)
-    | List(items []ParseNode)
+type ParseNode sum {
+  Number(value int),
+  Text(value string),
+  List(items []ParseNode)
+}
 ```
 
 ### State machines
 
 ```
-type ConnectionState =
-    | Disconnected
-    | Connecting(attempt int)
-    | Connected(addr string)
+type ConnectionState sum {
+  Disconnected,
+  Connecting(attempt int),
+  Connected(addr string)
 ```
 
 These use cases are valid because they do **not** overlap with Ori’s tuple-return error system.
@@ -234,9 +233,10 @@ These use cases are valid because they do **not** overlap with Ori’s tuple-ret
 Below is a complete, realistic example combining construction, movement, active variant replacement, switching, and optional values.
 
 ```
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
+type Shape sum {
+  Circle(radius float),
+  Rect(w float, h float)
+}
 
 func describe(s Shape) string {
     switch s {
@@ -268,8 +268,6 @@ func main() {
 ## 210.10 Summary
 
 This document defines sum types for the current Ori specification:
-
-- ML-style variant syntax using `|`.
 - Only compile-time errors for invalidated variant access (never runtime).
 - Simple, clean construction syntax supporting named and positional arguments.
 - Binding-only switching model with enforced exhaustiveness.

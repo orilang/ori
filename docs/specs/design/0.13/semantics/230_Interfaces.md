@@ -375,9 +375,10 @@ File implements Writer
 Sum types may implement interfaces if they define methods:
 
 ```
-type Shape =
-    | Circle(radius float64)
-    | Rect(w float64, h float64)
+type Shape sum {
+  Circle(radius float64)
+  Rect(w float64, h float64)
+}
 
 func (s Shape) Area() float64 { ... }
 

@@ -6424,16 +6424,17 @@ type Box[T] struct {
 
 ### Type Aliases
 ```
-type List[T] = struct {
+type List[T] struct {
     items []T
 }
 ```
 
 ### Sum Types (syntax example; generic behavior only)
 ```
-type Option[T] =
-    | Some(T)
-    | None
+type Option[T] sum {
+  Some(T)
+  None
+}
 ```
 
 ## 200.3 Generic Methods
@@ -6737,9 +6738,10 @@ map[int, User]    // ok
 ### 200.7.3 Sum Types
 
 ```
-type Option[T] =
-    | Some(T)
-    | None
+type Option[T] sum {
+  Some(T)
+  None
+}
 ```
 
 Fully monomorphized per T.
@@ -6918,23 +6920,21 @@ Ori current version generics implementations are:
 # 210. Sum Types (Algebraic Data Types)
 
 Sum types allow a value to take one of several well-defined variants, each optionally carrying typed payload fields.  
-Ori adopts a clean, ML-style syntax (Meta Language family) using `|` to declare variants, enabling expressive modeling of states, domain data, and configuration-like structures.
 
 ---
 
 ## 210.1 Overview
 
 A sum type is declared as:
-
 ```
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
+type Shape sum {
+  Circle(radius float)
+  Rect(w float, h float)
+}
 ```
 
 Key characteristics:
-- `type Name =` introduces the sum type.
-- Each variant begins with `|`.
+- `type Name sum` introduces the sum type.
 - Each variant behaves as a **compile-time constructor** for the sum type.  
   Constructors use function-call syntax but are **not** regular functions.
 - Each variant has:
@@ -6949,15 +6949,14 @@ Sum types enable clean, explicit representation of data that may take multiple s
 ## 210.2 Grammar
 
 ```
-SumTypeDecl   = "type" Identifier "=" VariantList
+sumDecl   = "type" Identifier "sum" "{" VariantList "}"
 VariantList   = Variant { Variant }
-Variant       = "|" Identifier "(" [ VariantFields ] ")"
+Variant       = Identifier "(" [ VariantFields ] ")"
 VariantFields = VariantField { "," VariantField }
 VariantField  = Identifier Type
 ```
 
 Construction:
-
 ```
 VariantExpr = Identifier "(" [ Arguments ] ")"
 Arguments   = Argument { "," Argument }
@@ -6965,7 +6964,6 @@ Argument    = (Identifier ":" Expression) | Expression
 ```
 
 Switch (minimal, binding-only model):
-
 ```
 SwitchStmt   = "switch" Expression "{" { CaseClause } "}"
 CaseClause   = "case" Identifier("(" Identifier ")" ) ":" Block
@@ -7022,10 +7020,11 @@ Ori enforces full exhaustiveness for sum types.
 Example:
 
 ```
-type T =
-    | A(x int)
-    | B(y float)
-    | C(z string)
+type T sum {
+  A(x int)
+  B(y float)
+  C(z string)
+}
 ```
 
 Invalid:
@@ -7119,27 +7118,29 @@ Correct generic sum type examples:
 ### Optional values
 
 ```
-type Option[T] =
-    | Some(value T)
-    | None
+type Option[T] sum {
+  Some(value T),
+  None
+}
 ```
 
 ### Domain modeling (not error handling)
 
 ```
-type ParseNode =
-    | Number(value int)
-    | Text(value string)
-    | List(items []ParseNode)
+type ParseNode sum {
+  Number(value int),
+  Text(value string),
+  List(items []ParseNode)
+}
 ```
 
 ### State machines
 
 ```
-type ConnectionState =
-    | Disconnected
-    | Connecting(attempt int)
-    | Connected(addr string)
+type ConnectionState sum {
+  Disconnected,
+  Connecting(attempt int),
+  Connected(addr string)
 ```
 
 These use cases are valid because they do **not** overlap with Ori’s tuple-return error system.
@@ -7151,9 +7152,10 @@ These use cases are valid because they do **not** overlap with Ori’s tuple-ret
 Below is a complete, realistic example combining construction, movement, active variant replacement, switching, and optional values.
 
 ```
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
+type Shape sum {
+  Circle(radius float),
+  Rect(w float, h float)
+}
 
 func describe(s Shape) string {
     switch s {
@@ -7185,8 +7187,6 @@ func main() {
 ## 210.10 Summary
 
 This document defines sum types for the current Ori specification:
-
-- ML-style variant syntax using `|`.
 - Only compile-time errors for invalidated variant access (never runtime).
 - Simple, clean construction syntax supporting named and positional arguments.
 - Binding-only switching model with enforced exhaustiveness.
@@ -7877,10 +7877,11 @@ Any attempt in a **user-defined** destructor to explicitly destroy `value.right`
 
 Consider the sum type below:
 ```ori
-type Shape =
-    | Circle(radius float)
-    | Rect(w float, h float)
-    | Image(buf Buffer)
+type Shape sum {
+  Circle(radius float)
+  Rect(w float, h float)
+  Image(buf Buffer)
+}
 ```
 
 If `Shape` has no explicit destructor:
@@ -8114,9 +8115,10 @@ help: use a concrete type argument instead of an interface
 ### 220.18.8.9 Error: Sum type variant requires custom destructor
 
 ```ori
-type Boxed =
-    | One(buf Buffer)
-    | Two(ptr *byte)
+type Boxed sum {
+  One(buf Buffer)
+  Two(ptr *byte)
+}
 
 func leak(b Boxed) {
     switch b {
@@ -8239,9 +8241,10 @@ func f() {
 ### 220.19.5 Pattern Matching and Move Semantics in Sum Types
 
 ```ori
-type Shape =
-    | Circle(r float)
-    | Image(buf Buffer)
+type Shape sum {
+  Circle(r float)
+  Image(buf Buffer)
+}
 
 func consume(s Shape) {
     switch s {
@@ -9028,9 +9031,10 @@ File implements Writer
 Sum types may implement interfaces if they define methods:
 
 ```
-type Shape =
-    | Circle(radius float64)
-    | Rect(w float64, h float64)
+type Shape sum {
+  Circle(radius float64)
+  Rect(w float64, h float64)
+}
 
 func (s Shape) Area() float64 { ... }
 
@@ -14377,10 +14381,8 @@ Enums in Ori are *pure symbolic variants* with no associated payloads.
 
 An enum is declared using the `type enum` form:
 ```ori
-type Color enum =
-    | Red
-    | Green
-    | Blue
+type Color enum {
+  Red, Green, Blue
 ```
 
 Each variant:
@@ -14559,33 +14561,25 @@ The compiler must reject:
 ### 350.9.1 Duplicate Variant Names
 
 ```ori
-type Status enum =
-    | Ok
-    | Ok    // ❌ duplicate
+type Status enum {
+   Ok,
+   Ok    // ❌ duplicate
 ```
 
-### 350.9.2 Missing Pipe Symbol
-
-```ori
-type State enum =
-    Idle      // ❌ missing '|'
-    | Running // ✔ valid
-```
-
-### 350.9.3 Unused or Unknown Enum Variant Names
+### 350.9.2 Unused or Unknown Enum Variant Names
 
 Using undeclared variants is an error:
 ```ori
 if x == Color.Purple { } // ❌ Purple not declared
 ```
 
-### 350.9.4 Attempting Numeric Conversions
+### 350.9.3 Attempting Numeric Conversions
 
 ```ori
 var n int = Color.Red // ❌ no conversion allowed
 ```
 
-### 350.9.5 Instantiating Enums Incorrectly
+### 350.9.4 Instantiating Enums Incorrectly
 
 ```ori
 var s State = State() // ❌ enums have no constructor
@@ -14598,10 +14592,11 @@ var s State = State() // ❌ enums have no constructor
 ### Basic Enum
 
 ```ori
-type Light enum =
-    | Red
-    | Yellow
-    | Green
+type Light enum {
+  Red,
+  Yellow,
+  Green
+}
 
 func action(l Light) string {
     switch l {
