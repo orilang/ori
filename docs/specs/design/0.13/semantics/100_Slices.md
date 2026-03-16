@@ -26,7 +26,7 @@ Slices combine flexibility with predictable memory semantics — no hidden growt
 ```ori
 var s []int        // uninitialized slice (nil)
 var data [5]int
-var view []int = data[0:3] // slice of array
+var x view []int = data[0:3] // slice of array
 ```
 
 A slice type is written as `[]T`, where `T` is any valid element type.
