@@ -80,10 +80,10 @@ In the current version, variant binding is simple and does not support destructu
 ```
 switch shape {
     case Circle(c):
-        print(c.radius)
+        print(c)
 
-    case Rect(r):
-        print(r.w, r.h)
+    case Rect(w,h):
+        print(w,h)
 }
 ```
 
@@ -243,8 +243,8 @@ func describe(s Shape) string {
         case Circle(c):
             return "Circle radius=" + string(c.radius)
 
-        case Rect(r):
-            return "Rect w=" + string(r.w) + " h=" + string(r.h)
+        case Rect(w, h):
+            return "Rect w=" + string(w) + " h=" + string(h)
     }
 }
 
