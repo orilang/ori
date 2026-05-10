@@ -28,7 +28,7 @@ Enums in Ori are *pure symbolic variants* with no associated payloads.
 An enum is declared using the `type enum` form:
 ```ori
 type Color enum {
-  Red, Green, Blue
+  Red; Green; Blue
 ```
 
 Each variant:
@@ -83,9 +83,9 @@ Enums integrate directly with Ori’s `switch` semantics for sum types.
 A switch over an enum must cover all variants:
 ```ori
 switch c {
-    case Color.Red   : ...
-    case Color.Green : ...
-    case Color.Blue  : ...
+    case Red   : ...
+    case Green : ...
+    case Blue  : ...
 }
 ```
 
@@ -101,8 +101,9 @@ Allowing `default` would hide missing cases.
 This is a **compile-time error**:
 ```ori
 switch c {
-    case Color.Red   : ...
-    default          : ...   // ❌ forbidden for enums
+    case Red   : ...
+    case Blue  : fallthrough // ❌ forbidden for enums
+    default    : ...         // ❌ forbidden for enums
 }
 ```
 
@@ -239,16 +240,16 @@ var s State = State() // ❌ enums have no constructor
 
 ```ori
 type Light enum {
-  Red,
-  Yellow,
-  Green
+  Red
+  Yellow
+  Gree
 }
 
 func action(l Light) string {
     switch l {
-        case Light.Red    : return "stop"
-        case Light.Yellow : return "prepare"
-        case Light.Green  : return "go"
+        case Red    : return "stop"
+        case Yellow : return "prepare"
+        case Green  : return "go"
     }
 }
 ```
