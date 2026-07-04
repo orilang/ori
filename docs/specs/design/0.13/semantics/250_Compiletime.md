@@ -125,6 +125,12 @@ Forbidden:
 - accessing or modifying runtime globals
 - calling non-CTE functions
 
+Until v1 we forbid the following types too:
+- struct
+- sum types
+- enum types
+- interfaces
+
 ---
 
 ## 250.6 Generic Functions and Compile-Time Parameters
